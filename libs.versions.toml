@@ -14,7 +14,7 @@ gradlePlugins-checkUpdates = "0.39.0"
 #
 [libraries]
 # Plugins
-# kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+gradlePlugins-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 # android-gradle = { module = "com.android.tools.build:gradle", version.ref = "android-gradle" }
 gradlePlugins-checkUpdates = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "gradlePlugins-checkUpdates" }
 #
