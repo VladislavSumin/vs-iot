@@ -7,10 +7,7 @@ include(":server")
 
 enableFeaturePreview("VERSION_CATALOGS")
 dependencyResolutionManagement {
-    // TODO обновить политику когда гредл исправит ошибку
-    // https://github.com/gradle/gradle/issues/15732
-    // repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         mavenCentral()
         google()
