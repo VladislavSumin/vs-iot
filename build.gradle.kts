@@ -7,5 +7,9 @@ buildscript {
     }
 }
 
+plugins {
+    id("convention.check-updates")
+}
+
 group = "org.example"
 version = "1.0-SNAPSHOT"

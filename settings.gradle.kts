@@ -7,3 +7,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
+pluginManagement {
+    includeBuild("buildScript")
+}
