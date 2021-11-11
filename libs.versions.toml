@@ -2,6 +2,7 @@
 kotlin = "1.5.31"
 kotlin-coroutines = "1.5.2"
 ktor = "1.6.5"
+logging-kermit = "1.0.0"
 
 gradlePlugins-checkUpdates = "0.39.0"
 
@@ -26,6 +27,10 @@ kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-co
 
 # Ktor
 ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
+
+# Logging
+logging-kermit = { module = "co.touchlab:kermit", version.ref = "logging-kermit" }
+
 
 # Kodein
 # kodein-core = { module = "org.kodein.di:kodein-di", version.ref = "kodein" }

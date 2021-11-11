@@ -1,5 +1,11 @@
 package ru.vs.iot.server
 
+import co.touchlab.kermit.Logger
+import co.touchlab.kermit.platformLogWriter
+
+
 fun main() {
-    println("test")
+    Logger.setLogWriters(platformLogWriter())
+    Logger.setTag("server")
+    Logger.i { "ytetsasf" }
 }
