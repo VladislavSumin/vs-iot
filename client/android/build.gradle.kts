@@ -49,6 +49,8 @@ android {
 dependencies {
     implementation(libs.kotlin.coroutines.core)
 
+    implementation(libs.kodein.compose)
+
     implementation(libs.android.core)
     implementation(libs.android.compose.ui)
     implementation(libs.android.compose.material)

@@ -45,7 +45,7 @@ logging-slf4j = { module = "org.slf4j:slf4j-api", version.ref = "logging-slf4j" 
 
 # Kodein
 kodein-core = { module = "org.kodein.di:kodein-di", version.ref = "kodein" }
-# kodein-compose = { module = "org.kodein.di:kodein-di-framework-compose", version.ref = "kodein" }
+kodein-compose = { module = "org.kodein.di:kodein-di-framework-compose", version.ref = "kodein" }
 
 # Android Compose
 android-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "android-compose" }
