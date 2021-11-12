@@ -4,6 +4,7 @@
 rootProject.name = "vs-iot"
 
 include(":server")
+include(":client:android")
 
 enableFeaturePreview("VERSION_CATALOGS")
 dependencyResolutionManagement {
@@ -23,4 +24,10 @@ dependencyResolutionManagement {
 
 pluginManagement {
     includeBuild("buildScript")
+
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        google()
+    }
 }
