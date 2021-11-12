@@ -23,6 +23,7 @@ gradlePlugins-buildConfig = "3.0.3"
 [libraries]
 # Plugins
 gradlePlugins-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+gradlePlugins-kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
 # android-gradle = { module = "com.android.tools.build:gradle", version.ref = "android-gradle" }
 gradlePlugins-checkUpdates = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "gradlePlugins-checkUpdates" }
 gradlePlugins-buildConfig = { module = "com.github.gmazzo:gradle-buildconfig-plugin", version.ref = "gradlePlugins-buildConfig" }
@@ -32,6 +33,7 @@ kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-co
 
 # Ktor
 ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
+ktor-server-serialization = { module = "io.ktor:ktor-serialization", version.ref = "ktor" }
 
 # Logging
 logging-kermit = { module = "co.touchlab:kermit", version.ref = "logging-kermit" }

@@ -7,12 +7,14 @@ import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.withContext
 import ru.vs.iot.server.web.api.ServerApi
+import ru.vs.iot.server.web.configuration.ContentNegotiationConfiguration
 
 interface WebServer {
     suspend fun run()
 }
 
 class WebServerImpl(
+    private val contentNegotiationConfiguration: ContentNegotiationConfiguration,
     private val serverApi: ServerApi
 ) : WebServer {
     override suspend fun run() {
@@ -37,6 +39,7 @@ class WebServerImpl(
             }
 
             module {
+                contentNegotiationConfiguration.apply { configure() }
                 routing {
                     serverApi.apply { bind() }
                 }

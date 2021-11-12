@@ -1,5 +1,7 @@
 plugins {
     kotlin("jvm")
+    kotlin("plugin.serialization")
+
     id("com.github.gmazzo.buildconfig")
 }
 
@@ -13,8 +15,10 @@ buildConfig {
 
 dependencies {
     implementation(libs.kotlin.coroutines.core)
-    implementation(libs.ktor.server.netty)
     implementation(libs.kodein.core)
+
+    implementation(libs.ktor.server.netty)
+    implementation(libs.ktor.server.serialization)
 
     implementation(libs.logging.kermit)
     implementation(libs.logging.log4j.api)

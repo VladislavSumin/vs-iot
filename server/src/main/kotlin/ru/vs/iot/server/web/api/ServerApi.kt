@@ -10,9 +10,15 @@ class ServerApi(
 ) {
     fun Routing.bind() {
         getVersion()
+        getAbout()
     }
 
     private fun Routing.getVersion() = get("/api/server/version") {
         this.call.respondText { aboutServerInteractor.getVersion() }
+    }
+
+    private fun Routing.getAbout() = get("/api/server/about") {
+        val about = aboutServerInteractor.getAbout()
+        this.call.respond(about)
     }
 }
