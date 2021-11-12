@@ -1,16 +1,20 @@
 package ru.vs.iot.server.web
 
+import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.withContext
+import ru.vs.iot.server.web.api.ServerApi
 
 interface WebServer {
     suspend fun run()
 }
 
-class WebServerImpl : WebServer {
+class WebServerImpl(
+    private val serverApi: ServerApi
+) : WebServer {
     override suspend fun run() {
         withContext(CoroutineName("web-server")) {
             val environment = createEnvironment()
@@ -33,6 +37,9 @@ class WebServerImpl : WebServer {
             }
 
             module {
+                routing {
+                    serverApi.apply { bind() }
+                }
             }
         }
     }
