@@ -6,6 +6,7 @@ import kotlinx.coroutines.*
 import org.apache.logging.log4j.LogManager
 import org.kodein.di.direct
 import org.kodein.di.instance
+import ru.vs.iot.server.domain.about.AboutServerInteractor
 import ru.vs.iot.server.web.WebServer
 
 val serverScope by lazy { ServerScope(doOnCancellation = ::closeLogger) }
@@ -14,9 +15,13 @@ fun main() {
     // Setup logger
     Logger.setLogWriters(platformLogWriter())
     Logger.setTag("server")
-    Logger.i("Server starting")
 
-    serverScope.launch { runServer() }
+    val aboutServerInteractor: AboutServerInteractor by Di.instance()
+
+    serverScope.launch {
+        Logger.i("Starting server. Version: ${aboutServerInteractor.getVersion()}")
+        runServer()
+    }
 
     // Мы не должны завершать main thread так как все шедулеры корутин используют демонические потоки
     serverScope.blockingAwait()

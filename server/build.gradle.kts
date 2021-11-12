@@ -1,6 +1,15 @@
 plugins {
     kotlin("jvm")
+    id("com.github.gmazzo.buildconfig")
 }
+
+val version: String by project
+buildConfig {
+    className("BuildConfig")
+    packageName("ru.vs.iot.server")
+    buildConfigField("String", "version", "\"$version\"")
+}
+
 
 dependencies {
     implementation(libs.kotlin.coroutines.core)

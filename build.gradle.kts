@@ -1,6 +1,7 @@
 buildscript {
     dependencies {
         classpath(libs.gradlePlugins.kotlin)
+        classpath(libs.gradlePlugins.buildConfig)
     }
 }
 

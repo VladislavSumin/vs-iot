@@ -10,7 +10,7 @@ logging-log4j = "2.14.1"
 logging-slf4j = "1.7.32"
 
 gradlePlugins-checkUpdates = "0.39.0"
-
+gradlePlugins-buildConfig = "3.0.3"
 # android-gradle = "7.0.3"
 # android-compose = "1.0.4"
 # android-activityCompose = "1.4.0"
@@ -25,6 +25,7 @@ gradlePlugins-checkUpdates = "0.39.0"
 gradlePlugins-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 # android-gradle = { module = "com.android.tools.build:gradle", version.ref = "android-gradle" }
 gradlePlugins-checkUpdates = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "gradlePlugins-checkUpdates" }
+gradlePlugins-buildConfig = { module = "com.github.gmazzo:gradle-buildconfig-plugin", version.ref = "gradlePlugins-buildConfig" }
 
 # Kotlin
 kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-coroutines" }
