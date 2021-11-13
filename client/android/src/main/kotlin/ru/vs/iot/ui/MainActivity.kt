@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import org.kodein.di.compose.withDI
+import ru.vs.iot.ui.screen.servers.ServersScreen
 import ru.vs.iot.ui.theme.ComposeDemoTheme
 
 class MainActivity : BaseActivity() {
@@ -24,23 +25,10 @@ class MainActivity : BaseActivity() {
                         modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colors.background
                     ) {
-                        Greeting("Android")
+                        ServersScreen()
                     }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    ComposeDemoTheme {
-        Greeting("Android")
     }
 }

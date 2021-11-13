@@ -8,5 +8,6 @@ import org.kodein.di.android.x.androidXModule
 class App : Application(), DIAware {
     override val di: DI by DI.lazy {
         import(androidXModule(this@App))
+        importOnce(rootModule)
     }
 }
