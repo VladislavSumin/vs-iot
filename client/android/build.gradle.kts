@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.android.activity.compose)
     implementation(libs.android.lifecycle.runtime)
     implementation(libs.android.lifecycle.viewmodel.compose)
+    implementation(libs.android.navigation.compose)
 
     debugImplementation(libs.android.compose.uiTooling)
 

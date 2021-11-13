@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.vs.iot.di.kodeinViewModel
 import ru.vs.iot.domain.Server
+import ru.vs.iot.ui.core.LocalNavigation
 import ru.vs.iot.ui.theme.ComposeDemoTheme
 
 @Composable
@@ -32,9 +33,14 @@ private fun RenderLoadingState() {
 
 @Composable
 private fun RenderServerListState(state: ServersScreenState.ShowServersList) {
+    val navigation = LocalNavigation.current
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(onClick = {}) {
+            FloatingActionButton(
+                onClick = {
+                    navigation.navigate("add-server")
+                }
+            ) {
                 Text("+")
             }
         }
