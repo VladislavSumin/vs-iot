@@ -31,3 +31,9 @@ pluginManagement {
         google()
     }
 }
+
+buildCache {
+    local {
+        removeUnusedEntriesAfterDays = 30
+    }
+}
