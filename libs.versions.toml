@@ -3,7 +3,7 @@ kotlin = "1.5.31"
 kotlin-coroutines = "1.5.2"
 
 ktor = "1.6.5"
-kodein = "7.6.0"
+kodein = "7.9.0"
 
 logging-kermit = "1.0.0"
 logging-log4j = "2.14.1"
@@ -58,3 +58,4 @@ android-core = { module = "androidx.core:core-ktx", version.ref = "android-core"
 # android-material = { module = "com.google.android.material:material", version.ref = "android-material" }
 android-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "android-activity-compose" }
 android-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "android-lifecycle" }
+android-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "android-lifecycle" }

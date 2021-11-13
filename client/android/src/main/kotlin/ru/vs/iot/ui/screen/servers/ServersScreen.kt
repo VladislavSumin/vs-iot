@@ -8,19 +8,25 @@ import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import ru.vs.iot.di.kodeinViewModel
 import ru.vs.iot.domain.Server
 import ru.vs.iot.ui.theme.ComposeDemoTheme
 
 @Composable
-fun ServersScreen() {
-    val servers = listOf(
-        Server(0, "Server 1", "https://localhost:8080"),
-        Server(1, "Server 2", "https://sumin.ru:8080"),
-    )
-    ServersList(servers)
+fun ServersScreen(
+    viewModel: ServersViewModel = kodeinViewModel()
+) {
+    val state = viewModel.state.collectAsState().value
+    when (state) {
+        ServersScreenState.Loading -> {}
+        is ServersScreenState.ShowServersList -> ServersList(state.servers)
+    }
 }
 
 @Composable
