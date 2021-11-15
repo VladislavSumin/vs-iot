@@ -19,4 +19,6 @@ jobs:
           cache: gradle
       - name: Run gradle
         run: >-
-          ./gradlew :ci
+          ./gradlew
+          -PpIsGithubActions=true
+          :ci
