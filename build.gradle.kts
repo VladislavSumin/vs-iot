@@ -21,3 +21,9 @@ allprojects {
 
 group = "org.example"
 version = "1.0-SNAPSHOT"
+
+tasks.register("ci") {
+    doLast {
+        println("Hello from ci!")
+    }
+}
