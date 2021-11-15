@@ -2,7 +2,7 @@ package ru.vs.iot.server
 
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.platformLogWriter
-import kotlinx.coroutines.*
+import kotlinx.coroutines.launch
 import org.apache.logging.log4j.LogManager
 import org.kodein.di.direct
 import org.kodein.di.instance
@@ -36,4 +36,3 @@ private suspend fun closeLogger() {
     // Log4j2 logger doesn't close automatically. We must close them manually.
     LogManager.shutdown()
 }
-
