@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.vs.iot.di.kodeinViewModel
-import ru.vs.iot.domain.Server
+import ru.vs.iot.repository.Server
 import ru.vs.iot.ui.core.LocalNavigation
 import ru.vs.iot.ui.theme.ComposeDemoTheme
 
@@ -72,7 +72,7 @@ private fun ServerItem(server: Server) {
                 .padding(6.dp, 3.dp)
         ) {
             Text(server.name, style = MaterialTheme.typography.h6)
-            Text(server.address)
+            Text(server.url)
         }
     }
 }

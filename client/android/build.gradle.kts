@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
+    id("com.squareup.sqldelight")
 }
 
 android {
@@ -46,10 +47,19 @@ android {
     }
 }
 
+sqldelight {
+    database("Database") {
+        packageName = "ru.vs.iot.repository"
+    }
+}
+
 dependencies {
     implementation(libs.kotlin.coroutines.core)
 
     implementation(libs.kodein.compose)
+
+    implementation(libs.sqldelight.coroutines)
+    implementation(libs.sqldelight.android)
 
     implementation(libs.android.core)
     implementation(libs.android.compose.ui)
