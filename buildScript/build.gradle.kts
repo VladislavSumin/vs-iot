@@ -9,5 +9,6 @@ repositories {
 
 dependencies {
     implementation(libs.gradlePlugins.checkUpdates)
+    implementation(libs.gradlePlugins.detekt)
 }
 

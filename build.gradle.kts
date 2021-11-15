@@ -12,5 +12,11 @@ plugins {
     id("convention.check-updates")
 }
 
+allprojects {
+    apply {
+        plugin("convention.detekt")
+    }
+}
+
 group = "org.example"
 version = "1.0-SNAPSHOT"
