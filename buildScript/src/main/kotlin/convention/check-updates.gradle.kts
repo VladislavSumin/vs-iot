@@ -1,8 +1,13 @@
 package convention
 
+import com.github.benmanes.gradle.versions.reporter.result.Result
+import ru.vs.iot.build_script.GithubActionLogger
+
 plugins {
     id("com.github.ben-manes.versions")
 }
+
+val pIsGithubActions: String by project
 
 tasks.dependencyUpdates.configure {
     fun isNonStable(version: String): Boolean {
@@ -13,5 +18,15 @@ tasks.dependencyUpdates.configure {
     }
     rejectVersionIf {
         isNonStable(candidate.version) && !isNonStable(currentVersion)
+    }
+
+    if (pIsGithubActions.toBoolean()) {
+        outputFormatter = closureOf<Result> {
+            outdated.dependencies.forEach {
+                GithubActionLogger.w(
+                    "Library outdated: ${it.group}:${it.name} [${it.version} -> ${it.available.milestone}]"
+                )
+            }
+        }
     }
 }
