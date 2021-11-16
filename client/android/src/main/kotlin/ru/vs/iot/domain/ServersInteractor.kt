@@ -6,12 +6,12 @@ import ru.vs.iot.repository.ServersRepository
 
 interface ServersInteractor {
     fun observeServers(): Flow<List<Server>>
+    suspend fun saveServer(server: Server)
 }
 
 class ServersInteractorImpl(
     private val repository: ServersRepository
 ) : ServersInteractor {
-    override fun observeServers(): Flow<List<Server>> {
-        return repository.observeServers()
-    }
+    override fun observeServers(): Flow<List<Server>> = repository.observeServers()
+    override suspend fun saveServer(server: Server) = repository.insert(server)
 }

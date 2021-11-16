@@ -11,6 +11,7 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import ru.vs.iot.ui.screen.add_server.AddServerScreen
 import ru.vs.iot.ui.screen.servers.ServersScreen
 
+@Suppress("TooGenericExceptionThrown")
 val LocalNavigation = staticCompositionLocalOf<NavController> {
     throw RuntimeException()
 }
