@@ -1,6 +1,20 @@
 // TODO убрать когда апи станет стабильным
 @file:Suppress("UnstableApiUsage")
 
+pluginManagement {
+    includeBuild("buildScript")
+
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        google()
+    }
+}
+
+plugins {
+    id("com.gradle.enterprise") version ("3.7.1")
+}
+
 rootProject.name = "vs-iot"
 
 include(":core:di")
@@ -23,18 +37,15 @@ dependencyResolutionManagement {
     }
 }
 
-pluginManagement {
-    includeBuild("buildScript")
-
-    repositories {
-        gradlePluginPortal()
-        mavenCentral()
-        google()
-    }
-}
-
 buildCache {
     local {
         removeUnusedEntriesAfterDays = 30
+    }
+}
+
+gradleEnterprise {
+    buildScan {
+        termsOfServiceUrl = "https://gradle.com/terms-of-service"
+        termsOfServiceAgree = "yes"
     }
 }
