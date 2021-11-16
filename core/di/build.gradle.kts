@@ -13,5 +13,3 @@ kotlin {
         }
     }
 }
-
-group = "ololo"
