@@ -10,15 +10,15 @@ import ru.vs.iot.ui.screen.add_server.AddServerViewModel
 import ru.vs.iot.ui.screen.servers.ServersViewModel
 
 val rootModule = DI.Module("root") {
-    bindSingleton<DatabaseFactory> { DatabaseFactoryImpl(instance()) }
+    bindSingleton<DatabaseFactory> { DatabaseFactoryImpl(i()) }
     bindSingleton { instance<DatabaseFactory>().createDatabase() }
     bindSingleton { instance<Database>().serverQueries }
 
-    bindSingleton<ServersRepository> { ServersRepositoryImpl(instance()) }
+    bindSingleton<ServersRepository> { ServersRepositoryImpl(i()) }
 
-    bindSingleton<ServersInteractor> { ServersInteractorImpl(instance()) }
+    bindSingleton<ServersInteractor> { ServersInteractorImpl(i()) }
 
     bindSingleton<ViewModelProvider.Factory> { DiViewModelFactory(directDI) }
-    bindViewModel { ServersViewModel(instance()) }
-    bindViewModel { AddServerViewModel(instance()) }
+    bindViewModel { ServersViewModel(i()) }
+    bindViewModel { AddServerViewModel(i()) }
 }

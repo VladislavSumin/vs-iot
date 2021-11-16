@@ -54,9 +54,11 @@ sqldelight {
 }
 
 dependencies {
+    implementation(project(":core:di"))
+    implementation(libs.kodein.compose)
+
     implementation(libs.kotlin.coroutines.core)
 
-    implementation(libs.kodein.compose)
 
     implementation(libs.sqldelight.coroutines)
     implementation(libs.sqldelight.android)
@@ -67,6 +69,7 @@ dependencies {
     implementation(libs.android.compose.animation)
     implementation(libs.android.compose.uiToolingPreview)
     implementation(libs.android.activity.compose)
+    implementation(libs.android.lifecycle.runtime)
     implementation(libs.android.lifecycle.runtime)
     implementation(libs.android.lifecycle.viewmodel.compose)
     implementation(libs.android.navigation.compose)
