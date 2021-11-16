@@ -14,8 +14,9 @@ buildConfig {
 
 
 dependencies {
+    implementation(project(":core:di"))
+
     implementation(libs.kotlin.coroutines.core)
-    implementation(libs.kodein.core)
 
     implementation(libs.ktor.server.netty)
     implementation(libs.ktor.server.serialization)

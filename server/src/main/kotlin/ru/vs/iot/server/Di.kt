@@ -11,6 +11,7 @@ import ru.vs.iot.server.web.WebServerImpl
 import ru.vs.iot.server.web.api.ServerApi
 import ru.vs.iot.server.web.configuration.ContentNegotiationConfiguration
 import ru.vs.iot.server.web.configuration.ContentNegotiationConfigurationImpl
+import ru.vs.iot.di.i
 
 // TODO написать плагинчик что бы автоматом фиксил количество i()
 val Di = DI {
@@ -26,5 +27,3 @@ val Di = DI {
     // Api
     bindSingleton { ServerApi(i()) }
 }
-
-private inline fun <reified T : Any> DirectDIAware.i(tag: Any? = null): T = instance(tag)

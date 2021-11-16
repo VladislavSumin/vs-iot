@@ -3,6 +3,7 @@
 
 rootProject.name = "vs-iot"
 
+include(":core:di")
 include(":server")
 include(":client:android")
 
