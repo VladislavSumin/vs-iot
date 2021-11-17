@@ -10,15 +10,17 @@ import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByType
 
-internal fun Project.android(): BaseExtension = extensions.getByType()
-internal fun Project.android(block: BaseExtension.() -> Unit) = android().block()
+internal val Project.android: BaseExtension
+    get() = extensions.getByType()
 
-internal fun BaseExtension.variants(): DomainObjectSet<out BaseVariant> {
-    return when (this) {
+internal fun Project.android(block: BaseExtension.() -> Unit) = android.block()
+
+internal val BaseExtension.variants: DomainObjectSet<out BaseVariant>
+    get() = when (this) {
         is AppExtension -> applicationVariants
         is LibraryExtension -> libraryVariants
         else -> throw GradleException("Unsupported BaseExtension type!")
     }
-}
 
-internal fun BaseExtension.variants(block: DomainObjectSet<out BaseVariant>.() -> Unit) = variants().block()
+
+internal fun BaseExtension.variants(block: DomainObjectSet<out BaseVariant>.() -> Unit) = variants.block()
