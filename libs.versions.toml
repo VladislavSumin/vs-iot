@@ -44,6 +44,8 @@ kotlin-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serializat
 # Ktor
 ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
 ktor-server-serialization = { module = "io.ktor:ktor-serialization", version.ref = "ktor" }
+ktor-client-core = { module = "io.ktor:ktor-serialization", version.ref = "ktor" }
+ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
 
 # Logging
 logging-kermit = { module = "co.touchlab:kermit", version.ref = "logging-kermit" }

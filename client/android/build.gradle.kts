@@ -55,10 +55,12 @@ sqldelight {
 
 dependencies {
     implementation(project(":core:di"))
+
     implementation(libs.kodein.compose)
 
     implementation(libs.kotlin.coroutines.core)
 
+    implementation(libs.ktor.client.android)
 
     implementation(libs.sqldelight.coroutines)
     implementation(libs.sqldelight.android)
