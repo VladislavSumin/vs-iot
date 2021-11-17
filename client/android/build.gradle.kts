@@ -3,6 +3,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("com.squareup.sqldelight")
+    id("default_servers")
 }
 
 android {
