@@ -20,6 +20,7 @@ kotlin {
         named("jvmMain") {
             dependencies {
                 implementation(project(":core:di"))
+                implementation(project(":dto"))
 
                 implementation(libs.kotlin.coroutines.core)
 
