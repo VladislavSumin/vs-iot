@@ -13,7 +13,7 @@ import ru.vs.iot.ui.screen.servers.ServersScreen
 
 @Suppress("TooGenericExceptionThrown")
 val LocalNavigation = staticCompositionLocalOf<NavController> {
-    throw RuntimeException()
+    throw RuntimeException("Local navigation is not set")
 }
 
 @OptIn(ExperimentalAnimationApi::class)

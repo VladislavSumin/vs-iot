@@ -1,16 +1,20 @@
 package ru.vs.iot.di
 
 import androidx.lifecycle.ViewModelProvider
-import io.ktor.client.HttpClient
-import org.kodein.di.*
+import org.kodein.di.DI
+import org.kodein.di.bindSingleton
+import org.kodein.di.instance
 import ru.vs.iot.api.HttpClientFactory
 import ru.vs.iot.api.HttpClientFactoryImpl
 import ru.vs.iot.api.ServerApi
 import ru.vs.iot.api.ServerApiImpl
 import ru.vs.iot.domain.ServersInteractor
 import ru.vs.iot.domain.ServersInteractorImpl
-import ru.vs.iot.repository.*
+import ru.vs.iot.repository.Database
 import ru.vs.iot.repository.DatabaseFactory
+import ru.vs.iot.repository.DatabaseFactoryImpl
+import ru.vs.iot.repository.ServersRepository
+import ru.vs.iot.repository.ServersRepositoryImpl
 import ru.vs.iot.ui.screen.add_server.AddServerViewModel
 import ru.vs.iot.ui.screen.servers.ServersViewModel
 

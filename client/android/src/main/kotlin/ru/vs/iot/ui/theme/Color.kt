@@ -1,3 +1,5 @@
+@file:Suppress("MagicNumber")
+
 package ru.vs.iot.ui.theme
 
 import androidx.compose.ui.graphics.Color

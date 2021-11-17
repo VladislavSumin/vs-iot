@@ -5,8 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
-import org.kodein.di.*
+import org.kodein.di.DI
+import org.kodein.di.DirectDI
+import org.kodein.di.bindProvider
 import org.kodein.di.compose.localDI
+import org.kodein.di.direct
+import org.kodein.di.instance
+import org.kodein.di.instanceOrNull
 
 class DiViewModelFactory(
     private val injector: DirectDI,
