@@ -55,6 +55,7 @@ sqldelight {
 
 dependencies {
     implementation(project(":core:di"))
+    implementation(project(":dto"))
 
     implementation(libs.kodein.compose)
 
