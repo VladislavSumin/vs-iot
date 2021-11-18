@@ -2,34 +2,42 @@ package ru.vs.iot.build_script.default_servers
 
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
-import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
 import org.gradle.api.DefaultTask
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.ListProperty
+import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Nested
+import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
+import java.io.File
 
 private const val BASE_PACKAGE = "ru.vs.iot.repository"
 private const val CLASS_NAME = "DefaultServersRepositoryImpl"
 
+@CacheableTask
 abstract class DefaultServersTask : DefaultTask() {
     @get:Nested
     abstract val defaultServers: ListProperty<DefaultServer>
 
+    @get:OutputDirectory
+    abstract val outputDirectory: DirectoryProperty
+
     @TaskAction
     fun action() {
-        generateClass()
+        val outputDir = outputDirectory.get().asFile
+        generateClass(outputDir)
     }
 
-    private fun generateClass() {
+    private fun generateClass(outputDir: File) {
         val clazz = TypeSpec.classBuilder(ClassName(BASE_PACKAGE, CLASS_NAME))
-            .addSuperinterface(ClassName(BASE_PACKAGE, "ServersRepository"))
+            .addSuperinterface(ClassName(BASE_PACKAGE, "DefaultServersRepository"))
             .build()
 
         val file = FileSpec.builder(BASE_PACKAGE, CLASS_NAME)
             .addType(clazz)
             .build()
 
-        file.writeTo(System.out)
+        file.writeTo(outputDir)
     }
 }
