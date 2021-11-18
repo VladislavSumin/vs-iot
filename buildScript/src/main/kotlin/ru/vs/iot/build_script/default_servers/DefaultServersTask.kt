@@ -2,6 +2,9 @@ package ru.vs.iot.build_script.default_servers
 
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
+import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.TypeSpec
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
@@ -30,8 +33,28 @@ abstract class DefaultServersTask : DefaultTask() {
     }
 
     private fun generateClass(outputDir: File) {
+        val servers = defaultServers.get().joinToString(separator = ",") {
+            "Server(0L, \"${it.name}\", \"${it.url}\")"
+        }
+
+        val getDefaultServersFunction = FunSpec.builder("getDefaultServers")
+            .addModifiers(KModifier.SUSPEND, KModifier.OVERRIDE)
+            .returns(
+                ClassName("kotlin.collections", "List")
+                    .parameterizedBy(ClassName(BASE_PACKAGE, "Server"))
+            )
+            .addCode(
+                """
+                |return listOf(
+                |   $servers
+                |)
+                """.trimMargin()
+            )
+            .build()
+
         val clazz = TypeSpec.classBuilder(ClassName(BASE_PACKAGE, CLASS_NAME))
             .addSuperinterface(ClassName(BASE_PACKAGE, "DefaultServersRepository"))
+            .addFunction(getDefaultServersFunction)
             .build()
 
         val file = FileSpec.builder(BASE_PACKAGE, CLASS_NAME)
