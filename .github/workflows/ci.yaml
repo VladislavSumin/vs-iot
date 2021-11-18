@@ -21,4 +21,5 @@ jobs:
         run: >-
           ./gradlew
           -PpIsGithubActions=true
+          -PpIsBuildAgent=true
           :ci

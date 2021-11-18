@@ -1,6 +1,11 @@
 package ru.vs.iot.build_script.default_servers
 
+import org.gradle.api.tasks.Input
+
 class DefaultServer(
+    @get:Input
     val name: String,
-    var url: String
-)
+) {
+    @get:Input
+    var url: String = ""
+}

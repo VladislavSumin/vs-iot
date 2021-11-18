@@ -6,6 +6,8 @@ plugins {
     id("default_servers")
 }
 
+val pIsBuildAgent: String by project
+
 android {
     compileSdk = 31
 
@@ -19,6 +21,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            defaultServers {
+                if (!pIsBuildAgent.toBoolean()) createLocalMachineDevServer()
+            }
+        }
+
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
