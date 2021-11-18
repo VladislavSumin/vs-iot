@@ -3,8 +3,6 @@ package org.gradle.kotlin.dsl
 import com.android.build.api.dsl.BaseFlavor
 import com.android.build.api.dsl.BuildType
 import org.gradle.api.NamedDomainObjectContainer
-import org.gradle.api.NamedDomainObjectList
-import org.gradle.api.NamedDomainObjectSet
 import ru.vs.iot.build_script.Network
 import ru.vs.iot.build_script.default_servers.DefaultServer
 import ru.vs.iot.build_script.default_servers.DefaultServersPlugin

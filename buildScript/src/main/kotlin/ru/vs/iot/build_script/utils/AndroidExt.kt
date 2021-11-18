@@ -2,7 +2,6 @@ package ru.vs.iot.build_script.utils
 
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.BaseExtension
-import com.android.build.gradle.FeatureExtension
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.api.BaseVariant
 import org.gradle.api.DomainObjectSet
@@ -21,6 +20,5 @@ internal val BaseExtension.variants: DomainObjectSet<out BaseVariant>
         is LibraryExtension -> libraryVariants
         else -> throw GradleException("Unsupported BaseExtension type!")
     }
-
 
 internal fun BaseExtension.variants(block: DomainObjectSet<out BaseVariant>.() -> Unit) = variants.block()
