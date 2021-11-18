@@ -11,6 +11,7 @@ import org.gradle.kotlin.dsl.container
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.register
 import ru.vs.iot.build_script.utils.android
+import ru.vs.iot.build_script.utils.namedOrNull
 import ru.vs.iot.build_script.utils.variants
 
 private const val DEFAULT_SERVERS_TASK_NAME = "generateDefaultServers"
@@ -49,7 +50,10 @@ class DefaultServersPlugin : Plugin<Project> {
             defaultServers.set(getDefaultServersProvider(variant))
             outputDirectory.set(outDir)
         }
-        variant.javaCompileProvider.dependsOn(task)
+
+        project.tasks.named("compile${variant.name.capitalize()}Kotlin").dependsOn(task)
+        // TODO почитать подробнее про стабы и вызывает ли студия эту таску
+        project.tasks.namedOrNull("kaptGenerateStubs${variant.name.capitalize()}Kotlin")?.dependsOn(task)
     }
 
     private fun getDefaultServersProvider(variant: BaseVariant) = project.provider {

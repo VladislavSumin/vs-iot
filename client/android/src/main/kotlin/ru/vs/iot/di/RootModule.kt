@@ -13,6 +13,8 @@ import ru.vs.iot.domain.ServersInteractorImpl
 import ru.vs.iot.repository.Database
 import ru.vs.iot.repository.DatabaseFactory
 import ru.vs.iot.repository.DatabaseFactoryImpl
+import ru.vs.iot.repository.DefaultServersRepository
+import ru.vs.iot.repository.DefaultServersRepositoryImpl
 import ru.vs.iot.repository.ServersRepository
 import ru.vs.iot.repository.ServersRepositoryImpl
 import ru.vs.iot.ui.screen.add_server.AddServerViewModel
@@ -31,9 +33,10 @@ val rootModule = DI.Module("root") {
 
     // Repositories
     bindSingleton<ServersRepository> { ServersRepositoryImpl(i()) }
+    bindSingleton<DefaultServersRepository> { DefaultServersRepositoryImpl() }
 
     // Interactors
-    bindSingleton<ServersInteractor> { ServersInteractorImpl(i(), i()) }
+    bindSingleton<ServersInteractor> { ServersInteractorImpl(i(), i(), i()) }
 
     // View models
     bindSingleton<ViewModelProvider.Factory> { DiViewModelFactory(directDI) }
