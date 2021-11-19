@@ -15,6 +15,10 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
+// For correct caching :buildScript:generatePrecompiledScriptPluginAccessors
+// https://github.com/gradle/gradle/issues/15214
+System.setProperty("org.gradle.kotlin.dsl.precompiled.accessors.strict", "true")
+
 gradlePlugin {
     plugins {
         create("DefaultServersPlugin") {
