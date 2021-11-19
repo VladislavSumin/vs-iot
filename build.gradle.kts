@@ -25,7 +25,10 @@ group = "org.example"
 version = "1.0-SNAPSHOT"
 
 tasks.register("ci") {
+    dependsOn(":client:android:assemble")
+    dependsOn(":server:assemble")
     dependsOn(":dependencyUpdates")
+
     allprojects {
         val detekt = tasks.namedOrNull("detekt")
         if (detekt != null) dependsOn(detekt)
