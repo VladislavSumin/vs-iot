@@ -81,6 +81,6 @@ class DefaultServersPlugin : Plugin<Project> {
 
         internal fun getDefaultServers(any: Any) =
             (any as ExtensionAware).extensions[DEFAULT_SERVERS_EXTENSION_NAME]
-                    as NamedDomainObjectContainer<DefaultServer>
+                as NamedDomainObjectContainer<DefaultServer>
     }
 }
