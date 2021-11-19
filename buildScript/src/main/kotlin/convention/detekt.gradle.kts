@@ -17,6 +17,11 @@ tasks.withType<Detekt>().configureEach {
     config.setFrom(files("${project.rootProject.projectDir}/config/detekt/detekt.yml"))
 }
 
+// Исправляем путь к файлам только для дефолтных detekt тасок
+tasks.named<Detekt>("detekt").configure {
+    source = fileTree(project.projectDir.resolve("src"))
+}
+
 // TODO поправить костыль
 // Из конвеншенов нельзя обратиться к каталогу версий гредла, пришлось добавить вот такой костыль
 fun loadDetektVersion(): String = Properties().run {

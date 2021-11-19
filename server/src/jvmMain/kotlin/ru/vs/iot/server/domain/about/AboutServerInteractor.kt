@@ -14,4 +14,3 @@ class AboutServerInteractorImpl : AboutServerInteractor {
         version = getVersion()
     )
 }
-

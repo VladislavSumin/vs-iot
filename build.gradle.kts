@@ -1,3 +1,5 @@
+import ru.vs.iot.build_script.utils.namedOrNull
+
 buildscript {
     dependencies {
         classpath(libs.gradlePlugins.kotlin)
@@ -24,4 +26,8 @@ version = "1.0-SNAPSHOT"
 
 tasks.register("ci") {
     dependsOn(":dependencyUpdates")
+    allprojects {
+        val detekt = tasks.namedOrNull("detekt")
+        if (detekt != null) dependsOn(detekt)
+    }
 }
