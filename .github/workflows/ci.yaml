@@ -22,4 +22,5 @@ jobs:
           ./gradlew
           -PpIsGithubActions=true
           -PpIsBuildAgent=true
+          --scan
           :ci
