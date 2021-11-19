@@ -3,6 +3,7 @@ plugins {
 }
 
 dependencies {
+    implementation(libs.gradlePlugins.kotlin)
     implementation(libs.gradlePlugins.android)
     implementation(libs.gradlePlugins.checkUpdates)
     implementation(libs.gradlePlugins.detekt)
