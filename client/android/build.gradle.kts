@@ -2,10 +2,7 @@ plugins {
     id("convention.android.application")
     kotlin("kapt")
     id("com.squareup.sqldelight")
-    id("default_servers")
 }
-
-val pIsBuildAgent: String by project
 
 android {
     defaultConfig {
@@ -15,12 +12,6 @@ android {
     }
 
     buildTypes {
-        debug {
-            defaultServers {
-                if (!pIsBuildAgent.toBoolean()) createLocalMachineDevServer()
-            }
-        }
-
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))

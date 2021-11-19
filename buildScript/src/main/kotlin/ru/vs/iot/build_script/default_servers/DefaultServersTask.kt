@@ -15,7 +15,7 @@ import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
-private const val BASE_PACKAGE = "ru.vs.iot.repository"
+private const val BASE_PACKAGE = "ru.vs.iot.default_servers.repository"
 private const val CLASS_NAME = "DefaultServersRepositoryImpl"
 
 @CacheableTask
@@ -34,14 +34,14 @@ abstract class DefaultServersTask : DefaultTask() {
 
     private fun generateClass(outputDir: File) {
         val servers = defaultServers.get().joinToString(separator = ",") {
-            "Server(0L, \"${it.name}\", \"${it.url}\")"
+            "DefaultServer(\"${it.name}\", \"${it.url}\")"
         }
 
         val getDefaultServersFunction = FunSpec.builder("getDefaultServers")
             .addModifiers(KModifier.SUSPEND, KModifier.OVERRIDE)
             .returns(
                 ClassName("kotlin.collections", "List")
-                    .parameterizedBy(ClassName(BASE_PACKAGE, "Server"))
+                    .parameterizedBy(ClassName(BASE_PACKAGE, "DefaultServer"))
             )
             .addCode(
                 """
