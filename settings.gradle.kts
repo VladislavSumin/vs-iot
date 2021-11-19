@@ -18,6 +18,7 @@ plugins {
 rootProject.name = "vs-iot"
 
 include(":core:di")
+include(":feature:default-servers")
 include(":dto")
 include(":server")
 include(":client:android")

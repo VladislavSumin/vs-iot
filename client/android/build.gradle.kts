@@ -27,7 +27,6 @@ android {
         }
     }
 
-
     buildFeatures {
         compose = true
     }
@@ -51,6 +50,7 @@ sqldelight {
 dependencies {
     implementation(project(":core:di"))
     implementation(project(":dto"))
+    implementation(project(":feature:default-servers"))
 
     implementation(libs.kodein.compose)
 
