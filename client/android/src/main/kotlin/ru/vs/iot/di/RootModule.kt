@@ -20,7 +20,7 @@ import ru.vs.iot.repository.ServersRepositoryImpl
 import ru.vs.iot.ui.screen.add_server.AddServerViewModel
 import ru.vs.iot.ui.screen.servers.ServersViewModel
 
-val rootModule = DI.Module("root") {
+fun Modules.root() = DI.Module("root") {
     // Api
     bindSingleton<HttpClientFactory> { HttpClientFactoryImpl() }
     bindSingleton { i<HttpClientFactory>().createHttpClient() }
