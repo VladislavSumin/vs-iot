@@ -2,10 +2,7 @@ package ru.vs.iot
 
 import android.app.Application
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import org.kodein.di.AllInstances
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.allInstances
