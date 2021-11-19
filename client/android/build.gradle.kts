@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application")
+    id("convention.android.application")
     kotlin("android")
     kotlin("kapt")
     id("com.squareup.sqldelight")
@@ -9,15 +9,10 @@ plugins {
 val pIsBuildAgent: String by project
 
 android {
-    compileSdk = 31
-
     defaultConfig {
         applicationId = "ru.vs.iot"
-        minSdk = 30
-        targetSdk = 31
         versionCode = 1
         versionName = "1.0.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
