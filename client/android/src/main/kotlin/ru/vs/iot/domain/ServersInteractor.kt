@@ -2,7 +2,7 @@ package ru.vs.iot.domain
 
 import kotlinx.coroutines.flow.Flow
 import ru.vs.iot.api.ServerApi
-import ru.vs.iot.default_servers.repository.DefaultServersRepository
+import ru.vs.iot.default_servers.domain.DefaultServersInteractor
 import ru.vs.iot.repository.Server
 import ru.vs.iot.repository.ServersRepository
 
@@ -13,7 +13,7 @@ interface ServersInteractor {
 
 class ServersInteractorImpl(
     private val repository: ServersRepository,
-    private val defaultServersRepository: DefaultServersRepository,
+    private val defaultServersInteractor: DefaultServersInteractor,
     private val api: ServerApi
 ) : ServersInteractor {
     override fun observeServers(): Flow<List<Server>> = repository.observeServers()

@@ -54,6 +54,7 @@ abstract class DefaultServersTask : DefaultTask() {
 
         val clazz = TypeSpec.classBuilder(ClassName(BASE_PACKAGE, CLASS_NAME))
             .addSuperinterface(ClassName(BASE_PACKAGE, "DefaultServersRepository"))
+            .addModifiers(KModifier.INTERNAL)
             .addFunction(getDefaultServersFunction)
             .build()
 

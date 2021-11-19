@@ -1,6 +1,6 @@
 package ru.vs.iot.default_servers.repository
 
-interface DefaultServersRepository {
+internal interface DefaultServersRepository {
     suspend fun getDefaultServers(): List<DefaultServer>
 }
 
