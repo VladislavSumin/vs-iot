@@ -10,6 +10,11 @@ dependencies {
     implementation(libs.kotlinpoet)
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
 gradlePlugin {
     plugins {
         create("DefaultServersPlugin") {
