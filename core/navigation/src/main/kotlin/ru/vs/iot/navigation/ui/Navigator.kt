@@ -1,8 +1,8 @@
-package ru.vs.iot.ui.core.navigation
+package ru.vs.iot.navigation.ui
 
 import androidx.navigation.NavHostController
 
 class Navigator(val navController: NavHostController) {
     fun popBackStack() = navController.popBackStack()
-    fun navigate(screen: Screen) = navController.navigate(screen.route)
+    fun navigate(navigationCommand: NavigationCommand) = navController.navigate(navigationCommand.route)
 }

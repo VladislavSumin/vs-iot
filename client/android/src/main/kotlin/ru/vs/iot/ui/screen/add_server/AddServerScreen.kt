@@ -10,7 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import kotlinx.coroutines.channels.consumeEach
 import ru.vs.iot.di.kodeinViewModel
-import ru.vs.iot.ui.core.navigation.LocalNavigation
+import ru.vs.iot.navigation.ui.LocalNavigation
 
 @Composable
 fun AddServerScreen(

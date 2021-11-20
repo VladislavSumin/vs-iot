@@ -6,8 +6,8 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ru.vs.iot.navigation.ui.NavigationHolder
 import ru.vs.iot.ui.core.bottom_bar.BottomNavigationBar
-import ru.vs.iot.ui.core.navigation.NavigationHolder
 import ru.vs.iot.ui.core.navigation.NavigationHost
 
 @Composable

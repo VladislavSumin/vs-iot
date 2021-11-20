@@ -33,8 +33,8 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import ru.vs.iot.di.kodeinViewModel
+import ru.vs.iot.navigation.ui.LocalNavigation
 import ru.vs.iot.repository.Server
-import ru.vs.iot.ui.core.navigation.LocalNavigation
 import ru.vs.iot.ui.core.navigation.Screen
 import ru.vs.iot.ui.theme.ComposeDemoTheme
 import ru.vs.iot.ui.theme.NONE
