@@ -6,8 +6,10 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import kotlinx.coroutines.channels.consumeEach
 import ru.vs.iot.di.kodeinViewModel
 import ru.vs.iot.navigation.ui.LocalNavigation
@@ -25,23 +27,12 @@ fun AddServerScreen(
         }
     }
 
-    val (serverName, setServerName) = remember { mutableStateOf("") }
-    val (serverUrl, setServerUrl) = remember { mutableStateOf("") }
+    var serverName by remember { mutableStateOf("") }
+    var serverUrl by remember { mutableStateOf("") }
+
     Column {
-        OutlinedTextField(
-            value = serverName,
-            onValueChange = { setServerName(it) },
-            label = { Text("Server Name") }
-        )
-        OutlinedTextField(
-            value = serverUrl,
-            onValueChange = { setServerUrl(it) },
-            label = { Text("Server Url") }
-        )
-        Button(
-            onClick = { viewModel.onClickSave(serverName, serverUrl) }
-        ) {
-            Text("Save")
-        }
+        OutlinedTextField(value = serverName, onValueChange = { serverName = it }, label = { Text("Server Name") })
+        OutlinedTextField(value = serverUrl, onValueChange = { serverUrl = it }, label = { Text("Server Url") })
+        Button(onClick = { viewModel.onClickSave(serverName, serverUrl) }) { Text("Save") }
     }
 }
