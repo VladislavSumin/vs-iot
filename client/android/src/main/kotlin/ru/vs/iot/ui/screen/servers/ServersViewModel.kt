@@ -16,7 +16,9 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import ru.vs.iot.domain.ServersInteractor
+import ru.vs.iot.dto.server.AboutServerDTO
 import ru.vs.iot.repository.Server
+import ru.vs.iot.utils.onException
 
 class ServersViewModel(
     private val serversInteractor: ServersInteractor
@@ -42,17 +44,12 @@ class ServersViewModel(
 
     private suspend fun observeServersConnectivity(servers: List<Server>): Flow<List<ServersScreenState.ServerState>> =
         combine(servers.map { observeServerConnectivity(it) }) { it.toList() }
-            .onCompletion {
-                refreshState.emit(false)
-            }
+            .onCompletion { refreshState.emit(false) }
 
     private suspend fun observeServerConnectivity(server: Server) = flow {
-        try {
-            val aboutServerDTO = serversInteractor.getAboutServer(server)
-            emit(ServersScreenState.ServerConnectivityState.Success(aboutServerDTO))
-        } catch (expected: Exception) {
-            emit(ServersScreenState.ServerConnectivityState.Error(expected))
-        }
+        runCatching<AboutServerDTO> { serversInteractor.getAboutServer(server) }
+            .onSuccess { emit(ServersScreenState.ServerConnectivityState.Success(it)) }
+            .onException { emit(ServersScreenState.ServerConnectivityState.Error(it)) }
     }
         .onStart { emit(ServersScreenState.ServerConnectivityState.CheckingConnectivity) }
         .map { ServersScreenState.ServerState(server, it) }

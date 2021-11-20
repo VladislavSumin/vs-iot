@@ -41,6 +41,7 @@ sqldelight {
 
 dependencies {
     implementation(project(":core:di"))
+    implementation(project(":core:utils"))
     implementation(project(":dto"))
     implementation(project(":feature:default-servers"))
 
