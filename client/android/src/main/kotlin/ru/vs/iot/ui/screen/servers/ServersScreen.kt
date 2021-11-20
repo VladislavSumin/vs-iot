@@ -34,7 +34,8 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import ru.vs.iot.di.kodeinViewModel
 import ru.vs.iot.repository.Server
-import ru.vs.iot.ui.core.LocalNavigation
+import ru.vs.iot.ui.core.navigation.LocalNavigation
+import ru.vs.iot.ui.core.navigation.Screen
 import ru.vs.iot.ui.theme.ComposeDemoTheme
 import ru.vs.iot.ui.theme.NONE
 import ru.vs.iot.ui.theme.Shapes
@@ -60,7 +61,7 @@ private fun RenderServerListState(state: ServersScreenState.ShowServersList, vie
     val navigation = LocalNavigation.current
     Scaffold(floatingActionButton = {
         FloatingActionButton(onClick = {
-            navigation.navigate("add-server")
+            navigation.navigate(Screen.AddServer)
         }) {
             Text("+")
         }
