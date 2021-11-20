@@ -29,8 +29,8 @@ class ServersViewModel(
         try {
             val aboutServerDTO = serversInteractor.getAboutServer(server)
             emit(ServersScreenState.ServerConnectivityState.Success(aboutServerDTO))
-        } catch (e: Exception) {
-            emit(ServersScreenState.ServerConnectivityState.Error(e))
+        } catch (expected: Exception) {
+            emit(ServersScreenState.ServerConnectivityState.Error(expected))
         }
     }
         .onStart {

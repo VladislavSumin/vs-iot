@@ -20,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.vs.iot.di.kodeinViewModel
-import ru.vs.iot.repository.Server
 import ru.vs.iot.ui.core.LocalNavigation
 import ru.vs.iot.ui.theme.ComposeDemoTheme
 import ru.vs.iot.ui.theme.NONE
@@ -95,7 +94,6 @@ private fun ServerConnectivityState(connectivityState: ServersScreenState.Server
             Text("Success. Server version: ${connectivityState.aboutServer.version}")
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
