@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 import ru.vs.iot.server.web.api.ServerApi
 import ru.vs.iot.server.web.configuration.ContentNegotiationConfiguration
 
-private const val SERVER_DEFAULT_PORT = 8888
+private const val SERVER_DEFAULT_PORT = 8080
 
 interface WebServer {
     suspend fun run()
