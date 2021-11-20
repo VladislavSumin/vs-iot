@@ -41,6 +41,7 @@ sqldelight {
 
 dependencies {
     implementation(project(":core:di"))
+    implementation(project(":core:navigation"))
     implementation(project(":core:utils"))
     implementation(project(":dto"))
     implementation(project(":feature:default-servers"))
@@ -64,7 +65,6 @@ dependencies {
     implementation(libs.android.lifecycle.runtime)
     implementation(libs.android.lifecycle.runtime)
     implementation(libs.android.lifecycle.viewmodel.compose)
-    implementation(libs.android.navigation.compose)
     //implementation(libs.android.accompanist.navigation.animation)
     implementation(libs.android.accompanist.swiperefresh)
 

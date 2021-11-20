@@ -19,6 +19,7 @@ rootProject.name = "vs-iot"
 
 include(
     ":core:di",
+    ":core:navigation",
     ":core:utils",
 )
 include(":feature:default-servers")
