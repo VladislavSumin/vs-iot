@@ -7,15 +7,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ru.vs.iot.ui.core.bottom_bar.BottomNavigationBar
-import ru.vs.iot.ui.core.navigation.NavigationScreen
+import ru.vs.iot.ui.core.navigation.NavigationHolder
+import ru.vs.iot.ui.core.navigation.NavigationHost
 
 @Composable
 fun MainScreen() {
-    Scaffold(
-        bottomBar = { BottomNavigationBar() }
-    ) {
-        Box(Modifier.padding(0.dp, it.calculateTopPadding(), 0.dp, it.calculateBottomPadding())) {
-            NavigationScreen()
+    NavigationHolder {
+        Scaffold(
+            bottomBar = { BottomNavigationBar() }
+        ) {
+            Box(Modifier.padding(0.dp, it.calculateTopPadding(), 0.dp, it.calculateBottomPadding())) {
+                NavigationHost()
+            }
         }
     }
 }
