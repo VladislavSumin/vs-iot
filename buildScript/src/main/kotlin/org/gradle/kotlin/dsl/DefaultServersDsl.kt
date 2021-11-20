@@ -21,3 +21,11 @@ fun NamedDomainObjectContainer<DefaultServer>.createLocalMachineDevServer() {
         url = "http://${ip.hostName}:8080"
     }
 }
+
+fun NamedDomainObjectContainer<DefaultServer>.createEmptyServersTemplate(count: Int) {
+    for (i in 1..count) {
+        this.create("Server template $i") {
+            url = "http://localhost:8080"
+        }
+    }
+}

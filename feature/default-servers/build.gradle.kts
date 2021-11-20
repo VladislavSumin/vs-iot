@@ -8,7 +8,10 @@ android {
     buildTypes {
         debug {
             defaultServers {
-                if (!pIsBuildAgent.toBoolean()) createLocalMachineDevServer()
+                if (!pIsBuildAgent.toBoolean()) {
+                    createLocalMachineDevServer()
+                    createEmptyServersTemplate(20)
+                }
             }
         }
     }
