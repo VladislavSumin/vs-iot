@@ -5,6 +5,7 @@ import ru.vs.iot.AutoStartComponent
 import ru.vs.iot.api.ServerApi
 import ru.vs.iot.default_servers.domain.DefaultServersInteractor
 import ru.vs.iot.default_servers.repository.DefaultServer
+import ru.vs.iot.dto.server.AboutServerDTO
 import ru.vs.iot.repository.Server
 import ru.vs.iot.repository.ServersRepository
 
@@ -12,6 +13,7 @@ import ru.vs.iot.repository.ServersRepository
 interface ServersInteractor : AutoStartComponent {
     fun observeServers(): Flow<List<Server>>
     suspend fun saveServer(server: Server)
+    suspend fun getAboutServer(server: Server): AboutServerDTO
 }
 
 class ServersInteractorImpl(
@@ -29,6 +31,8 @@ class ServersInteractorImpl(
             }
         }
     }
+
+    override suspend fun getAboutServer(server: Server): AboutServerDTO = api.getAboutServerInfo(server)
 }
 
 private fun DefaultServer.toServer() = Server(0L, name, url)
