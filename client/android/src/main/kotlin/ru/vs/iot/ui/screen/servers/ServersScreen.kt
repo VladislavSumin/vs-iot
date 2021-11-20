@@ -24,8 +24,10 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,7 +36,6 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import ru.vs.iot.di.kodeinViewModel
 import ru.vs.iot.navigation.ui.LocalNavigation
-import ru.vs.iot.repository.Server
 import ru.vs.iot.ui.core.navigation.Screen
 import ru.vs.iot.ui.theme.ComposeDemoTheme
 import ru.vs.iot.ui.theme.NONE
@@ -44,8 +45,7 @@ import ru.vs.iot.ui.theme.Shapes
 fun ServersScreen(
     viewModel: ServersViewModel = kodeinViewModel()
 ) {
-    val state = viewModel.state.collectAsState().value
-    when (state) {
+    when (val state = viewModel.state.collectAsState().value) {
         ServersScreenState.Loading -> RenderLoadingState()
         is ServersScreenState.ShowServersList -> RenderServerListState(state, viewModel)
     }
@@ -60,9 +60,7 @@ private fun RenderLoadingState() {
 private fun RenderServerListState(state: ServersScreenState.ShowServersList, viewModel: ServersViewModel) {
     val navigation = LocalNavigation.current
     Scaffold(floatingActionButton = {
-        FloatingActionButton(onClick = {
-            navigation.navigate(Screen.AddServer)
-        }) {
+        FloatingActionButton(onClick = { navigation.navigate(Screen.AddServer) }) {
             Text("+")
         }
     }) {
@@ -99,7 +97,7 @@ private fun ServerItem(serverState: ServersScreenState.ServerState, viewModel: S
                     style = MaterialTheme.typography.h6,
                     modifier = Modifier.align(Alignment.CenterVertically).weight(1f)
                 )
-                RenderServerItemMenu(server, viewModel)
+                RenderServerItemMenu(onClickDelete = { viewModel.onClickDeleteServer(server) })
             }
             Divider()
             Column(Modifier.padding(0.dp, 12.dp)) {
@@ -111,13 +109,13 @@ private fun ServerItem(serverState: ServersScreenState.ServerState, viewModel: S
 }
 
 @Composable
-private fun RenderServerItemMenu(server: Server, viewModel: ServersViewModel) {
-    val (showPopupMenu, setShowPopupMenu) = remember { mutableStateOf(false) }
+private fun RenderServerItemMenu(onClickDelete: () -> Unit) {
+    var showPopupMenu by remember { mutableStateOf(false) }
 
-    IconButton(onClick = { setShowPopupMenu(true) }) {
+    IconButton(onClick = { showPopupMenu = true }) {
         Icon(Icons.Filled.MoreVert, "Options")
-        DropdownMenu(expanded = showPopupMenu, onDismissRequest = { setShowPopupMenu(false) }) {
-            DropdownMenuItem(onClick = { viewModel.onClickDeleteServer(server) }) {
+        DropdownMenu(expanded = showPopupMenu, onDismissRequest = { showPopupMenu = false }) {
+            DropdownMenuItem(onClick = onClickDelete) {
                 Icon(Icons.Filled.Delete, "Delete")
                 Text("Delete")
             }
