@@ -9,3 +9,7 @@ val Shapes = Shapes(
     medium = RoundedCornerShape(4.dp),
     large = RoundedCornerShape(0.dp)
 )
+
+private val SHAPE_NONE = RoundedCornerShape(0.dp)
+val Shapes.NONE: RoundedCornerShape
+    get() = SHAPE_NONE

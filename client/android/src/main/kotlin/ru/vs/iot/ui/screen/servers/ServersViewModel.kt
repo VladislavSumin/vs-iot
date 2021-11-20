@@ -12,6 +12,14 @@ class ServersViewModel(
     private val serversInteractor: ServersInteractor
 ) : ViewModel() {
     val state: StateFlow<ServersScreenState> = serversInteractor.observeServers()
+        .map {
+            it.map {
+                ServersScreenState.ServerState(
+                    it,
+                    ServersScreenState.ServerConnectivityState.CheckingConnectivity
+                )
+            }
+        }
         .map { ServersScreenState.ShowServersList(it) }
         .stateIn(viewModelScope, SharingStarted.Lazily, ServersScreenState.Loading)
 }

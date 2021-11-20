@@ -1,13 +1,15 @@
 package ru.vs.iot.ui.screen.servers
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Card
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -21,6 +23,8 @@ import ru.vs.iot.di.kodeinViewModel
 import ru.vs.iot.repository.Server
 import ru.vs.iot.ui.core.LocalNavigation
 import ru.vs.iot.ui.theme.ComposeDemoTheme
+import ru.vs.iot.ui.theme.NONE
+import ru.vs.iot.ui.theme.Shapes
 
 @Composable
 fun ServersScreen(
@@ -41,48 +45,57 @@ private fun RenderLoadingState() {
 @Composable
 private fun RenderServerListState(state: ServersScreenState.ShowServersList) {
     val navigation = LocalNavigation.current
-    Scaffold(
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    navigation.navigate("add-server")
-                }
-            ) {
-                Text("+")
-            }
+    Scaffold(floatingActionButton = {
+        FloatingActionButton(onClick = {
+            navigation.navigate("add-server")
+        }) {
+            Text("+")
         }
-    ) {
+    }) {
         ServersList(state.servers)
     }
 }
 
 @Composable
-private fun ServersList(servers: List<Server>) {
+private fun ServersList(servers: List<ServersScreenState.ServerState>) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(0.dp, 8.dp)
     ) {
-        items(servers, { it.id }) {
+        items(servers, { it.server.id }) {
             ServerItem(it)
         }
     }
 }
 
 @Composable
-private fun ServerItem(server: Server) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { }
+private fun ServerItem(serverState: ServersScreenState.ServerState) {
+    val server = serverState.server
+    val connectivityState = serverState.connectivityState
+    Card(
+        modifier = Modifier.fillMaxWidth().clickable { }, shape = Shapes.NONE
     ) {
         Column(
-            Modifier
-                .padding(6.dp, 3.dp)
+            Modifier.padding(6.dp, 3.dp)
         ) {
             Text(server.name, style = MaterialTheme.typography.h6)
             Text(server.url)
+            ServerConnectivityState(connectivityState)
         }
     }
 }
+
+@Composable
+private fun ServerConnectivityState(connectivityState: ServersScreenState.ServerConnectivityState) {
+    when (connectivityState) {
+        ServersScreenState.ServerConnectivityState.CheckingConnectivity -> Text("Connecting...")
+        is ServersScreenState.ServerConnectivityState.Error -> Text("Error: ${connectivityState.e}")
+        is ServersScreenState.ServerConnectivityState.Success ->
+            Text("Success. Server version: ${connectivityState.aboutServer.version}")
+    }
+}
+
 
 @Preview(showBackground = true)
 @Composable
