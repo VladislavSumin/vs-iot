@@ -19,6 +19,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import ru.vs.iot.di.kodeinViewModel
 import ru.vs.iot.ui.core.LocalNavigation
 import ru.vs.iot.ui.theme.ComposeDemoTheme
@@ -57,13 +59,18 @@ private fun RenderServerListState(state: ServersScreenState.ShowServersList) {
 
 @Composable
 private fun ServersList(servers: List<ServersScreenState.ServerState>) {
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        contentPadding = PaddingValues(0.dp, 8.dp)
+    SwipeRefresh(
+        state = rememberSwipeRefreshState(false),
+        onRefresh = {}
     ) {
-        items(servers, { it.server.id }) {
-            ServerItem(it)
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            contentPadding = PaddingValues(0.dp, 8.dp)
+        ) {
+            items(servers, { it.server.id }) {
+                ServerItem(it)
+            }
         }
     }
 }

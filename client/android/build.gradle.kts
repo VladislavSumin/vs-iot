@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.android.lifecycle.viewmodel.compose)
     implementation(libs.android.navigation.compose)
     implementation(libs.android.accompanist.navigation.animation)
+    implementation(libs.android.accompanist.swiperefresh)
 
     debugImplementation(libs.android.compose.uiTooling)
 

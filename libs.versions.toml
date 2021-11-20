@@ -23,7 +23,7 @@ android-compose = "1.0.5"
 android-activity-compose = "1.4.0"
 android-lifecycle = "2.4.0"
 android-navigation = "2.4.0-beta02"
-android-accompanist-navigation-animation = "0.21.2-beta"
+android-accompanist = "0.21.2-beta"
 
 # android-appcompat = "1.3.1"
 # android-material = "1.4.0"
@@ -81,7 +81,8 @@ android-activity-compose = { module = "androidx.activity:activity-compose", vers
 android-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "android-lifecycle" }
 android-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "android-lifecycle" }
 android-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "android-navigation" }
-android-accompanist-navigation-animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "android-accompanist-navigation-animation" }
+android-accompanist-navigation-animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "android-accompanist" }
+android-accompanist-swiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "android-accompanist" }
 
 # Other
 kotlinpoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinpoet" }
