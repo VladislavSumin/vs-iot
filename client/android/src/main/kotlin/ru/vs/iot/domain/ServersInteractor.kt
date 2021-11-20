@@ -13,6 +13,7 @@ import ru.vs.iot.repository.ServersRepository
 interface ServersInteractor : AutoStartComponent {
     fun observeServers(): Flow<List<Server>>
     suspend fun saveServer(server: Server)
+    suspend fun deleteServer(server: Server)
     suspend fun getAboutServer(server: Server): AboutServerDTO
 }
 
@@ -23,6 +24,7 @@ class ServersInteractorImpl(
 ) : ServersInteractor {
     override fun observeServers(): Flow<List<Server>> = repository.observeServers()
     override suspend fun saveServer(server: Server) = repository.insert(server)
+    override suspend fun deleteServer(server: Server) = repository.delete(server)
 
     override suspend fun start() {
         defaultServersInteractor.initializeDefaultServersIfNeeded { defaultServers ->

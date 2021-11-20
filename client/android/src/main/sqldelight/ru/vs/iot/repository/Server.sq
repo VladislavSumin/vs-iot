@@ -9,3 +9,6 @@ SELECT * FROM server;
 
 insert:
 INSERT INTO server(name, url) VALUES ?;
+
+delete:
+DELETE FROM server WHERE id = ?;

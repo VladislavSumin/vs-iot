@@ -30,6 +30,7 @@ class ServersViewModel(
         .map { }
         .onStart { emit(Unit) }
 
+    // TODO по хорошему при удалении сервера не должно быть рефреша, но это когда нибудь никогда
     val state: StateFlow<ServersScreenState> = serversInteractor.observeServers()
         .flatMapLatest { servers -> refreshEvent.map { servers } }
         .flatMapLatest { observeServersConnectivity(it) }
@@ -39,6 +40,12 @@ class ServersViewModel(
     fun onRefresh() {
         viewModelScope.launch {
             refreshState.emit(true)
+        }
+    }
+
+    fun onClickDeleteServer(server: Server) {
+        viewModelScope.launch {
+            serversInteractor.deleteServer(server)
         }
     }
 

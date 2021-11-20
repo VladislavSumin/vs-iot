@@ -9,6 +9,7 @@ import kotlinx.coroutines.withContext
 interface ServersRepository {
     fun observeServers(): Flow<List<Server>>
     suspend fun insert(server: Server)
+    suspend fun delete(server: Server)
 }
 
 class ServersRepositoryImpl(private val serverQueries: ServerQueries) : ServersRepository {
@@ -19,5 +20,9 @@ class ServersRepositoryImpl(private val serverQueries: ServerQueries) : ServersR
     override suspend fun insert(server: Server) = withContext(Dispatchers.IO) {
         check(server.id == 0L)
         serverQueries.insert(server)
+    }
+
+    override suspend fun delete(server: Server) = withContext(Dispatchers.IO) {
+        serverQueries.delete(server.id)
     }
 }
