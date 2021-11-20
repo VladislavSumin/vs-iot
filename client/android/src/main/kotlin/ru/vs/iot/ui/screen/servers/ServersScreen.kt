@@ -34,7 +34,7 @@ fun ServersScreen(
     val state = viewModel.state.collectAsState().value
     when (state) {
         ServersScreenState.Loading -> RenderLoadingState()
-        is ServersScreenState.ShowServersList -> RenderServerListState(state)
+        is ServersScreenState.ShowServersList -> RenderServerListState(state, viewModel)
     }
 }
 
@@ -44,7 +44,7 @@ private fun RenderLoadingState() {
 }
 
 @Composable
-private fun RenderServerListState(state: ServersScreenState.ShowServersList) {
+private fun RenderServerListState(state: ServersScreenState.ShowServersList, viewModel: ServersViewModel) {
     val navigation = LocalNavigation.current
     Scaffold(floatingActionButton = {
         FloatingActionButton(onClick = {
@@ -53,15 +53,16 @@ private fun RenderServerListState(state: ServersScreenState.ShowServersList) {
             Text("+")
         }
     }) {
-        ServersList(state.servers)
+        ServersList(state, viewModel)
     }
 }
 
 @Composable
-private fun ServersList(servers: List<ServersScreenState.ServerState>) {
+private fun ServersList(state: ServersScreenState.ShowServersList, viewModel: ServersViewModel) {
+    val servers = state.servers
     SwipeRefresh(
-        state = rememberSwipeRefreshState(false),
-        onRefresh = {}
+        state = rememberSwipeRefreshState(state.isRefreshing),
+        onRefresh = { viewModel.onRefresh() }
     ) {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),

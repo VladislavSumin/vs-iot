@@ -5,7 +5,7 @@ import ru.vs.iot.repository.Server
 
 sealed class ServersScreenState {
     object Loading : ServersScreenState()
-    data class ShowServersList(val servers: List<ServerState>) : ServersScreenState()
+    data class ShowServersList(val servers: List<ServerState>, val isRefreshing: Boolean) : ServersScreenState()
 
     data class ServerState(val server: Server, val connectivityState: ServerConnectivityState)
 
