@@ -28,7 +28,9 @@ tasks.register("ci") {
     dependsOn(":client:android:assemble")
     dependsOn(":server:assemble")
     dependsOn(":dependencyUpdates")
+}
 
+tasks.register("preCommit") {
     allprojects {
         val detekt = tasks.namedOrNull("detekt")
         if (detekt != null) dependsOn(detekt)
