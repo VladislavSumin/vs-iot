@@ -1,6 +1,5 @@
 package ru.vs.iot.ui.core.bottom_bar
 
-import android.graphics.drawable.Icon
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
