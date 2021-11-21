@@ -10,6 +10,7 @@ import io.ktor.server.netty.Netty
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.withContext
+import ru.vs.iot.server.web.api.EntityApi
 import ru.vs.iot.server.web.api.ServerApi
 import ru.vs.iot.server.web.configuration.ContentNegotiationConfiguration
 
@@ -21,7 +22,8 @@ interface WebServer {
 
 class WebServerImpl(
     private val contentNegotiationConfiguration: ContentNegotiationConfiguration,
-    private val serverApi: ServerApi
+    private val serverApi: ServerApi,
+    private val entityApi: EntityApi,
 ) : WebServer {
     override suspend fun run() {
         withContext(CoroutineName("web-server")) {
@@ -46,7 +48,9 @@ class WebServerImpl(
             module {
                 contentNegotiationConfiguration.apply { configure() }
                 routing {
+                    // TODO сделать через бинд инто сет в DI
                     serverApi.apply { bind() }
+                    entityApi.apply { bind() }
                 }
             }
         }
