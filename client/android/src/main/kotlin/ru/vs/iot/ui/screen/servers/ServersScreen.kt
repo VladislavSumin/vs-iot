@@ -36,7 +36,8 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import ru.vs.iot.di.kodeinViewModel
 import ru.vs.iot.navigation.ui.LocalNavigation
-import ru.vs.iot.ui.core.navigation.Screen
+import ru.vs.iot.navigation.ui.Screen
+import ru.vs.iot.ui.core.navigation.AddServer
 import ru.vs.iot.ui.theme.ComposeDemoTheme
 import ru.vs.iot.ui.theme.NONE
 import ru.vs.iot.ui.theme.Shapes

@@ -13,5 +13,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:di"))
+    implementation(project(":core:utils"))
+    implementation(libs.kodein.compose)
     api(libs.android.navigation.compose)
 }

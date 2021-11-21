@@ -1,9 +1,13 @@
 package ru.vs.iot.ui.core.navigation
 
-import ru.vs.iot.navigation.ui.NavigationCommand
+import ru.vs.iot.navigation.ui.Screen
+import ru.vs.iot.navigation.ui.command.NoArgNavigationCommand
 
-sealed class Screen(override val route: String) : NavigationCommand {
-    object Servers : Screen("servers")
-    object AddServer : Screen("add_server")
-    object Settings : Screen("settings")
-}
+val Screen.Servers
+    get() = NoArgNavigationCommand("servers")
+
+val Screen.AddServer
+    get() = NoArgNavigationCommand("add_server")
+
+val Screen.Settings
+    get() = NoArgNavigationCommand("settings")

@@ -9,6 +9,7 @@ import org.kodein.di.allInstances
 import org.kodein.di.android.x.androidXModule
 import ru.vs.iot.default_servers.featureDefaultServers
 import ru.vs.iot.di.Modules
+import ru.vs.iot.di.navigation
 import ru.vs.iot.di.root
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -19,6 +20,7 @@ class App : Application(), DIAware {
         import(androidXModule(this@App))
 
         importOnce(Modules.root())
+        importOnce(Modules.navigation())
 
         importOnce(Modules.featureDefaultServers())
     }
