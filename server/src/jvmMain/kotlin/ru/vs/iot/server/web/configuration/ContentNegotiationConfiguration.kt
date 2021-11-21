@@ -4,6 +4,7 @@ import io.ktor.application.Application
 import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
 import io.ktor.serialization.json
+import kotlinx.serialization.json.Json
 
 interface ContentNegotiationConfiguration {
     fun Application.configure()
@@ -13,7 +14,16 @@ class ContentNegotiationConfigurationImpl : ContentNegotiationConfiguration {
     override fun Application.configure() {
         install(ContentNegotiation) {
             // TODO добавить prettyPrint в дебаг режиме
-            json()
+            json(
+                Json {
+                    encodeDefaults = true
+                    isLenient = true
+                    allowSpecialFloatingPointValues = true
+                    allowStructuredMapKeys = true
+                    prettyPrint = true
+                    useArrayPolymorphism = true
+                }
+            )
         }
     }
 }
