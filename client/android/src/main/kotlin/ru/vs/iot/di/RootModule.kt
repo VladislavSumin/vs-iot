@@ -46,5 +46,5 @@ fun Modules.root() = DI.Module("root") {
     bindSingleton<ViewModelProvider.Factory> { DiViewModelFactory(directDI) }
     bindViewModel { ServersViewModel(i()) }
     bindViewModel { AddServerViewModel(i()) }
-    bindViewModel { EntitiesViewModel(i()) }
+    bindViewModel { EntitiesViewModel(i(), i()) }
 }
