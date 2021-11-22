@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import ru.vs.iot.id.Id
 import java.util.stream.Collectors.toMap
 import kotlin.random.Random
 
@@ -75,13 +76,3 @@ interface Entity {
 }
 
 interface EntityState
-
-interface Id {
-    val raw: String
-
-    companion object {
-        operator fun invoke(raw: String): Id = IdImpl(raw)
-    }
-}
-
-class IdImpl(override val raw: String) : Id
