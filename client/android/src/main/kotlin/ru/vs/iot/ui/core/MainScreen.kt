@@ -10,16 +10,14 @@ import ru.vs.iot.navigation.ui.NavigationHolder
 import ru.vs.iot.navigation.ui.NavigationHost
 import ru.vs.iot.navigation.ui.Screen
 import ru.vs.iot.ui.core.bottom_bar.BottomNavigationBar
-import ru.vs.iot.ui.core.navigation.Servers
+import ru.vs.iot.ui.core.navigation.Entities
 
 @Composable
 fun MainScreen() {
     NavigationHolder {
-        Scaffold(
-            bottomBar = { BottomNavigationBar() }
-        ) {
+        Scaffold(bottomBar = { BottomNavigationBar() }) {
             Box(Modifier.padding(0.dp, it.calculateTopPadding(), 0.dp, it.calculateBottomPadding())) {
-                NavigationHost(Screen.Servers)
+                NavigationHost(Screen.Entities)
             }
         }
     }

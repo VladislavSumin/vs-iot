@@ -5,6 +5,7 @@ import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
@@ -14,6 +15,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import ru.vs.iot.navigation.ui.LocalNavigation
 import ru.vs.iot.navigation.ui.Screen
 import ru.vs.iot.navigation.ui.command.NavigationCommand
+import ru.vs.iot.ui.core.navigation.Entities
 import ru.vs.iot.ui.core.navigation.Servers
 import ru.vs.iot.ui.core.navigation.Settings
 
@@ -53,12 +55,13 @@ fun BottomNavigationBar() {
     }
 }
 
-private val items = listOf(Item.Servers, Item.Settings)
+private val items = listOf(Item.Entities, Item.Servers, Item.Settings)
 
 private sealed class Item(
     val navigationCommand: NavigationCommand,
     val icon: ImageVector
 ) {
-    object Servers : Item(Screen.Servers, Icons.Filled.Home)
+    object Entities : Item(Screen.Entities, Icons.Filled.Home)
+    object Servers : Item(Screen.Servers, Icons.Filled.Call)
     object Settings : Item(Screen.Settings, Icons.Filled.Settings)
 }
