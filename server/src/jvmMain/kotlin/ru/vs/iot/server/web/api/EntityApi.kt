@@ -5,7 +5,9 @@ import io.ktor.response.respond
 import io.ktor.routing.Routing
 import io.ktor.routing.get
 import kotlinx.coroutines.flow.first
-import kotlinx.serialization.Serializable
+import ru.vs.iot.dto.server.entitiy.EntitiesDTO
+import ru.vs.iot.dto.server.entitiy.EntityDTO
+import ru.vs.iot.id.Id
 import ru.vs.iot.server.domain.entity.Entity
 import ru.vs.iot.server.domain.entity.EntityInteractor
 
@@ -17,14 +19,10 @@ class EntityApi(
     }
 
     private fun Routing.getEntities() = get("/api/entities") {
-        val entities = entityInteractor.observeEntities().first()
-            .mapKeys { it.key.raw }
-            .mapValues { it.value.toDTO() }
+        val entities = entityInteractor.observeEntities().first().toDTO()
         call.respond(entities)
     }
 }
 
-fun Entity.toDTO() = EntityDTO()
-
-@Serializable
-class EntityDTO
+private fun Map<Id, Entity>.toDTO(): EntitiesDTO = mapKeys { it.key.raw }.mapValues { it.value.toDTO() }
+private fun Entity.toDTO() = EntityDTO()

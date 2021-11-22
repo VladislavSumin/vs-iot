@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import ru.vs.iot.id.Id
-import java.util.stream.Collectors.toMap
 import kotlin.random.Random
 
 interface EntityInteractor {
