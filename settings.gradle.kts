@@ -21,6 +21,7 @@ include(
     ":core:di",
     ":core:id",
     ":core:navigation",
+    ":core:uikit",
     ":core:utils",
 )
 include(":feature:default-servers")

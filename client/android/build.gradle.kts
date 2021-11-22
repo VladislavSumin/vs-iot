@@ -43,8 +43,11 @@ dependencies {
     implementation(project(":core:di"))
     implementation(project(":core:id"))
     implementation(project(":core:navigation"))
+    implementation(project(":core:uikit"))
     implementation(project(":core:utils"))
+
     implementation(project(":dto"))
+
     implementation(project(":feature:default-servers"))
 
     implementation(libs.kodein.compose)
