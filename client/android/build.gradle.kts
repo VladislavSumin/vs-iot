@@ -61,18 +61,13 @@ dependencies {
     implementation(libs.sqldelight.android)
 
     implementation(libs.android.core)
-    implementation(libs.android.compose.ui)
-    implementation(libs.android.compose.material)
-    implementation(libs.android.compose.animation)
-    implementation(libs.android.compose.uiToolingPreview)
-    implementation(libs.android.activity.compose)
+
     implementation(libs.android.lifecycle.runtime)
     implementation(libs.android.lifecycle.runtime)
     implementation(libs.android.lifecycle.viewmodel.compose)
     //implementation(libs.android.accompanist.navigation.animation)
     implementation(libs.android.accompanist.swiperefresh)
 
-    debugImplementation(libs.android.compose.uiTooling)
 
 //    testImplementation 'junit:junit:4.13.2'
 //    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
