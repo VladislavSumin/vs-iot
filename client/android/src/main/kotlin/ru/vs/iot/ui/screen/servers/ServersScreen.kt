@@ -38,9 +38,9 @@ import ru.vs.iot.di.kodeinViewModel
 import ru.vs.iot.navigation.ui.LocalNavigation
 import ru.vs.iot.navigation.ui.Screen
 import ru.vs.iot.ui.core.navigation.AddServer
-import ru.vs.iot.ui.theme.ComposeDemoTheme
-import ru.vs.iot.ui.theme.NONE
-import ru.vs.iot.ui.theme.Shapes
+import ru.vs.iot.uikit.theme.MainTheme
+import ru.vs.iot.uikit.theme.NONE
+import ru.vs.iot.uikit.theme.Shapes
 
 @Composable
 fun ServersScreen(
@@ -138,7 +138,7 @@ private fun RenderServerConnectivityState(connectivityState: ServersScreenState.
 @Preview(showBackground = true)
 @Composable
 fun ServersScreenPreview() {
-    ComposeDemoTheme {
+    MainTheme {
         ServersScreen()
     }
 }

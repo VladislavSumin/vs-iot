@@ -1,4 +1,4 @@
-package ru.vs.iot.ui.theme
+package ru.vs.iot.uikit.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes
@@ -10,6 +10,7 @@ val Shapes = Shapes(
     large = RoundedCornerShape(0.dp)
 )
 
+// TODO
 private val SHAPE_NONE = RoundedCornerShape(0.dp)
 val Shapes.NONE: RoundedCornerShape
     get() = SHAPE_NONE
