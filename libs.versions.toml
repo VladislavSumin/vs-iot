@@ -25,15 +25,14 @@ android-lifecycle = "2.4.0"
 android-navigation = "2.4.0-beta02"
 android-accompanist = "0.21.2-beta"
 
-# android-appcompat = "1.3.1"
-# android-material = "1.4.0"
-# jb-compose = "1.0.0-beta5"
+jb-compose = "1.0.0-beta5"
 
 [libraries]
 # Plugins
 gradlePlugins-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 gradlePlugins-kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
 gradlePlugins-android = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugins-android" }
+gradlePlugins-jb-compose = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "jb-compose" }
 gradlePlugins-sqldelight = { module = "com.squareup.sqldelight:gradle-plugin", version.ref = "sqldelight" }
 gradlePlugins-checkUpdates = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "gradlePlugins-checkUpdates" }
 gradlePlugins-buildConfig = { module = "com.github.gmazzo:gradle-buildconfig-plugin", version.ref = "gradlePlugins-buildConfig" }
@@ -75,8 +74,6 @@ android-compose-uiToolingPreview = { module = "androidx.compose.ui:ui-tooling-pr
 android-core = { module = "androidx.core:core-ktx", version.ref = "android-core" }
 android-datastore-android = { module = "androidx.datastore:datastore", version.ref = "android-datastore" }
 android-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "android-datastore" }
-# android-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "android-appcompat" }
-# android-material = { module = "com.google.android.material:material", version.ref = "android-material" }
 android-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "android-activity-compose" }
 android-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "android-lifecycle" }
 android-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "android-lifecycle" }
