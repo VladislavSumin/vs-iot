@@ -1,6 +1,5 @@
 package ru.vs.iot.di
 
-import androidx.lifecycle.ViewModelProvider
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
 import org.kodein.di.instance
@@ -32,7 +31,6 @@ fun Modules.root() = DI.Module("root") {
     bindSingleton<EntitiesInteractor> { EntitiesInteractorImpl(i()) }
 
     // View models
-    bindSingleton<ViewModelProvider.Factory> { DiViewModelFactory(directDI) }
     bindViewModel { ServersViewModel(i()) }
     bindViewModel { AddServerViewModel(i()) }
     bindViewModel { EntitiesViewModel(i(), i()) }

@@ -52,8 +52,6 @@ dependencies {
 
     implementation(project(":feature:servers"))
 
-    implementation(libs.kodein.compose)
-
     implementation(libs.kotlin.coroutines.core)
 
     implementation(libs.ktor.client.android)
