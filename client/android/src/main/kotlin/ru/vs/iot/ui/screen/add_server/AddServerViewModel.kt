@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import ru.vs.iot.domain.ServersInteractor
-import ru.vs.iot.repository.Server
+import ru.vs.iot.servers.repository.Server
 
 class AddServerViewModel(
     private val serversInteractor: ServersInteractor

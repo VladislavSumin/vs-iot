@@ -2,7 +2,7 @@ package ru.vs.iot.ui.screen.entities
 
 import ru.vs.iot.dto.server.entitiy.EntityDTO
 import ru.vs.iot.id.Id
-import ru.vs.iot.repository.Server
+import ru.vs.iot.servers.repository.Server
 
 sealed interface EntitiesScreenState {
     class ShowEntities(val entities: List<EntityItem>) : EntitiesScreenState

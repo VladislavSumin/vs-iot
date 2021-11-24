@@ -5,6 +5,8 @@ import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
+import ru.vs.iot.servers.repository.Server
+import ru.vs.iot.servers.repository.ServerQueries
 
 interface ServersRepository {
     fun observeServers(): Flow<List<Server>>

@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import ru.vs.iot.domain.ServersInteractor
 import ru.vs.iot.dto.server.AboutServerDTO
-import ru.vs.iot.repository.Server
+import ru.vs.iot.servers.repository.Server
 import ru.vs.iot.utils.onException
 
 class ServersViewModel(

@@ -2,7 +2,7 @@ package ru.vs.iot.domain
 
 import ru.vs.iot.api.EntitiesApi
 import ru.vs.iot.dto.server.entitiy.EntitiesDTO
-import ru.vs.iot.repository.Server
+import ru.vs.iot.servers.repository.Server
 
 interface EntitiesInteractor {
     suspend fun getEntities(server: Server): EntitiesDTO

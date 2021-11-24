@@ -36,6 +36,7 @@ android {
 sqldelight {
     database("Database") {
         packageName = "ru.vs.iot.repository"
+        dependency(project(":feature:servers"))
     }
 }
 
@@ -49,6 +50,7 @@ dependencies {
     implementation(project(":dto"))
 
     implementation(project(":feature:default-servers"))
+    implementation(project(":feature:servers"))
 
     implementation(libs.kodein.compose)
 

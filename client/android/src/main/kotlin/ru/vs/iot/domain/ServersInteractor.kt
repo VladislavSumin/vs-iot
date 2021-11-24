@@ -6,8 +6,8 @@ import ru.vs.iot.api.ServerApi
 import ru.vs.iot.default_servers.domain.DefaultServersInteractor
 import ru.vs.iot.default_servers.repository.DefaultServer
 import ru.vs.iot.dto.server.AboutServerDTO
-import ru.vs.iot.repository.Server
 import ru.vs.iot.repository.ServersRepository
+import ru.vs.iot.servers.repository.Server
 
 // TODO по хорошему AutoStartComponent нужно вешать на имлементацию, нужно подумать как красиво забиндить в кодеине
 interface ServersInteractor : AutoStartComponent {

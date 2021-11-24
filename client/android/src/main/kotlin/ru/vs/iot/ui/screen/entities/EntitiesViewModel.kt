@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.stateIn
 import ru.vs.iot.domain.EntitiesInteractor
 import ru.vs.iot.domain.ServersInteractor
 import ru.vs.iot.id.Id
-import ru.vs.iot.repository.Server
+import ru.vs.iot.servers.repository.Server
 
 class EntitiesViewModel(
     serversInteractor: ServersInteractor,

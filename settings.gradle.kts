@@ -24,7 +24,10 @@ include(
     ":core:uikit",
     ":core:utils",
 )
-include(":feature:default-servers")
+include(
+    ":feature:default-servers",
+    ":feature:servers"
+)
 include(":dto")
 include(":server")
 include(":client:android")

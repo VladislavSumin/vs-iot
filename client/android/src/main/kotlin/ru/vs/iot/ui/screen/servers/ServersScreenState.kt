@@ -1,7 +1,7 @@
 package ru.vs.iot.ui.screen.servers
 
 import ru.vs.iot.dto.server.AboutServerDTO
-import ru.vs.iot.repository.Server
+import ru.vs.iot.servers.repository.Server
 
 sealed class ServersScreenState {
     object Loading : ServersScreenState()
