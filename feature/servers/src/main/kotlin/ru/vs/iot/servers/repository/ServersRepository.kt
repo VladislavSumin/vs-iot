@@ -1,12 +1,10 @@
-package ru.vs.iot.repository
+package ru.vs.iot.servers.repository
 
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
-import ru.vs.iot.servers.repository.Server
-import ru.vs.iot.servers.repository.ServerQueries
 
 interface ServersRepository {
     fun observeServers(): Flow<List<Server>>
@@ -14,7 +12,7 @@ interface ServersRepository {
     suspend fun delete(server: Server)
 }
 
-class ServersRepositoryImpl(private val serverQueries: ServerQueries) : ServersRepository {
+internal class ServersRepositoryImpl(private val serverQueries: ServerQueries) : ServersRepository {
     override fun observeServers(): Flow<List<Server>> {
         return serverQueries.selectAll().asFlow().mapToList(Dispatchers.IO)
     }
