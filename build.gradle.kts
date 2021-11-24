@@ -5,7 +5,7 @@ buildscript {
         classpath(libs.gradlePlugins.kotlin.serialization)
         classpath(libs.gradlePlugins.sqldelight)
         classpath(libs.gradlePlugins.buildConfig)
-        classpath(libs.gradlePlugins.jb.compose)
+        // classpath(libs.gradlePlugins.jb.compose)
     }
 }
 
