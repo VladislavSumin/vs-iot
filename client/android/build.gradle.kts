@@ -42,6 +42,7 @@ sqldelight {
 
 dependencies {
     implementation(project(":core:autostart"))
+    implementation(project(":core:compose"))
     implementation(project(":core:di"))
     implementation(project(":core:id"))
     implementation(project(":core:navigation"))

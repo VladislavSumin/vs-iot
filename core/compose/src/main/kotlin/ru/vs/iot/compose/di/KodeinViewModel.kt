@@ -1,4 +1,4 @@
-package ru.vs.iot.di
+package ru.vs.iot.compose.di
 
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel

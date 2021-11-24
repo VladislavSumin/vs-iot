@@ -6,7 +6,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import ru.vs.iot.di.kodeinViewModel
+import ru.vs.iot.compose.di.kodeinViewModel
 
 @Composable
 fun EntititesScreen(viewModel: EntitiesViewModel = kodeinViewModel()) {

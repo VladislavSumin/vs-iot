@@ -11,7 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.channels.consumeEach
-import ru.vs.iot.di.kodeinViewModel
+import ru.vs.iot.compose.di.kodeinViewModel
 import ru.vs.iot.navigation.ui.LocalNavigation
 
 @Composable
