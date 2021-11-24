@@ -10,8 +10,6 @@ import ru.vs.iot.api.HttpClientFactory
 import ru.vs.iot.api.HttpClientFactoryImpl
 import ru.vs.iot.domain.EntitiesInteractor
 import ru.vs.iot.domain.EntitiesInteractorImpl
-import ru.vs.iot.domain.ServersInteractor
-import ru.vs.iot.domain.ServersInteractorImpl
 import ru.vs.iot.repository.Database
 import ru.vs.iot.repository.DatabaseFactory
 import ru.vs.iot.repository.DatabaseFactoryImpl
@@ -31,7 +29,6 @@ fun Modules.root() = DI.Module("root") {
     bindSingleton { instance<Database>().serverQueries }
 
     // Interactors
-    bindSingleton<ServersInteractor> { ServersInteractorImpl(i(), i(), i()) }
     bindSingleton<EntitiesInteractor> { EntitiesInteractorImpl(i()) }
 
     // View models

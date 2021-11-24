@@ -15,8 +15,8 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import ru.vs.iot.domain.ServersInteractor
 import ru.vs.iot.dto.server.AboutServerDTO
+import ru.vs.iot.servers.domain.ServersInteractor
 import ru.vs.iot.servers.repository.Server
 import ru.vs.iot.utils.onException
 

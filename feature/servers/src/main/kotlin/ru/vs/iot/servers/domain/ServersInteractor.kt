@@ -1,4 +1,4 @@
-package ru.vs.iot.domain
+package ru.vs.iot.servers.domain
 
 import kotlinx.coroutines.flow.Flow
 import ru.vs.iot.autostart.AutoStartComponent
@@ -17,7 +17,7 @@ interface ServersInteractor : AutoStartComponent {
     suspend fun getAboutServer(server: Server): AboutServerDTO
 }
 
-class ServersInteractorImpl(
+internal class ServersInteractorImpl(
     private val repository: ServersRepository,
     private val defaultServersInteractor: DefaultServersInteractor,
     private val api: ServerApi

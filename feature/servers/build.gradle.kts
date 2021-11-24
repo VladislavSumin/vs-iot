@@ -4,9 +4,10 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":core:autostart"))
     implementation(project(":core:di"))
     api(project(":dto"))
-
+    implementation(project(":feature:default-servers"))
 
     implementation(libs.kotlin.coroutines.core)
 
