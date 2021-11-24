@@ -1,4 +1,4 @@
-package ru.vs.iot.api
+package ru.vs.iot.servers.api
 
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
@@ -10,7 +10,7 @@ interface ServerApi {
     suspend fun getAboutServerInfo(server: Server): AboutServerDTO
 }
 
-class ServerApiImpl(
+internal class ServerApiImpl(
     private val client: HttpClient
 ) : ServerApi {
     override suspend fun getAboutServerInfo(server: Server): AboutServerDTO {

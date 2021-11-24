@@ -8,8 +8,6 @@ import ru.vs.iot.api.EntitiesApi
 import ru.vs.iot.api.EntitiesApiImpl
 import ru.vs.iot.api.HttpClientFactory
 import ru.vs.iot.api.HttpClientFactoryImpl
-import ru.vs.iot.api.ServerApi
-import ru.vs.iot.api.ServerApiImpl
 import ru.vs.iot.domain.EntitiesInteractor
 import ru.vs.iot.domain.EntitiesInteractorImpl
 import ru.vs.iot.domain.ServersInteractor
@@ -25,7 +23,6 @@ fun Modules.root() = DI.Module("root") {
     // Api
     bindSingleton<HttpClientFactory> { HttpClientFactoryImpl() }
     bindSingleton { i<HttpClientFactory>().createHttpClient() }
-    bindSingleton<ServerApi> { ServerApiImpl(i()) }
     bindSingleton<EntitiesApi> { EntitiesApiImpl(i()) }
 
     // Database

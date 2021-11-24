@@ -2,10 +2,10 @@ package ru.vs.iot.domain
 
 import kotlinx.coroutines.flow.Flow
 import ru.vs.iot.AutoStartComponent
-import ru.vs.iot.api.ServerApi
 import ru.vs.iot.default_servers.domain.DefaultServersInteractor
 import ru.vs.iot.default_servers.repository.DefaultServer
 import ru.vs.iot.dto.server.AboutServerDTO
+import ru.vs.iot.servers.api.ServerApi
 import ru.vs.iot.servers.repository.Server
 import ru.vs.iot.servers.repository.ServersRepository
 
