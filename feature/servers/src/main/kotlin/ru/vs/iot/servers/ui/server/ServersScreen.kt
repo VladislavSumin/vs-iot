@@ -1,4 +1,4 @@
-package ru.vs.iot.ui.screen.servers
+package ru.vs.iot.servers.ui.server
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -37,7 +37,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import ru.vs.iot.compose.di.kodeinViewModel
 import ru.vs.iot.navigation.ui.LocalNavigation
 import ru.vs.iot.navigation.ui.Screen
-import ru.vs.iot.ui.core.navigation.AddServer
+import ru.vs.iot.servers.ui.AddServer
 import ru.vs.iot.uikit.theme.MainTheme
 import ru.vs.iot.uikit.theme.NONE
 import ru.vs.iot.uikit.theme.Shapes

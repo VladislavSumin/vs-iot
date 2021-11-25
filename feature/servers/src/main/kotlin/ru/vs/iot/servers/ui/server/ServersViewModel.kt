@@ -1,4 +1,4 @@
-package ru.vs.iot.ui.screen.servers
+package ru.vs.iot.servers.ui.server
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

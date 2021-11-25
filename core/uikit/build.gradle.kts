@@ -18,6 +18,7 @@ dependencies {
     api(libs.android.compose.animation)
     api(libs.android.compose.uiToolingPreview)
     api(libs.android.activity.compose)
+    api(libs.android.accompanist.swiperefresh)
 
     debugApi(libs.android.compose.uiTooling)
 }

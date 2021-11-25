@@ -6,11 +6,5 @@ import ru.vs.iot.navigation.ui.command.NoArgNavigationCommand
 val Screen.Entities
     get() = NoArgNavigationCommand("entities")
 
-val Screen.Servers
-    get() = NoArgNavigationCommand("servers")
-
-val Screen.AddServer
-    get() = NoArgNavigationCommand("add_server")
-
 val Screen.Settings
     get() = NoArgNavigationCommand("settings")

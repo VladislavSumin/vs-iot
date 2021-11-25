@@ -15,8 +15,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import ru.vs.iot.navigation.ui.LocalNavigation
 import ru.vs.iot.navigation.ui.Screen
 import ru.vs.iot.navigation.ui.command.NavigationCommand
+import ru.vs.iot.servers.ui.Servers
 import ru.vs.iot.ui.core.navigation.Entities
-import ru.vs.iot.ui.core.navigation.Servers
 import ru.vs.iot.ui.core.navigation.Settings
 
 @Composable

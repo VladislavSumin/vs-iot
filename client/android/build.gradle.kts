@@ -67,7 +67,6 @@ dependencies {
     implementation(libs.android.lifecycle.runtime)
     implementation(libs.android.lifecycle.viewmodel.compose)
     //implementation(libs.android.accompanist.navigation.animation)
-    implementation(libs.android.accompanist.swiperefresh)
 
 
 //    testImplementation 'junit:junit:4.13.2'
