@@ -40,20 +40,16 @@ import ru.vs.iot.servers.repository.Server
 import ru.vs.iot.servers.ui.AddServer
 import ru.vs.iot.uikit.theme.NONE
 import ru.vs.iot.uikit.theme.Shapes
+import ru.vs.iot.uikit.view.UKWaiting
 
 @Composable
 internal fun ServersScreen(
     viewModel: ServersViewModel = kodeinViewModel()
 ) {
     when (val state = viewModel.state.collectAsState().value) {
-        ServersScreenState.Loading -> RenderLoadingState()
+        ServersScreenState.Loading -> UKWaiting()
         is ServersScreenState.ShowServersList -> RenderServerListState(state, viewModel)
     }
-}
-
-@Composable
-private fun RenderLoadingState() {
-    // TODO add loader
 }
 
 @Composable
