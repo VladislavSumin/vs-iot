@@ -3,6 +3,7 @@ package ru.vs.iot.servers
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
 import org.kodein.di.inSet
+import org.kodein.di.instance
 import org.kodein.di.provider
 import ru.vs.iot.default_servers.featureDefaultServers
 import ru.vs.iot.di.Modules
@@ -15,6 +16,7 @@ import ru.vs.iot.servers.api.ServerApi
 import ru.vs.iot.servers.api.ServerApiImpl
 import ru.vs.iot.servers.domain.ServersInteractor
 import ru.vs.iot.servers.domain.ServersInteractorImpl
+import ru.vs.iot.servers.repository.Database
 import ru.vs.iot.servers.repository.ServersRepository
 import ru.vs.iot.servers.repository.ServersRepositoryImpl
 import ru.vs.iot.servers.ui.AddServer
@@ -29,6 +31,9 @@ fun Modules.featureServers() = DI.Module("feature-servers") {
 
     // Apis
     bindSingleton<ServerApi> { ServerApiImpl(i()) }
+
+    // Database
+    bindSingleton { instance<Database>().serverQueries }
 
     // Repositories
     bindSingleton<ServersRepository> { ServersRepositoryImpl(i()) }
