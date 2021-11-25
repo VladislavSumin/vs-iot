@@ -7,7 +7,7 @@ import kotlinx.coroutines.launch
 import ru.vs.iot.servers.domain.ServersInteractor
 import ru.vs.iot.servers.repository.Server
 
-class AddServerViewModel(
+internal class AddServerViewModel(
     private val serversInteractor: ServersInteractor
 ) : ViewModel() {
     val events = Channel<Event>(Channel.BUFFERED)
