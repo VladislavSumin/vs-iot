@@ -33,10 +33,11 @@ android {
     }
 }
 
+evaluationDependsOn(":feature:servers")
 sqldelight {
     database("Database") {
         packageName = "ru.vs.iot.repository"
-        dependency(project(":feature:servers"))
+        dependency(project(":feature:servers:client"))
     }
 }
 
@@ -51,7 +52,7 @@ dependencies {
 
     implementation(project(":dto"))
 
-    implementation(project(":feature:servers"))
+    implementation(project(":feature:servers:client"))
     implementation(project(":feature:settings"))
 
     implementation(libs.kotlin.coroutines.core)
