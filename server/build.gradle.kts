@@ -23,6 +23,8 @@ kotlin {
                 implementation(project(":core:id"))
                 implementation(project(":dto"))
 
+                implementation(project(":feature:servers:dto"))
+
                 implementation(libs.kotlin.coroutines.core)
 
                 implementation(libs.ktor.server.netty)

@@ -27,8 +27,7 @@ dependencies {
     implementation(project(":core:uikit"))
     implementation(project(":core:utils"))
 
-    api(project(":dto"))
-
+    implementation(project(":feature:servers:dto"))
     implementation(project(":feature:default-servers"))
 
     implementation(libs.kotlin.coroutines.core)

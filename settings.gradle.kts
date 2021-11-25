@@ -29,6 +29,7 @@ include(
 include(
     ":feature:default-servers",
     ":feature:servers:client",
+    ":feature:servers:dto",
     ":feature:settings",
 )
 include(":dto")

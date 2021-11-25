@@ -1,7 +1,7 @@
 package ru.vs.iot.server.domain.about
 
-import ru.vs.iot.dto.server.AboutServerDTO
 import ru.vs.iot.server.BuildConfig
+import ru.vs.iot.servers.dto.AboutServerDTO
 
 interface AboutServerInteractor {
     suspend fun getVersion(): String

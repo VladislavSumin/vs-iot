@@ -1,6 +1,6 @@
 package ru.vs.iot.servers.ui.server
 
-import ru.vs.iot.dto.server.AboutServerDTO
+import ru.vs.iot.servers.dto.AboutServerDTO
 import ru.vs.iot.servers.repository.Server
 
 internal sealed class ServersScreenState {
