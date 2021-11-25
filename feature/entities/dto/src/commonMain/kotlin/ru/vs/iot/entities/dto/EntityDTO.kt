@@ -1,4 +1,4 @@
-package ru.vs.iot.dto.server.entitiy
+package ru.vs.iot.entities.dto
 
 import kotlinx.serialization.Serializable
 

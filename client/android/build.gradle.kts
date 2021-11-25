@@ -50,8 +50,7 @@ dependencies {
     implementation(project(":core:uikit"))
     implementation(project(":core:utils"))
 
-    implementation(project(":dto"))
-
+    implementation(project(":feature:entities:dto"))
     implementation(project(":feature:servers:client"))
     implementation(project(":feature:settings"))
 

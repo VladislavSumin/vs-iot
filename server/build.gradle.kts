@@ -21,8 +21,8 @@ kotlin {
             dependencies {
                 implementation(project(":core:di"))
                 implementation(project(":core:id"))
-                implementation(project(":dto"))
 
+                implementation(project(":feature:entities:dto"))
                 implementation(project(":feature:servers:dto"))
 
                 implementation(libs.kotlin.coroutines.core)

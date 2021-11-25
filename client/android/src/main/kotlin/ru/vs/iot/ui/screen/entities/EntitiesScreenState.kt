@@ -1,6 +1,6 @@
 package ru.vs.iot.ui.screen.entities
 
-import ru.vs.iot.dto.server.entitiy.EntityDTO
+import ru.vs.iot.entities.dto.EntityDTO
 import ru.vs.iot.id.Id
 import ru.vs.iot.servers.repository.Server
 

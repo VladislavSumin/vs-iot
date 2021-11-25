@@ -3,7 +3,7 @@ package ru.vs.iot.api
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.http.takeFrom
-import ru.vs.iot.dto.server.entitiy.EntitiesDTO
+import ru.vs.iot.entities.dto.EntitiesDTO
 import ru.vs.iot.servers.repository.Server
 
 interface EntitiesApi {

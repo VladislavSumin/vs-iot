@@ -28,11 +28,11 @@ include(
 )
 include(
     ":feature:default-servers",
+    ":feature:entities:dto",
     ":feature:servers:client",
     ":feature:servers:dto",
     ":feature:settings",
 )
-include(":dto")
 include(":server")
 include(":client:android")
 
