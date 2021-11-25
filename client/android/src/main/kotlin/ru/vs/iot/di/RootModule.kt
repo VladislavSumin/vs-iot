@@ -12,8 +12,8 @@ import ru.vs.iot.domain.EntitiesInteractorImpl
 import ru.vs.iot.repository.Database
 import ru.vs.iot.repository.DatabaseFactory
 import ru.vs.iot.repository.DatabaseFactoryImpl
+import ru.vs.iot.servers.ui.add_server.AddServerViewModel
 import ru.vs.iot.servers.ui.server.ServersViewModel
-import ru.vs.iot.ui.screen.add_server.AddServerViewModel
 import ru.vs.iot.ui.screen.entities.EntitiesViewModel
 
 fun Modules.root() = DI.Module("root") {

@@ -1,4 +1,4 @@
-package ru.vs.iot.ui.screen.add_server
+package ru.vs.iot.servers.ui.add_server
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
