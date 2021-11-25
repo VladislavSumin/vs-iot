@@ -52,6 +52,7 @@ dependencies {
     implementation(project(":dto"))
 
     implementation(project(":feature:servers"))
+    implementation(project(":feature:settings"))
 
     implementation(libs.kotlin.coroutines.core)
 

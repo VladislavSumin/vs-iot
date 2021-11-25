@@ -13,6 +13,7 @@ import ru.vs.iot.di.coreDi
 import ru.vs.iot.di.navigation
 import ru.vs.iot.di.root
 import ru.vs.iot.servers.featureServers
+import ru.vs.iot.settings.featureSettings
 import kotlin.coroutines.EmptyCoroutineContext
 
 class App : Application(), DIAware {
@@ -26,6 +27,7 @@ class App : Application(), DIAware {
         importOnce(Modules.navigation())
 
         importOnce(Modules.featureServers())
+        importOnce(Modules.featureSettings())
     }
 
     override fun onCreate() {

@@ -1,9 +1,9 @@
-package ru.vs.iot.ui.screen.settings
+package ru.vs.iot.settings.ui
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun SettingsScreen() {
+internal fun SettingsScreen() {
     Text("Settings screen")
 }

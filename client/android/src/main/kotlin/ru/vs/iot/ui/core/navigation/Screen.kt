@@ -5,6 +5,3 @@ import ru.vs.iot.navigation.ui.command.NoArgNavigationCommand
 
 val Screen.Entities
     get() = NoArgNavigationCommand("entities")
-
-val Screen.Settings
-    get() = NoArgNavigationCommand("settings")
