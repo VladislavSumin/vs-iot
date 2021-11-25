@@ -19,7 +19,7 @@ import ru.vs.iot.uikit.theme.NONE
 import ru.vs.iot.uikit.theme.Shapes
 
 @Composable
-internal fun EntititesScreen(viewModel: EntitiesViewModel = kodeinViewModel()) {
+internal fun EntitiesScreen(viewModel: EntitiesViewModel = kodeinViewModel()) {
     when (val state = viewModel.state.collectAsState().value) {
         is EntitiesScreenState.ShowEntities -> RenderEntities(state)
     }

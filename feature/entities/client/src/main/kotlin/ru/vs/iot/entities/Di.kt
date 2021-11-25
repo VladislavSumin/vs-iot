@@ -12,8 +12,8 @@ import ru.vs.iot.entities.api.EntitiesApiImpl
 import ru.vs.iot.entities.domain.EntitiesInteractor
 import ru.vs.iot.entities.domain.EntitiesInteractorImpl
 import ru.vs.iot.entities.ui.Entities
+import ru.vs.iot.entities.ui.EntitiesScreen
 import ru.vs.iot.entities.ui.EntitiesViewModel
-import ru.vs.iot.entities.ui.EntititesScreen
 import ru.vs.iot.navigation.ui.Screen
 import ru.vs.iot.navigation.ui.destination.NavigationDestination
 import ru.vs.iot.navigation.ui.destination.createDestination
@@ -29,5 +29,5 @@ fun Modules.featureEntities() = DI.Module("feature-entities") {
     bindViewModel { EntitiesViewModel(i(), i()) }
 
     // Navigation
-    inSet<NavigationDestination> { provider { Screen.Entities.createDestination { EntititesScreen() } } }
+    inSet<NavigationDestination> { provider { Screen.Entities.createDestination { EntitiesScreen() } } }
 }
