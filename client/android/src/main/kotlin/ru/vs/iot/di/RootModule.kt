@@ -12,7 +12,6 @@ import ru.vs.iot.domain.EntitiesInteractorImpl
 import ru.vs.iot.repository.Database
 import ru.vs.iot.repository.DatabaseFactory
 import ru.vs.iot.repository.DatabaseFactoryImpl
-import ru.vs.iot.servers.ui.server.ServersViewModel
 import ru.vs.iot.ui.screen.entities.EntitiesViewModel
 
 fun Modules.root() = DI.Module("root") {
@@ -30,6 +29,5 @@ fun Modules.root() = DI.Module("root") {
     bindSingleton<EntitiesInteractor> { EntitiesInteractorImpl(i()) }
 
     // View models
-    bindViewModel { ServersViewModel(i()) }
     bindViewModel { EntitiesViewModel(i(), i()) }
 }

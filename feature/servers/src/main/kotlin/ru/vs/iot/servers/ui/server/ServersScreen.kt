@@ -30,20 +30,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import ru.vs.iot.compose.di.kodeinViewModel
 import ru.vs.iot.navigation.ui.LocalNavigation
 import ru.vs.iot.navigation.ui.Screen
+import ru.vs.iot.servers.repository.Server
 import ru.vs.iot.servers.ui.AddServer
-import ru.vs.iot.uikit.theme.MainTheme
 import ru.vs.iot.uikit.theme.NONE
 import ru.vs.iot.uikit.theme.Shapes
 
 @Composable
-fun ServersScreen(
+internal fun ServersScreen(
     viewModel: ServersViewModel = kodeinViewModel()
 ) {
     when (val state = viewModel.state.collectAsState().value) {
@@ -65,28 +64,32 @@ private fun RenderServerListState(state: ServersScreenState.ShowServersList, vie
             Text("+")
         }
     }) {
-        ServersList(state, viewModel)
+        ServersList(state, viewModel::onRefresh, viewModel::onClickDeleteServer)
     }
 }
 
 @Composable
-private fun ServersList(state: ServersScreenState.ShowServersList, viewModel: ServersViewModel) {
+private fun ServersList(
+    state: ServersScreenState.ShowServersList,
+    onRefresh: () -> Unit,
+    onClickDelete: (Server) -> Unit
+) {
     val servers = state.servers
-    SwipeRefresh(state = rememberSwipeRefreshState(state.isRefreshing), onRefresh = { viewModel.onRefresh() }) {
+    SwipeRefresh(state = rememberSwipeRefreshState(state.isRefreshing), onRefresh = onRefresh) {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             contentPadding = PaddingValues(0.dp, 8.dp)
         ) {
             items(servers, { it.server.id }) {
-                ServerItem(it, viewModel)
+                ServerItem(it, onClickDelete)
             }
         }
     }
 }
 
 @Composable
-private fun ServerItem(serverState: ServersScreenState.ServerState, viewModel: ServersViewModel) {
+private fun ServerItem(serverState: ServersScreenState.ServerState, onClickDelete: (Server) -> Unit) {
     val server = serverState.server
     val connectivityState = serverState.connectivityState
 
@@ -98,7 +101,7 @@ private fun ServerItem(serverState: ServersScreenState.ServerState, viewModel: S
                     style = MaterialTheme.typography.h6,
                     modifier = Modifier.align(Alignment.CenterVertically).weight(1f)
                 )
-                RenderServerItemMenu(onClickDelete = { viewModel.onClickDeleteServer(server) })
+                RenderServerItemMenu(onClickDelete = { onClickDelete(server) })
             }
             Divider()
             Column(Modifier.padding(0.dp, 12.dp)) {
@@ -132,13 +135,5 @@ private fun RenderServerConnectivityState(connectivityState: ServersScreenState.
         is ServersScreenState.ServerConnectivityState.Success -> {
             Text("Success. Server version: ${connectivityState.aboutServer.version}")
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ServersScreenPreview() {
-    MainTheme {
-        ServersScreen()
     }
 }

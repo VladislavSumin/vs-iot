@@ -6,7 +6,7 @@ import io.ktor.http.takeFrom
 import ru.vs.iot.dto.server.AboutServerDTO
 import ru.vs.iot.servers.repository.Server
 
-interface ServerApi {
+internal interface ServerApi {
     suspend fun getAboutServerInfo(server: Server): AboutServerDTO
 }
 

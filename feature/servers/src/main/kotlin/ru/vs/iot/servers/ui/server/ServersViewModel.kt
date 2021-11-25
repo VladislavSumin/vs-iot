@@ -20,7 +20,7 @@ import ru.vs.iot.servers.domain.ServersInteractor
 import ru.vs.iot.servers.repository.Server
 import ru.vs.iot.utils.onException
 
-class ServersViewModel(
+internal class ServersViewModel(
     private val serversInteractor: ServersInteractor
 ) : ViewModel() {
     // TODO придумать более адекватный способо управления состоянием обновления

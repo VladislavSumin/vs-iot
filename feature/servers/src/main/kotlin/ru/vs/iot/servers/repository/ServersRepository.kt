@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
-interface ServersRepository {
+internal interface ServersRepository {
     fun observeServers(): Flow<List<Server>>
     suspend fun insert(server: Server)
     suspend fun delete(server: Server)
