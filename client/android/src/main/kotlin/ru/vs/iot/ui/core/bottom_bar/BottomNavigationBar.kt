@@ -12,12 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.compose.currentBackStackEntryAsState
+import ru.vs.iot.entities.ui.Entities
 import ru.vs.iot.navigation.ui.LocalNavigation
 import ru.vs.iot.navigation.ui.Screen
 import ru.vs.iot.navigation.ui.command.NavigationCommand
 import ru.vs.iot.servers.ui.Servers
 import ru.vs.iot.settings.ui.Settings
-import ru.vs.iot.ui.core.navigation.Entities
 
 @Composable
 fun BottomNavigationBar() {

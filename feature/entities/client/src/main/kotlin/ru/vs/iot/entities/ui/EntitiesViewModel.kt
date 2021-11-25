@@ -1,4 +1,4 @@
-package ru.vs.iot.ui.screen.entities
+package ru.vs.iot.entities.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,12 +7,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
-import ru.vs.iot.domain.EntitiesInteractor
+import ru.vs.iot.entities.domain.EntitiesInteractor
 import ru.vs.iot.id.Id
 import ru.vs.iot.servers.domain.ServersInteractor
 import ru.vs.iot.servers.repository.Server
 
-class EntitiesViewModel(
+internal class EntitiesViewModel(
     serversInteractor: ServersInteractor,
     private val entitiesInteractor: EntitiesInteractor
 ) : ViewModel() {

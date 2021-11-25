@@ -1,4 +1,4 @@
-package ru.vs.iot.ui.screen.entities
+package ru.vs.iot.entities.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
@@ -9,7 +9,7 @@ import androidx.compose.runtime.collectAsState
 import ru.vs.iot.compose.di.kodeinViewModel
 
 @Composable
-fun EntititesScreen(viewModel: EntitiesViewModel = kodeinViewModel()) {
+internal fun EntititesScreen(viewModel: EntitiesViewModel = kodeinViewModel()) {
     when (val state = viewModel.state.collectAsState().value) {
         is EntitiesScreenState.ShowEntities -> RenderEntities(state)
     }

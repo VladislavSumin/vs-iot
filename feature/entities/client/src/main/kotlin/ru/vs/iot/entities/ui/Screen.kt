@@ -1,4 +1,4 @@
-package ru.vs.iot.ui.core.navigation
+package ru.vs.iot.entities.ui
 
 import ru.vs.iot.navigation.ui.Screen
 import ru.vs.iot.navigation.ui.command.NoArgNavigationCommand

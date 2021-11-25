@@ -1,4 +1,4 @@
-package ru.vs.iot.api
+package ru.vs.iot.entities.api
 
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
@@ -6,11 +6,11 @@ import io.ktor.http.takeFrom
 import ru.vs.iot.entities.dto.EntitiesDTO
 import ru.vs.iot.servers.repository.Server
 
-interface EntitiesApi {
+internal interface EntitiesApi {
     suspend fun getEntities(server: Server): EntitiesDTO
 }
 
-class EntitiesApiImpl(
+internal class EntitiesApiImpl(
     private val client: HttpClient
 ) : EntitiesApi {
     override suspend fun getEntities(server: Server): EntitiesDTO {

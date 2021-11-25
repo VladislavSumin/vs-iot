@@ -1,4 +1,4 @@
-package ru.vs.iot.ui.screen.entities
+package ru.vs.iot.entities.ui
 
 import ru.vs.iot.entities.dto.EntityDTO
 import ru.vs.iot.id.Id
