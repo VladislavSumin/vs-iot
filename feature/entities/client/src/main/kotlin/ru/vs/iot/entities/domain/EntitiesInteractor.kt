@@ -1,7 +1,7 @@
 package ru.vs.iot.entities.domain
 
 import ru.vs.iot.entities.api.EntitiesApi
-import ru.vs.iot.entities.dto.EntitiesDTO
+import ru.vs.iot.entities.dto.entity.EntitiesDTO
 import ru.vs.iot.servers.repository.Server
 
 internal interface EntitiesInteractor {
