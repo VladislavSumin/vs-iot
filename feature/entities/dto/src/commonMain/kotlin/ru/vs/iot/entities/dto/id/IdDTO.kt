@@ -1,3 +1,5 @@
 package ru.vs.iot.entities.dto.id
 
-typealias IdDTO = String
+import ru.vs.iot.id.Id
+
+typealias IdDTO = Id

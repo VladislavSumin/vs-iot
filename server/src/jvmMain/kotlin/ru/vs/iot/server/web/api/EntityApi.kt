@@ -24,5 +24,5 @@ class EntityApi(
     }
 }
 
-private fun Map<Id, Entity>.toDTO(): EntitiesDTO = mapKeys { it.key.raw }.mapValues { it.value.toDTO() }
+private fun Map<Id, Entity>.toDTO(): EntitiesDTO = mapValues { it.value.toDTO() }
 private fun Entity.toDTO() = EntityDTO()

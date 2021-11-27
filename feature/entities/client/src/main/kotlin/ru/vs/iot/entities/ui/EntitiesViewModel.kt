@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import ru.vs.iot.entities.domain.EntitiesInteractor
-import ru.vs.iot.id.Id
 import ru.vs.iot.servers.domain.ServersInteractor
 import ru.vs.iot.servers.repository.Server
 
@@ -23,7 +22,7 @@ internal class EntitiesViewModel(
 
     private suspend fun getEntities(server: Server): List<EntitiesScreenState.EntityItem> {
         return runCatching {
-            entitiesInteractor.getEntities(server).map { EntitiesScreenState.EntityItem(server, Id(it.key), it.value) }
+            entitiesInteractor.getEntities(server).map { EntitiesScreenState.EntityItem(server, it.key, it.value) }
         }.getOrElse { emptyList() }
     }
 }
