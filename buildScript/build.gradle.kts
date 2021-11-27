@@ -3,7 +3,12 @@ plugins {
 }
 
 dependencies {
+    // TODO подождать пока эта фича появится в гредле
+    // а пока костыль вот отсюда https://github.com/gradle/gradle/issues/15383
+    implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
+
     implementation(libs.gradlePlugins.kotlin)
+    implementation(libs.gradlePlugins.kotlin.serialization)
     implementation(libs.gradlePlugins.android)
     implementation(libs.gradlePlugins.checkUpdates)
     implementation(libs.gradlePlugins.detekt)

@@ -2,7 +2,6 @@ import ru.vs.iot.build_script.utils.namedOrNull
 
 buildscript {
     dependencies {
-        classpath(libs.gradlePlugins.kotlin.serialization)
         classpath(libs.gradlePlugins.sqldelight)
         classpath(libs.gradlePlugins.buildConfig)
         // classpath(libs.gradlePlugins.jb.compose)
