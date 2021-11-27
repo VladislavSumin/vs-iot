@@ -1,7 +1,6 @@
 plugins {
-    // TODO с jvm модулями все плохо
-    kotlin("multiplatform")
-    kotlin("plugin.serialization")
+    id("convention.multiplatform.jvm")
+    id("convention.multiplatform.serialization")
 
     id("com.github.gmazzo.buildconfig")
 }
@@ -14,8 +13,6 @@ buildConfig {
 }
 
 kotlin {
-    jvm()
-
     sourceSets {
         named("jvmMain") {
             dependencies {

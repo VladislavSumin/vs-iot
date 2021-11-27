@@ -1,12 +1,9 @@
 plugins {
-    kotlin("multiplatform")
+    id("convention.multiplatform.jvm")
     id("convention.android.library-multiplatform")
 }
 
 kotlin {
-    android()
-    jvm()
-
     sourceSets {
         named("commonMain") {
             dependencies {
