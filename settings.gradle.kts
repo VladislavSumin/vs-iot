@@ -30,6 +30,7 @@ include(
 include(
     ":feature:default-servers",
     ":feature:entities:client",
+    ":feature:entities:core",
     ":feature:entities:dto",
     ":feature:servers:client",
     ":feature:servers:dto",

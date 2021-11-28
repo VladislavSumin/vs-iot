@@ -4,6 +4,7 @@ import org.kodein.di.DI
 import org.kodein.di.bindSingleton
 import ru.vs.iot.di.Modules
 import ru.vs.iot.di.i
+import ru.vs.iot.entities.featureEntitiesCore
 import ru.vs.iot.serialization.coreSerialization
 import ru.vs.iot.server.domain.about.AboutServerInteractor
 import ru.vs.iot.server.domain.about.AboutServerInteractorImpl
@@ -16,10 +17,12 @@ import ru.vs.iot.server.web.api.ServerApi
 import ru.vs.iot.server.web.configuration.ContentNegotiationConfiguration
 import ru.vs.iot.server.web.configuration.ContentNegotiationConfigurationImpl
 
-// TODO написать плагинчик что бы автоматом фиксил количество i()
 val Di = DI {
-    // Modules
+    // Core modules
     importOnce(Modules.coreSerialization())
+
+    // Feature modules
+    importOnce(Modules.featureEntitiesCore())
 
     // Interactors
     bindSingleton<AboutServerInteractor> { AboutServerInteractorImpl() }
