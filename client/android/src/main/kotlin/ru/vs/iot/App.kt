@@ -13,6 +13,7 @@ import ru.vs.iot.di.coreDi
 import ru.vs.iot.di.navigation
 import ru.vs.iot.di.root
 import ru.vs.iot.entities.featureEntities
+import ru.vs.iot.serialization.coreSerialization
 import ru.vs.iot.servers.featureServers
 import ru.vs.iot.settings.featureSettings
 import kotlin.coroutines.EmptyCoroutineContext
@@ -24,6 +25,8 @@ class App : Application(), DIAware {
         import(androidXModule(this@App))
 
         importOnce(Modules.coreDi())
+        importOnce(Modules.coreSerialization())
+
         importOnce(Modules.root())
         importOnce(Modules.navigation())
 

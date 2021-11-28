@@ -19,6 +19,8 @@ import ru.vs.iot.navigation.ui.destination.NavigationDestination
 import ru.vs.iot.navigation.ui.destination.createDestination
 
 fun Modules.featureEntities() = DI.Module("feature-entities") {
+    importOnce(Modules.featureEntitiesCore())
+
     // Apis
     bindSingleton<EntitiesApi> { EntitiesApiImpl(i()) }
 

@@ -21,7 +21,7 @@ dependencies {
     implementation(project(":core:uikit"))
     implementation(project(":core:utils"))
 
-    implementation(project(":feature:entities:dto"))
+    api(project(":feature:entities:core"))
     implementation(project(":feature:servers:client"))
 
     implementation(libs.kotlin.coroutines.core)

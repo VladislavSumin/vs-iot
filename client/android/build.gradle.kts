@@ -46,6 +46,7 @@ dependencies {
     implementation(project(":core:compose"))
     implementation(project(":core:di"))
     implementation(project(":core:navigation"))
+    implementation(project(":core:serialization"))
     implementation(project(":core:uikit"))
     implementation(project(":core:utils"))
 

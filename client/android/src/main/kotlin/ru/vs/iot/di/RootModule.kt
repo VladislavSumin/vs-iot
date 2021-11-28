@@ -10,7 +10,7 @@ import ru.vs.iot.repository.DatabaseFactoryImpl
 
 fun Modules.root() = DI.Module("root") {
     // Api
-    bindSingleton<HttpClientFactory> { HttpClientFactoryImpl() }
+    bindSingleton<HttpClientFactory> { HttpClientFactoryImpl(i()) }
     bindSingleton { i<HttpClientFactory>().createHttpClient() }
 
     // Database
