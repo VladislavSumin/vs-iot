@@ -30,7 +30,7 @@ class EntityApi(
     }
 
     private fun Routing.getEntitiesStates() = get("/api/entities/states") {
-        val states = entityInteractor.observeEntitiesState().first().mapValues { "123" } // as Map<IdImpl,String>
+        val states = entityInteractor.observeEntitiesState().first()
         val serializedStates = json.encodeToString(states)
         call.respondText(serializedStates, contentType = ContentType.Application.Json)
     }
