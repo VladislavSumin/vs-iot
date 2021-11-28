@@ -10,20 +10,12 @@ interface ContentNegotiationConfiguration {
     fun Application.configure()
 }
 
-class ContentNegotiationConfigurationImpl : ContentNegotiationConfiguration {
+class ContentNegotiationConfigurationImpl(
+    val json: Json
+) : ContentNegotiationConfiguration {
     override fun Application.configure() {
         install(ContentNegotiation) {
-            // TODO добавить prettyPrint в дебаг режиме
-            json(
-                Json {
-                    encodeDefaults = true
-                    isLenient = true
-                    allowSpecialFloatingPointValues = true
-                    allowStructuredMapKeys = true
-                    prettyPrint = true
-                    useArrayPolymorphism = true
-                }
-            )
+            json(json)
         }
     }
 }

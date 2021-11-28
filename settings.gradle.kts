@@ -23,6 +23,7 @@ include(
     ":core:di",
     ":core:id",
     ":core:navigation",
+    ":core:serialization",
     ":core:uikit",
     ":core:utils",
 )

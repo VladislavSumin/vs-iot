@@ -5,6 +5,6 @@ import org.kodein.di.bindSet
 import ru.vs.iot.di.Modules
 import ru.vs.iot.navigation.ui.destination.NavigationDestination
 
-fun Modules.coreNavigation() = DI.Module("coreNavigation") {
+fun Modules.coreNavigation() = DI.Module("core-navigation") {
     bindSet<NavigationDestination>()
 }

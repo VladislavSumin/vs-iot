@@ -18,6 +18,7 @@ kotlin {
             dependencies {
                 implementation(project(":core:di"))
                 implementation(project(":core:id"))
+                implementation(project(":core:serialization"))
 
                 implementation(project(":feature:entities:dto"))
                 implementation(project(":feature:servers:dto"))
