@@ -6,6 +6,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import ru.vs.iot.entities.dto.entity_state.EntityStateDTO
+import ru.vs.iot.entities.dto.entity_state.primitive.BooleanEntityState
+import ru.vs.iot.entities.dto.entity_state.primitive.StringEntityState
 import ru.vs.iot.id.Id
 import kotlin.random.Random
 
@@ -54,17 +57,14 @@ class EntityInteractorImpl : EntityInteractor {
 }
 
 open class BooleanEntity(override val id: Id) : Entity {
-    data class State(val value: Boolean) : EntityState
-
-    override val state: StateFlow<EntityState> = MutableStateFlow(State(Random.nextBoolean()))
+    override val state: StateFlow<BooleanEntityState> = MutableStateFlow(BooleanEntityState(Random.nextBoolean()))
 }
 
 class MutableBooleanEntity(id: Id) : BooleanEntity(id)
 
 open class StringEntity(override val id: Id) : Entity {
-    data class State(val value: String) : EntityState
-
-    override val state: StateFlow<EntityState> = MutableStateFlow(State(Random.nextDouble().toString()))
+    override val state: StateFlow<StringEntityState> =
+        MutableStateFlow(StringEntityState(Random.nextDouble().toString()))
 }
 
 class MutableStringEntity(id: Id) : StringEntity(id)
@@ -74,4 +74,4 @@ interface Entity {
     val state: StateFlow<EntityState>
 }
 
-interface EntityState
+typealias EntityState = EntityStateDTO
