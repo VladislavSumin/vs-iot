@@ -8,15 +8,17 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
+// TODO с интерфейсом не подхватывается кастомный сериализатор
+@Suppress("UnnecessaryAbstractClass")
 @Serializable(with = IdAsStringSerializer::class)
-interface Id {
+abstract class Id internal constructor() {
     companion object {
         operator fun invoke(raw: String): Id = IdImpl(raw)
     }
 }
 
 @Serializable(with = IdAsStringSerializer::class)
-internal class IdImpl(val raw: String) : Id
+internal class IdImpl(val raw: String) : Id()
 
 internal object IdAsStringSerializer : KSerializer<Id> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("id", PrimitiveKind.STRING)

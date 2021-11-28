@@ -36,5 +36,5 @@ val Di = DI {
 
     // Api
     bindSingleton { ServerApi(i()) }
-    bindSingleton { EntityApi(i()) }
+    bindSingleton { EntityApi(i(), i()) }
 }
