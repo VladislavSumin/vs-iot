@@ -22,6 +22,7 @@ include(
     ":core:compose",
     ":core:di",
     ":core:id",
+    ":core:mqtt-client",
     ":core:navigation",
     ":core:serialization",
     ":core:uikit",
@@ -38,6 +39,7 @@ include(
 )
 include(":server")
 include(":client:android")
+include(":mqtt-client-demo")
 
 enableFeaturePreview("VERSION_CATALOGS")
 dependencyResolutionManagement {
