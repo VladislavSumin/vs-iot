@@ -18,7 +18,26 @@ abstract class Id internal constructor() {
 }
 
 @Serializable(with = IdAsStringSerializer::class)
-internal class IdImpl(val raw: String) : Id()
+internal class IdImpl(val raw: String) : Id() {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as IdImpl
+
+        if (raw != other.raw) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return raw.hashCode()
+    }
+
+    override fun toString(): String {
+        return "IdImpl(raw=$raw)"
+    }
+}
 
 internal object IdAsStringSerializer : KSerializer<Id> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("id", PrimitiveKind.STRING)
