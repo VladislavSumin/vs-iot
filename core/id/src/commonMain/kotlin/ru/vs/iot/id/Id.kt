@@ -12,13 +12,15 @@ import kotlinx.serialization.encoding.Encoder
 @Suppress("UnnecessaryAbstractClass")
 @Serializable(with = IdAsStringSerializer::class)
 abstract class Id internal constructor() {
+    abstract val raw: String
+
     companion object {
         operator fun invoke(raw: String): Id = IdImpl(raw)
     }
 }
 
 @Serializable(with = IdAsStringSerializer::class)
-internal class IdImpl(val raw: String) : Id() {
+internal class IdImpl(override val raw: String) : Id() {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || this::class != other::class) return false
