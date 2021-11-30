@@ -22,7 +22,9 @@ internal class EntitiesViewModel(
 
     private suspend fun getEntities(server: Server): List<EntitiesScreenState.EntityItem> {
         return runCatching {
-            entitiesInteractor.getEntities(server).map { EntitiesScreenState.EntityItem(server, it.key, it.value) }
+            val entities = entitiesInteractor.getEntities(server)
+            val entitiesStates = entitiesInteractor.getEntitiesStates(server)
+            entities.map { EntitiesScreenState.EntityItem(server, it.key, it.value, entitiesStates[it.key]!!) }
         }.getOrElse { emptyList() }
     }
 }

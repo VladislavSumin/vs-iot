@@ -44,6 +44,7 @@ private fun RenderEntityItem(entityItem: EntitiesScreenState.EntityItem) {
         Column(Modifier.padding(10.dp, 12.dp)) {
             Text(entityItem.server.name)
             Text(entityItem.id.toString())
+            Text(entityItem.entityState.toString())
         }
     }
 }
