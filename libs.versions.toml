@@ -25,7 +25,7 @@ android-lifecycle = "2.4.0"
 android-navigation = "2.4.0-beta02"
 android-accompanist = "0.21.4-beta"
 
-jb-compose = "1.0.0-beta5"
+jb-compose = "1.0.0"
 
 [libraries]
 # Plugins

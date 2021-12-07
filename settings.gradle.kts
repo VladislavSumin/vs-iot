@@ -40,7 +40,7 @@ include(
 include(":server")
 include(
     ":client:android",
-    ":client:jvm",
+//    ":client:jvm",
 )
 
 enableFeaturePreview("VERSION_CATALOGS")
