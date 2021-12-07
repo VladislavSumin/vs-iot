@@ -1,29 +1,29 @@
 [versions]
-kotlin = "1.5.31"
+kotlin = "1.6.0"
 kotlin-coroutines = "1.5.2"
 kotlin-serialization = "1.3.1"
 sqldelight = "1.5.3"
 kotlinpoet = "1.10.2"
 
-ktor = "1.6.5"
+ktor = "1.6.6"
 kodein = "7.9.0"
 
-logging-kermit = "1.0.0"
+logging-kermit = "1.0.2"
 logging-log4j = "2.14.1"
 logging-slf4j = "1.7.32"
 
 gradlePlugins-checkUpdates = "0.39.0"
 gradlePlugins-buildConfig = "3.0.3"
 gradlePlugins-android = "7.0.3"
-gradlePlugins-detekt = "1.19.0-RC2"
+gradlePlugins-detekt = "1.19.0"
 
 android-core = "1.7.0"
 android-datastore = "1.0.0"
-android-compose = "1.0.5"
+android-compose = "1.1.0-beta04"
 android-activity-compose = "1.4.0"
 android-lifecycle = "2.4.0"
 android-navigation = "2.4.0-beta02"
-android-accompanist = "0.21.2-beta"
+android-accompanist = "0.21.4-beta"
 
 jb-compose = "1.0.0-beta5"
 
