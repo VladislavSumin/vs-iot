@@ -34,6 +34,7 @@ include(
     ":feature:entities:dto",
     ":feature:servers:client",
     ":feature:servers:dto",
+    ":feature:services:client",
     ":feature:settings",
 )
 include(":server")

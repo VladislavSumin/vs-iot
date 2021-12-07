@@ -15,6 +15,7 @@ import ru.vs.iot.di.root
 import ru.vs.iot.entities.featureEntities
 import ru.vs.iot.serialization.coreSerialization
 import ru.vs.iot.servers.featureServers
+import ru.vs.iot.services.featureServices
 import ru.vs.iot.settings.featureSettings
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -32,6 +33,7 @@ class App : Application(), DIAware {
 
         importOnce(Modules.featureEntities())
         importOnce(Modules.featureServers())
+        importOnce(Modules.featureServices())
         importOnce(Modules.featureSettings())
     }
 
