@@ -38,7 +38,10 @@ include(
     ":feature:settings",
 )
 include(":server")
-include(":client:android")
+include(
+    ":client:android",
+    ":client:jvm",
+)
 
 enableFeaturePreview("VERSION_CATALOGS")
 dependencyResolutionManagement {
