@@ -11,7 +11,7 @@ interface ContentNegotiationConfiguration {
 }
 
 class ContentNegotiationConfigurationImpl(
-    val json: Json
+    private val json: Json
 ) : ContentNegotiationConfiguration {
     override fun Application.configure() {
         install(ContentNegotiation) {

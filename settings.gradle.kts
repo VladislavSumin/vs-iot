@@ -31,6 +31,13 @@ include(
 )
 
 include(
+    "rsub:client",
+    "rsub:core",
+    "rsub:playground",
+    "rsub:server",
+)
+
+include(
     ":feature:default-servers",
 
     ":feature:entities:client",
