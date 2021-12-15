@@ -20,6 +20,7 @@ rootProject.name = "vs-iot"
 include(
     ":core:autostart",
     ":core:compose",
+    ":core:coroutines",
     ":core:di",
     ":core:id",
     ":core:navigation",
@@ -27,16 +28,23 @@ include(
     ":core:uikit",
     ":core:utils",
 )
+
 include(
     ":feature:default-servers",
+
     ":feature:entities:client",
     ":feature:entities:core",
     ":feature:entities:dto",
+
     ":feature:servers:client",
     ":feature:servers:dto",
+
     ":feature:services:client",
+    ":feature:services:server",
+
     ":feature:settings",
 )
+
 include(":server")
 include(
     ":client:android",

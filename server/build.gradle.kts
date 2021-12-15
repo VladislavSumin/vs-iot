@@ -17,12 +17,11 @@ kotlin {
         named("jvmMain") {
             dependencies {
                 implementation(project(":core:di"))
+                implementation(project(":core:coroutines"))
                 implementation(project(":core:serialization"))
 
                 implementation(project(":feature:entities:core"))
                 implementation(project(":feature:servers:dto"))
-
-                implementation(libs.kotlin.coroutines.core)
 
                 implementation(libs.ktor.server.netty)
                 implementation(libs.ktor.server.serialization)

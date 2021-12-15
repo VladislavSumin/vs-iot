@@ -44,6 +44,7 @@ sqldelight {
 dependencies {
     implementation(project(":core:autostart"))
     implementation(project(":core:compose"))
+    implementation(project(":core:coroutines"))
     implementation(project(":core:di"))
     implementation(project(":core:navigation"))
     implementation(project(":core:serialization"))
@@ -54,8 +55,6 @@ dependencies {
     implementation(project(":feature:servers:client"))
     implementation(project(":feature:services:client"))
     implementation(project(":feature:settings"))
-
-    implementation(libs.kotlin.coroutines.core)
 
     implementation(libs.ktor.client.android)
     implementation(libs.ktor.client.serialization)
