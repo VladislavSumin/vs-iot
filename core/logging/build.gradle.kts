@@ -7,10 +7,10 @@ kotlin {
         named("jvmMain") {
             dependencies {
                 api(libs.logging.kermit)
-                api(libs.logging.log4j.api)
-                api(libs.logging.log4j.core)
-                api(libs.logging.log4j.slf4j)
-                api(libs.logging.slf4j)
+                implementation(libs.logging.log4j.api)
+                implementation(libs.logging.log4j.core)
+                implementation(libs.logging.log4j.slf4j)
+                implementation(libs.logging.slf4j)
             }
         }
     }

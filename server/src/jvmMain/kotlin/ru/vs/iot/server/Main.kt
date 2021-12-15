@@ -2,10 +2,10 @@ package ru.vs.iot.server
 
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.launch
-import org.apache.logging.log4j.LogManager
 import org.kodein.di.direct
 import org.kodein.di.instance
-import ru.vs.iot.logging.KermitLog4jWriter
+import ru.vs.iot.logging.setupDefault
+import ru.vs.iot.logging.shutdown
 import ru.vs.iot.server.domain.about.AboutServerInteractor
 import ru.vs.iot.server.web.WebServer
 
@@ -13,7 +13,7 @@ val serverScope by lazy { ServerScope(doOnCancellation = ::closeLogger) }
 
 fun main() {
     // Setup logger
-    Logger.setLogWriters(KermitLog4jWriter())
+    Logger.setupDefault()
     Logger.setTag("server")
 
     val aboutServerInteractor: AboutServerInteractor by Di.instance()
@@ -34,5 +34,5 @@ private suspend fun runServer() {
 private suspend fun closeLogger() {
     Logger.i("Shooting down logger")
     // Log4j2 logger doesn't close automatically. We must close them manually.
-    LogManager.shutdown()
+    Logger.shutdown()
 }

@@ -5,7 +5,7 @@ import co.touchlab.kermit.Severity
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.LogManager
 
-class KermitLog4jWriter : LogWriter() {
+internal class KermitLog4jWriter : LogWriter() {
     private val logger = LogManager.getLogger("Kermit")
 
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
