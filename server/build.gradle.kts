@@ -20,7 +20,7 @@ kotlin {
                 implementation(project(":core:coroutines"))
                 implementation(project(":core:serialization"))
 
-                implementation(project(":feature:entities:core"))
+                implementation(project(":feature:entities:server"))
                 implementation(project(":feature:servers:dto"))
 
                 implementation(libs.ktor.server.netty)

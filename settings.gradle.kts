@@ -35,6 +35,7 @@ include(
     ":feature:entities:client",
     ":feature:entities:core",
     ":feature:entities:dto",
+    ":feature:entities:server",
 
     ":feature:servers:client",
     ":feature:servers:dto",

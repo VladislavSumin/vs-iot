@@ -4,7 +4,7 @@ import org.kodein.di.DI
 import org.kodein.di.bindSingleton
 import ru.vs.iot.di.Modules
 import ru.vs.iot.di.i
-import ru.vs.iot.entities.featureEntitiesCore
+import ru.vs.iot.entities.featureEntities
 import ru.vs.iot.serialization.coreSerialization
 import ru.vs.iot.server.domain.about.AboutServerInteractor
 import ru.vs.iot.server.domain.about.AboutServerInteractorImpl
@@ -22,7 +22,7 @@ val Di = DI {
     importOnce(Modules.coreSerialization())
 
     // Feature modules
-    importOnce(Modules.featureEntitiesCore())
+    importOnce(Modules.featureEntities())
 
     // Interactors
     bindSingleton<AboutServerInteractor> { AboutServerInteractorImpl() }
