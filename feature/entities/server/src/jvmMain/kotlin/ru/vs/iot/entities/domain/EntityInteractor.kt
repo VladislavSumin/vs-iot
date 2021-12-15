@@ -1,4 +1,4 @@
-package ru.vs.iot.server.domain.entity
+package ru.vs.iot.entities.domain
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,7 @@ interface EntityInteractor {
     fun observeEntitiesState(): Flow<Map<Id, EntityState>>
 }
 
-class EntityInteractorImpl : EntityInteractor {
+internal class EntityInteractorImpl : EntityInteractor {
     private val entities = mutableMapOf<Id, Entity>()
     private val entitiesFlow = MutableStateFlow(entities)
 

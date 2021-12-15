@@ -1,4 +1,4 @@
-package ru.vs.iot.server.web.api
+package ru.vs.iot.entities.web.api
 
 import io.ktor.application.call
 import io.ktor.http.ContentType
@@ -9,11 +9,11 @@ import io.ktor.routing.get
 import kotlinx.coroutines.flow.first
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import ru.vs.iot.entities.domain.Entity
+import ru.vs.iot.entities.domain.EntityInteractor
 import ru.vs.iot.entities.dto.entity.EntitiesDTO
 import ru.vs.iot.entities.dto.entity.EntityDTO
 import ru.vs.iot.id.Id
-import ru.vs.iot.server.domain.entity.Entity
-import ru.vs.iot.server.domain.entity.EntityInteractor
 
 class EntityApi(
     private val entityInteractor: EntityInteractor,

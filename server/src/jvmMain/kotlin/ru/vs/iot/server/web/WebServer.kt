@@ -10,7 +10,7 @@ import io.ktor.server.netty.Netty
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.withContext
-import ru.vs.iot.server.web.api.EntityApi
+import ru.vs.iot.entities.web.api.EntityApi
 import ru.vs.iot.server.web.api.ServerApi
 import ru.vs.iot.server.web.configuration.ContentNegotiationConfiguration
 

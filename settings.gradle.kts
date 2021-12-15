@@ -23,6 +23,7 @@ include(
     ":core:coroutines",
     ":core:di",
     ":core:id",
+    ":core:ktor-server",
     ":core:navigation",
     ":core:serialization",
     ":core:uikit",

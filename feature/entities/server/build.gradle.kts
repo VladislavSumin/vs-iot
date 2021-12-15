@@ -9,6 +9,7 @@ kotlin {
             dependencies {
                 implementation(project(":core:coroutines"))
                 implementation(project(":core:di"))
+                implementation(project(":core:ktor-server"))
                 implementation(project(":core:serialization"))
 
                 api(project(":feature:entities:core"))

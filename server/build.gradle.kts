@@ -16,15 +16,13 @@ kotlin {
     sourceSets {
         named("jvmMain") {
             dependencies {
-                implementation(project(":core:di"))
                 implementation(project(":core:coroutines"))
+                implementation(project(":core:di"))
+                implementation(project(":core:ktor-server"))
                 implementation(project(":core:serialization"))
 
                 implementation(project(":feature:entities:server"))
                 implementation(project(":feature:servers:dto"))
-
-                implementation(libs.ktor.server.netty)
-                implementation(libs.ktor.server.serialization)
 
                 implementation(libs.logging.kermit)
                 implementation(libs.logging.log4j.api)
