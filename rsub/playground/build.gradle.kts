@@ -4,8 +4,9 @@ plugins {
 
 kotlin {
     sourceSets {
-        named("commonMain") {
+        named("jvmMain") {
             dependencies {
+                implementation(project(":core:ktor-server"))
             }
         }
     }
