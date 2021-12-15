@@ -36,6 +36,10 @@ include(
     "rsub:core",
     "rsub:playground",
     "rsub:server",
+
+    "rsub:connector:ktor-websocket:client",
+    "rsub:connector:ktor-websocket:core",
+    "rsub:connector:ktor-websocket:server",
 )
 
 include(
