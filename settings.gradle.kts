@@ -24,6 +24,7 @@ include(
     ":core:di",
     ":core:id",
     ":core:ktor-server",
+    ":core:logging",
     ":core:navigation",
     ":core:serialization",
     ":core:uikit",
