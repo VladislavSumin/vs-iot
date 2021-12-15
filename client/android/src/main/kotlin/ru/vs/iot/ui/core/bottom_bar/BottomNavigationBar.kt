@@ -6,6 +6,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
@@ -17,6 +18,7 @@ import ru.vs.iot.navigation.ui.LocalNavigation
 import ru.vs.iot.navigation.ui.Screen
 import ru.vs.iot.navigation.ui.command.NavigationCommand
 import ru.vs.iot.servers.ui.Servers
+import ru.vs.iot.services.ui.Services
 import ru.vs.iot.settings.ui.Settings
 
 @Composable
@@ -55,13 +57,15 @@ fun BottomNavigationBar() {
     }
 }
 
-private val items = listOf(Item.Entities, Item.Servers, Item.Settings)
+private val items = listOf(Item.Entities, Item.Services, Item.Servers, Item.Settings)
 
 private sealed class Item(
     val navigationCommand: NavigationCommand,
     val icon: ImageVector
 ) {
+    // TODO поискать и добавить адекватные иконки
     object Entities : Item(Screen.Entities, Icons.Filled.Home)
+    object Services : Item(Screen.Services, Icons.Filled.Email)
     object Servers : Item(Screen.Servers, Icons.Filled.Call)
     object Settings : Item(Screen.Settings, Icons.Filled.Settings)
 }
