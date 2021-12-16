@@ -6,6 +6,7 @@ kotlin {
     sourceSets {
         named("commonMain") {
             dependencies {
+                api(project(":rsub:core"))
             }
         }
     }

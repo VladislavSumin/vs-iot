@@ -7,6 +7,8 @@ kotlin {
         named("jvmMain") {
             dependencies {
                 implementation(project(":core:ktor-server"))
+                implementation(project(":rsub:server"))
+                implementation(project(":rsub:connector:ktor-websocket:server"))
             }
         }
     }
