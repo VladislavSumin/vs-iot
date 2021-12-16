@@ -44,6 +44,7 @@ kotlin-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serializat
 kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlin-serialization" }
 
 # Ktor
+ktor-http-cio = { module = "io.ktor:ktor-http-cio", version.ref = "ktor" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
 ktor-server-serialization = { module = "io.ktor:ktor-serialization", version.ref = "ktor" }
 ktor-server-websockets = { module = "io.ktor:ktor-websockets", version.ref = "ktor" }
