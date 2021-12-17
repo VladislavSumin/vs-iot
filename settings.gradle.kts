@@ -32,6 +32,12 @@ include(
 )
 
 include(
+    ":rsub:client",
+    ":rsub:playground",
+    ":rsub:ksp:client",
+)
+
+include(
     ":feature:default-servers",
 
     ":feature:entities:client",
