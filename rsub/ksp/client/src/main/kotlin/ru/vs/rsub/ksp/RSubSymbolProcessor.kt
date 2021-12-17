@@ -25,6 +25,7 @@ import com.squareup.kotlinpoet.ksp.toTypeName
 import com.squareup.kotlinpoet.ksp.writeTo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
+import kotlinx.serialization.json.Json
 import ru.vs.rsub.RSubClient
 import ru.vs.rsub.RSubClientAbstract
 import ru.vs.rsub.RSubConnector
@@ -48,10 +49,26 @@ class RSubSymbolProcessor(
         generateRSubClientImpl(client)
     }
 
+    @Suppress("MagicNumber")
     private fun generateRSubClientImpl(client: KSClassDeclaration) {
 
         val constructor = FunSpec.constructorBuilder()
             .addParameter("connector", RSubConnector::class)
+            .addParameter(
+                ParameterSpec.builder("reconnectInterval", Long::class)
+                    .defaultValue("%L", 3000)
+                    .build()
+            )
+            .addParameter(
+                ParameterSpec.builder("connectionKeepAliveTime", Long::class)
+                    .defaultValue("%L", 6000)
+                    .build()
+            )
+            .addParameter(
+                ParameterSpec.builder("json", Json::class)
+                    .defaultValue("%T", Json::class.asTypeName())
+                    .build()
+            )
             .addParameter(
                 ParameterSpec.builder("scope", CoroutineScope::class)
                     .defaultValue("%T", GlobalScope::class.asTypeName())
@@ -65,7 +82,7 @@ class RSubSymbolProcessor(
             .superclass(RSubClientAbstract::class)
             .addSuperinterface(client.toClassName())
             .primaryConstructor(constructor)
-            .addSuperclassConstructorParameter("connector, scope")
+            .addSuperclassConstructorParameter("connector, reconnectInterval, connectionKeepAliveTime, json, scope")
             .addProperties(generateRSubInterfacePropertiesImpl(client))
             .addTypes(generateRSubInterfaceImpls(client))
             .build()
