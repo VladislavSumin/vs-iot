@@ -9,12 +9,16 @@ import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSNode
 import com.squareup.kotlinpoet.FileSpec
+import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.ksp.KotlinPoetKspPreview
+import com.squareup.kotlinpoet.ksp.addOriginatingKSFile
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.writeTo
 import ru.vs.rsub.RSubClient
+import ru.vs.rsub.RSubClientAbstract
+import ru.vs.rsub.RSubConnector
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 
@@ -37,7 +41,15 @@ class RSubSymbolProcessor(
 
     @OptIn(KotlinPoetKspPreview::class)
     private fun generateRSubClientImpl(client: KSClassDeclaration) {
+        val constructor = FunSpec.constructorBuilder()
+            .addParameter("connector", RSubConnector::class)
+            .build()
+
         val clazz = TypeSpec.classBuilder(client.simpleName.asString() + "Impl")
+            .addOriginatingKSFile(client.containingFile!!)
+            .superclass(RSubClientAbstract::class)
+            .primaryConstructor(constructor)
+            .addSuperclassConstructorParameter("connector")
             .addSuperinterface(client.toClassName())
             .addModifiers(KModifier.INTERNAL)
             .build()
