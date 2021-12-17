@@ -137,9 +137,10 @@ class RSubSymbolProcessor(
                     .addModifiers(KModifier.OVERRIDE, KModifier.SUSPEND)
                     .returns(it.returnType!!.toTypeName())
                     .addCode(
-                        "return processSuspend(%S, %S)",
+                        "return processSuspend(%S, %S, %L)",
                         baseInterface.simpleName.asString(),
-                        it.simpleName.asString()
+                        it.simpleName.asString(),
+                        "${it.returnType!!.resolve().declaration.simpleName.asString()}::class"
                     )
                     .build()
             }

@@ -4,20 +4,31 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.retry
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromJsonElement
+import kotlinx.serialization.serializer
 import java.net.SocketException
 import java.net.SocketTimeoutException
+import java.util.concurrent.atomic.AtomicInteger
+import kotlin.reflect.KClass
 
 open class RSubClientAbstract(
     private val connector: RSubConnector,
@@ -29,6 +40,10 @@ open class RSubClientAbstract(
     scope: CoroutineScope,
     private val logger: Logger = Logger.withTag("RSubClient"),
 ) {
+    /**
+     * Contains next id, using to create new subscription with uncial id
+     */
+    private val nextId = AtomicInteger(0)
 
     /**
      * This shared flow keeps the connection open and automatically reconnects in case of errors.
@@ -37,12 +52,12 @@ open class RSubClientAbstract(
     @Suppress("TooGenericExceptionCaught")
     private val connection: Flow<ConnectionState> = channelFlow {
         logger.d("Start observe connection")
-        send(ConnectionState.Connecting)
 
         var connectionGlobal: RSubConnection? = null
         try {
             while (true) {
                 try {
+                    send(ConnectionState.Connecting)
                     val connection = connector.connect()
                     connectionGlobal = connection
                     val state = crateConnectedState(connection, this)
@@ -89,12 +104,74 @@ open class RSubClientAbstract(
      */
     fun observeConnectionStatus(): Flow<RSubConnectionStatus> = connection.map { it.status }
 
-    protected suspend fun <T> processSuspend(
+    @Suppress("TooGenericExceptionCaught")
+    protected suspend fun <T : Any> processSuspend(
         interfaceName: String,
         methodName: String,
+        type: KClass<T>
     ): T {
-        return TODO()
+        return withConnection { connection ->
+            val id = nextId.getAndIncrement()
+            try {
+                // TODO
+                coroutineScope {
+                    val responseDeferred = async { connection.incoming.filter { it.id == id }.first() }
+
+                    connection.subscribe(id, interfaceName, methodName)
+
+                    val response = responseDeferred.await()
+
+                    parseServerMessage(response, type)
+                }
+            } catch (e: Exception) {
+                withContext(NonCancellable) {
+                    connection.unsubscribe(id)
+                }
+                throw e
+            }
+        }
     }
+
+//    private fun processFlow(
+//        name: String,
+//        method: KFunction<*>,
+//        arguments: Array<Any?>?
+//    ): Flow<Any?> = channelFlow {
+//        //Check reconnect policy
+//        val throwException = when (
+//            method.findAnnotation<RSubFlowPolicy>()?.policy ?: RSubFlowPolicy.Policy.THROW_EXCEPTION
+//        ) {
+//            RSubFlowPolicy.Policy.THROW_EXCEPTION -> true
+//            RSubFlowPolicy.Policy.SUPPRESS_EXCEPTION_AND_RECONNECT -> false
+//        }
+//
+//        withConnection(throwException) { connection ->
+//            val id = nextId.getAndIncrement()
+//            try {
+//                coroutineScope {
+//                    launch {
+//                        connection.incoming
+//                            .filter { it.id == id }
+//                            .collect {
+//                                val item = parseServerMessage(
+//                                    it,
+//                                    method.returnType.arguments[0].type!!
+//                                )
+//                                send(item)
+//                            }
+//                    }
+//                    connection.subscribe(id, name, method, arguments)
+//                }
+//            } catch (e: FlowCompleted) {
+//                // suppress
+//            } catch (e: Exception) {
+//                withContext(NonCancellable) {
+//                    connection.unsubscribe(id)
+//                }
+//                throw e
+//            }
+//        }
+//    }
 
     /**
      * Create wrapped connection, with shared receive flow
@@ -113,6 +190,83 @@ open class RSubClientAbstract(
         )
     }
 
+    /**
+     * Try to subscribe to [connection], wait connected state and execute given block with [ConnectionState.Connected]
+     * If connection failed throw exception
+     *
+     * @param throwOnDisconnect - if false then suppress network exception form socket and [block],
+     * and then if false retry to call [block]
+     */
+    @Suppress("TooGenericExceptionThrown")
+    private suspend fun <T> withConnection(
+        throwOnDisconnect: Boolean = true,
+        block: suspend (connection: ConnectionState.Connected) -> T
+    ): T {
+        return connection.filter {
+            when (it) {
+                is ConnectionState.Connecting -> false
+                is ConnectionState.Connected -> true
+                is ConnectionState.Disconnected ->
+                    // TODO добавить кастомные ошибки
+                    if (throwOnDisconnect) throw RuntimeException("Connection in state DISCONNECTED")
+                    else false
+            }
+        }
+            .map { it as ConnectionState.Connected }
+            // Hack, use map to prevent closing connection.
+            // Connection subscription active all time while block executing.
+            .mapLatest(block)
+            .retry {
+                when {
+                    // TODO unexpected coroutine behavior, check if fixed on new version
+//                    it is CancellationException -> {
+//                        log.warn("Connection was canceled by previous connection")
+//                        true
+//                    }
+                    throwOnDisconnect -> false
+                    it is SocketException -> true
+                    else -> {
+                        logger.e("Unexpected exception ", it)
+                        false
+                    }
+                }
+            }
+            .first()
+    }
+
+    @OptIn(InternalSerializationApi::class)
+    @Suppress("ThrowsCount", "TooGenericExceptionThrown")
+    private fun <T : Any> parseServerMessage(message: RSubMessage, kClass: KClass<T>): T {
+        return when (message) {
+            is RSubMessage.Data -> {
+                val data = message.data
+                if (data != null)
+                    json.decodeFromJsonElement(
+                        kClass.serializer(),
+                        data
+                    )
+                // TODO
+                else Unit as T
+            }
+            is RSubMessage.FlowComplete -> throw FlowCompleted()
+            is RSubMessage.Error -> throw RuntimeException("Server return error")
+            is RSubMessage.Subscribe, is RSubMessage.Unsubscribe -> throw RuntimeException("Unexpected server data")
+        }
+    }
+
+    private suspend fun ConnectionState.Connected.subscribe(
+        id: Int,
+        name: String,
+        methodName: String,
+        // arguments: Array<Any?>?
+    ) {
+        send(RSubMessage.Subscribe(id, name, methodName))
+    }
+
+    private suspend fun ConnectionState.Connected.unsubscribe(id: Int) {
+        this.send(RSubMessage.Unsubscribe(id))
+    }
+
     private sealed class ConnectionState(val status: RSubConnectionStatus) {
         object Connecting : ConnectionState(RSubConnectionStatus.CONNECTING)
         class Connected(
@@ -122,4 +276,6 @@ open class RSubClientAbstract(
 
         object Disconnected : ConnectionState(RSubConnectionStatus.DISCONNECTED)
     }
+
+    private class FlowCompleted : Exception()
 }
