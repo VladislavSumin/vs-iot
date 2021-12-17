@@ -19,6 +19,7 @@ import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.ksp.KotlinPoetKspPreview
 import com.squareup.kotlinpoet.ksp.addOriginatingKSFile
 import com.squareup.kotlinpoet.ksp.toClassName
+import com.squareup.kotlinpoet.ksp.toTypeName
 import com.squareup.kotlinpoet.ksp.writeTo
 import ru.vs.rsub.RSubClient
 import ru.vs.rsub.RSubClientAbstract
@@ -95,8 +96,25 @@ class RSubSymbolProcessor(
             .map {
                 val superInterface = it.type.resolve().declaration as KSClassDeclaration
                 TypeSpec.classBuilder("${superInterface.simpleName.asString()}Impl")
-                    .addSuperinterface(superInterface.toClassName())
                     .addModifiers(KModifier.INNER, KModifier.PRIVATE)
+                    .addSuperinterface(superInterface.toClassName())
+                    .addFunctions(generateRSubInterfaceFunctionsImpls(superInterface))
+                    .build()
+            }
+            .asIterable()
+
+    private fun generateRSubInterfaceFunctionsImpls(baseInterface: KSClassDeclaration) =
+        baseInterface.getAllFunctions()
+            .filter { it.isAbstract }
+            .map {
+                FunSpec.builder(it.simpleName.asString())
+                    .addModifiers(KModifier.OVERRIDE, KModifier.SUSPEND)
+                    .returns(it.returnType!!.toTypeName())
+                    .addCode(
+                        "return processSuspend(%S, %S)",
+                        baseInterface.simpleName.asString(),
+                        it.simpleName.asString()
+                    )
                     .build()
             }
             .asIterable()
