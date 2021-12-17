@@ -4,6 +4,7 @@ plugins {
 }
 
 dependencies {
+    api(project(":core:coroutines"))
     implementation(libs.kotlin.serialization.core)
     implementation(libs.kotlin.serialization.json)
 }

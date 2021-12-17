@@ -14,13 +14,17 @@ import com.google.devtools.ksp.symbol.KSNode
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.asTypeName
 import com.squareup.kotlinpoet.ksp.KotlinPoetKspPreview
 import com.squareup.kotlinpoet.ksp.addOriginatingKSFile
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
 import com.squareup.kotlinpoet.ksp.writeTo
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
 import ru.vs.rsub.RSubClient
 import ru.vs.rsub.RSubClientAbstract
 import ru.vs.rsub.RSubConnector
@@ -48,6 +52,11 @@ class RSubSymbolProcessor(
 
         val constructor = FunSpec.constructorBuilder()
             .addParameter("connector", RSubConnector::class)
+            .addParameter(
+                ParameterSpec.builder("scope", CoroutineScope::class)
+                    .defaultValue("%T", GlobalScope::class.asTypeName())
+                    .build()
+            )
             .build()
 
         val clazz = TypeSpec.classBuilder(client.simpleName.asString() + "Impl")
@@ -56,7 +65,7 @@ class RSubSymbolProcessor(
             .superclass(RSubClientAbstract::class)
             .addSuperinterface(client.toClassName())
             .primaryConstructor(constructor)
-            .addSuperclassConstructorParameter("connector")
+            .addSuperclassConstructorParameter("connector, scope")
             .addProperties(generateRSubInterfacePropertiesImpl(client))
             .addTypes(generateRSubInterfaceImpls(client))
             .build()
