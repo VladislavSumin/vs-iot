@@ -85,5 +85,6 @@ android-accompanist-navigation-animation = { module = "com.google.accompanist:ac
 android-accompanist-swiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "android-accompanist" }
 
 # Other
-kotlinpoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinpoet" }
+kotlinpoet-core = { module = "com.squareup:kotlinpoet", version.ref = "kotlinpoet" }
+kotlinpoet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlinpoet" }
 ksp = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
