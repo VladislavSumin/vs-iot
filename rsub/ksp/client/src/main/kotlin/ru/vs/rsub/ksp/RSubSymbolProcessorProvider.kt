@@ -6,6 +6,6 @@ import com.google.devtools.ksp.processing.SymbolProcessorProvider
 
 class RSubSymbolProcessorProvider : SymbolProcessorProvider {
     override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
-        TODO("Not yet implemented")
+        return RSubSymbolProcessor(environment.codeGenerator, environment.logger)
     }
 }
