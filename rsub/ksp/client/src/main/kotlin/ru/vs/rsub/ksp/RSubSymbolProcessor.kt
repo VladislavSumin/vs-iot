@@ -1,5 +1,8 @@
+@file:OptIn(KotlinPoetKspPreview::class)
+
 package ru.vs.rsub.ksp
 
+import com.google.devtools.ksp.isAbstract
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
@@ -11,6 +14,7 @@ import com.google.devtools.ksp.symbol.KSNode
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.ksp.KotlinPoetKspPreview
 import com.squareup.kotlinpoet.ksp.addOriginatingKSFile
@@ -39,19 +43,21 @@ class RSubSymbolProcessor(
         generateRSubClientImpl(client)
     }
 
-    @OptIn(KotlinPoetKspPreview::class)
     private fun generateRSubClientImpl(client: KSClassDeclaration) {
+
         val constructor = FunSpec.constructorBuilder()
             .addParameter("connector", RSubConnector::class)
             .build()
 
         val clazz = TypeSpec.classBuilder(client.simpleName.asString() + "Impl")
             .addOriginatingKSFile(client.containingFile!!)
+            .addModifiers(KModifier.INTERNAL)
             .superclass(RSubClientAbstract::class)
+            .addSuperinterface(client.toClassName())
             .primaryConstructor(constructor)
             .addSuperclassConstructorParameter("connector")
-            .addSuperinterface(client.toClassName())
-            .addModifiers(KModifier.INTERNAL)
+            .addProperties(generateRSubInterfacePropertiesImpl(client))
+            .addTypes(generateRSubInterfaceImpls(client))
             .build()
 
 //        val operator = FunSpec.builder("invoke")
@@ -67,6 +73,33 @@ class RSubSymbolProcessor(
 
         file.writeTo(codeGenerator, false)
     }
+
+    private fun generateRSubInterfacePropertiesImpl(client: KSClassDeclaration) =
+        client.getAllProperties()
+            .filter { it.isAbstract() }
+            .map {
+                val superInterface = it.type.resolve().declaration as KSClassDeclaration
+                PropertySpec.builder(
+                    it.simpleName.asString(),
+                    superInterface.toClassName(),
+                    KModifier.OVERRIDE
+                )
+                    .initializer("${superInterface.simpleName.asString()}Impl()")
+                    .build()
+            }
+            .asIterable()
+
+    private fun generateRSubInterfaceImpls(client: KSClassDeclaration): Iterable<TypeSpec> =
+        client.getAllProperties()
+            .filter { it.isAbstract() }
+            .map {
+                val superInterface = it.type.resolve().declaration as KSClassDeclaration
+                TypeSpec.classBuilder("${superInterface.simpleName.asString()}Impl")
+                    .addSuperinterface(superInterface.toClassName())
+                    .addModifiers(KModifier.INNER, KModifier.PRIVATE)
+                    .build()
+            }
+            .asIterable()
 
     @OptIn(ExperimentalContracts::class)
     private fun check(value: Boolean, node: KSNode, message: String) {
