@@ -8,12 +8,17 @@ import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
+import com.google.devtools.ksp.symbol.KSType
 import com.squareup.kotlinpoet.FileSpec
+import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.asTypeName
 import com.squareup.kotlinpoet.ksp.KotlinPoetKspPreview
 import com.squareup.kotlinpoet.ksp.addOriginatingKSFile
 import com.squareup.kotlinpoet.ksp.toClassName
+import com.squareup.kotlinpoet.ksp.toTypeName
 import com.squareup.kotlinpoet.ksp.writeTo
 import ru.vs.rsub.RSubServerSubscriptions
 import ru.vs.rsub.RSubServerSubscriptionsImpls
@@ -38,7 +43,7 @@ class RSubSymbolProcessor(
             .addModifiers(KModifier.INTERNAL)
             .addSuperinterface(subscriptions.toClassName())
             .addSuperinterface(RSubServerSubscriptionsImpls::class)
-            // .primaryConstructor(constructor)
+            .primaryConstructor(generateConstructor(subscriptions))
             // .addProperties(generateRSubInterfacePropertiesImpl(client))
             // .addTypes(generateRSubInterfaceImpls(client))
             .build()
@@ -48,5 +53,21 @@ class RSubSymbolProcessor(
             .build()
 
         file.writeTo(codeGenerator, false)
+    }
+
+    private fun generateConstructor(subscriptions: KSClassDeclaration): FunSpec {
+        val annotation = subscriptions.annotations
+            .first { it.annotationType.toTypeName() == RSubServerSubscriptions::class.asTypeName() }
+        val impls = annotation.arguments.first().value!! as List<KSType>
+
+        val params = impls.map {
+            // TODO приводить к нижнему только первую букву
+            ParameterSpec.builder(it.toClassName().simpleName.lowercase(), it.toClassName())
+                .addModifiers(KModifier.PRIVATE)
+                .build()
+        }
+        return FunSpec.constructorBuilder()
+            .addParameters(params)
+            .build()
     }
 }
