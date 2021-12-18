@@ -1,3 +1,5 @@
 package ru.vs.rsub
 
-annotation class RSubServerSubscriptions()
+@Retention(AnnotationRetention.SOURCE)
+@Target(AnnotationTarget.CLASS)
+annotation class RSubServerSubscriptions

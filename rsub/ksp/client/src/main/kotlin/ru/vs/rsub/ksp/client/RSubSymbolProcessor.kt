@@ -1,6 +1,6 @@
 @file:OptIn(KotlinPoetKspPreview::class)
 
-package ru.vs.rsub.ksp
+package ru.vs.rsub.ksp.client
 
 import com.google.devtools.ksp.isAbstract
 import com.google.devtools.ksp.processing.CodeGenerator
@@ -86,13 +86,6 @@ class RSubSymbolProcessor(
             .addProperties(generateRSubInterfacePropertiesImpl(client))
             .addTypes(generateRSubInterfaceImpls(client))
             .build()
-
-//        val operator = FunSpec.builder("invoke")
-//            .receiver(client.toClassName())
-//            .returns(client.toClassName())
-//            .addModifiers(KModifier.OPERATOR, KModifier.INTERNAL)
-//            .addStatement("return  ${clazz.name!!}()")
-//            .build()
 
         val file = FileSpec.builder(client.packageName.asString(), "${client.simpleName.asString()}Impl")
             .addType(clazz)

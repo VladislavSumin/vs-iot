@@ -1,4 +1,4 @@
-package ru.vs.rsub.ksp
+package ru.vs.rsub.ksp.client
 
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
