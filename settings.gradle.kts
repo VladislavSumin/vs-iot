@@ -35,6 +35,7 @@ include(
     ":rsub:client",
     ":rsub:core",
     ":rsub:playground",
+    ":rsub:test",
     ":rsub:ksp:client",
 )
 

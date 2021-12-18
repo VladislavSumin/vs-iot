@@ -3,6 +3,7 @@ package ru.vs.rsub
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -23,7 +24,6 @@ import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromJsonElement
 import kotlinx.serialization.serializer
 import java.net.SocketException
 import java.net.SocketTimeoutException
@@ -36,8 +36,8 @@ open class RSubClientAbstract(
     private val reconnectInterval: Long = 3000,
     connectionKeepAliveTime: Long = 6000,
 
-    private val json: Json,
-    scope: CoroutineScope,
+    private val json: Json = Json,
+    scope: CoroutineScope = GlobalScope,
     private val logger: Logger = Logger.withTag("RSubClient"),
 ) {
     /**
@@ -57,11 +57,15 @@ open class RSubClientAbstract(
         try {
             while (true) {
                 try {
-                    send(ConnectionState.Connecting)
-                    val connection = connector.connect()
-                    connectionGlobal = connection
-                    val state = crateConnectedState(connection, this)
-                    send(state)
+                    // this cope prevents reconnect before old connection receive flow not closed
+                    // see crateConnectedState
+                    coroutineScope {
+                        send(ConnectionState.Connecting)
+                        val connection = connector.connect()
+                        connectionGlobal = connection
+                        val state = crateConnectedState(connection, this)
+                        send(state)
+                    }
                 } catch (e: Exception) {
                     when (e) {
                         is SocketTimeoutException,

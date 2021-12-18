@@ -28,6 +28,12 @@ android-accompanist = "0.21.4-beta"
 
 jb-compose = "1.0.0"
 
+testing-junit5-core = "5.8.1"
+testing-junit5-platformSuite = "1.8.1"
+testing-mockito-core = "2.21.0"
+testing-mockito-kotlin = "4.0.0"
+testing-turbine = "0.7.0"
+
 [libraries]
 # Plugins
 gradlePlugins-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -42,6 +48,7 @@ gradlePlugins-ksp = { module = "com.google.devtools.ksp:symbol-processing-gradle
 
 # Kotlin
 kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-coroutines" }
+kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlin-coroutines" }
 kotlin-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlin-serialization" }
 kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlin-serialization" }
 
@@ -88,3 +95,13 @@ android-accompanist-swiperefresh = { module = "com.google.accompanist:accompanis
 kotlinpoet-core = { module = "com.squareup:kotlinpoet", version.ref = "kotlinpoet" }
 kotlinpoet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlinpoet" }
 ksp = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
+
+# Testing
+testing-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "testing-junit5-core" }
+testing-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "testing-junit5-core" }
+testing-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "testing-junit5-core" }
+testing-jupiter-platformSuite = { module = "org.junit.platform:junit-platform-suite", version.ref = "testing-junit5-platformSuite" }
+testing-mockito-core = { module = "org.mockito:mockito-core", version.ref = "testing-mockito-core" }
+testing-mockito-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "testing-mockito-core" }
+testing-mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "testing-mockito-kotlin" }
+testing-turbine = { module = "app.cash.turbine:turbine", version.ref = "testing-turbine" }
