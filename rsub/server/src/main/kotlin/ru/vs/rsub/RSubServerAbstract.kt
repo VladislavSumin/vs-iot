@@ -1,6 +1,7 @@
 package ru.vs.rsub
 
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
@@ -10,18 +11,16 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.serializer
-import kotlin.reflect.KType
+import kotlinx.serialization.json.encodeToJsonElement
 
 abstract class RSubServerAbstract(
+    private val rSubServerSubscriptions: RSubServerSubscriptionsAbstract,
     private val json: Json = Json,
-    private val logger: Logger = Logger.withTag("RSubClient"),
+    private val logger: Logger = Logger.withTag("RSubServer"),
 ) {
     suspend fun handleNewConnection(connection: RSubConnection): Unit = coroutineScope {
         ConnectionHandler(connection).handle()
     }
-
-    protected abstract fun findSubscription(interfaceName: String, methodName: String): RSubServerSubscription
 
     private inner class ConnectionHandler(
         private val connection: RSubConnection
@@ -54,39 +53,38 @@ abstract class RSubServerAbstract(
         // TODO make cancelable
         private suspend fun processSubscribe(request: RSubMessage.Subscribe, scope: CoroutineScope) {
             val job = scope.launch(start = CoroutineStart.LAZY) {
-//                logger.v("Subscribe id=${request.id} to ${request.interfaceName}::${request.functionName}")
-//                val rSubInterface = impls[request.interfaceName]!!.first
-//                val instance = impls[request.interfaceName]!!.second
-//                val kFunction = rSubInterface.functions.find { it.name == request.functionName }!!
-//
-//                try {
-//                    if (kFunction.isSuspend) {
-//                        val response = suspendCoroutine<Any?> {
-//                            it.resume(kFunction.call(instance, it))
-//                        }
-//                        sendData(request.id, kFunction.returnType, response)
-//                    } else {
-//                        val flow = kFunction.call(instance) as Flow<*>
-//                        flow.collect {
-//                            sendData(request.id, kFunction.returnType.arguments[0].type!!, it)
-//                        }
-//                        send(RSubMessage.FlowComplete(request.id))
-//                    }
-//                } catch (e: Exception) {
-//                    send(RSubMessage.Error(request.id))
-//                    activeSubscriptions.remove(request.id)
-//
-//                    if (e is CancellationException) throw e
-//                    log.trace(
-//                        "Error on subscription id=${request.id} to ${request.interfaceName}::${request.functionName}",
-//                        e
-//                    )
-//                    return@launch
-//                }
-//
-//
-//                log.trace("Complete subscription id=${request.id} to ${request.interfaceName}::${request.functionName}")
-//                activeSubscriptions.remove(request.id)
+                logger.v("Subscribe id=${request.id} to ${request.interfaceName}::${request.functionName}")
+
+                val impl = rSubServerSubscriptions.getImpl(request.interfaceName, request.functionName)
+
+                try {
+                    when (impl) {
+                        is RSubServerSubscription.SuspendSub<*> -> {
+                            val response = impl.get()
+                            sendData(request.id, response)
+                        }
+                        is RSubServerSubscription.FlowSub<*> -> {
+//                            val flow = kFunction.call(instance) as Flow<*>
+//                            flow.collect {
+//                                sendData(request.id, kFunction.returnType.arguments[0].type!!, it)
+//                            }
+//                            send(RSubMessage.FlowComplete(request.id))
+                        }
+                    }
+                } catch (e: Exception) {
+                    send(RSubMessage.Error(request.id))
+                    activeSubscriptions.remove(request.id)
+
+                    if (e is CancellationException) throw e
+                    logger.v(
+                        "Error on subscription id=${request.id} to ${request.interfaceName}::${request.functionName}",
+                        e
+                    )
+                    return@launch
+                }
+
+                logger.v("Complete subscription id=${request.id} to ${request.interfaceName}::${request.functionName}")
+                activeSubscriptions.remove(request.id)
             }
             activeSubscriptions[request.id] = job
             job.start()
@@ -97,10 +95,10 @@ abstract class RSubServerAbstract(
             activeSubscriptions.remove(request.id)?.cancel()
         }
 
-        private suspend fun sendData(id: Int, type: KType, data: Any?) {
+        private suspend fun sendData(id: Int, data: Any?) {
             val responsePayload =
                 json.encodeToJsonElement(
-                    json.serializersModule.serializer(type),
+                    // json.serializersModule.serializer(type),
                     data
                 )
             val message = RSubMessage.Data(
