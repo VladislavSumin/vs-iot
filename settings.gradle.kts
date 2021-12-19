@@ -32,12 +32,18 @@ include(
 )
 
 include(
-    ":rsub:client",
     ":rsub:core",
+    ":rsub:client",
+    ":rsub:server",
+
     ":rsub:ksp:client",
     ":rsub:ksp:server",
+
+    ":rsub:connector:ktor-websocket:core",
+    ":rsub:connector:ktor-websocket:client",
+    ":rsub:connector:ktor-websocket:server",
+
     ":rsub:playground",
-    ":rsub:server",
     ":rsub:test",
 )
 
