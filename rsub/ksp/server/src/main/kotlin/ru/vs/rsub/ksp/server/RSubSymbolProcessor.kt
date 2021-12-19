@@ -29,6 +29,8 @@ class RSubSymbolProcessor(
     private val codeGenerator: CodeGenerator,
     private val logger: KSPLogger,
 ) : SymbolProcessor {
+    private val subscriptionWrapperGenerator = RSubSubscriptionWrapperGenerator(logger)
+
     override fun process(resolver: Resolver): List<KSAnnotated> {
         resolver.getSymbolsWithAnnotation(RSubServerSubscriptions::class.qualifiedName!!)
             .forEach(this::processSubscriptions)
@@ -78,18 +80,7 @@ class RSubSymbolProcessor(
             .first { it.annotationType.toTypeName() == RSubServerSubscriptions::class.asTypeName() }
         val impls = annotation.arguments.first().value!! as List<KSType>
 
-        return impls.map(this::generateWrapper)
-    }
-
-    private fun generateWrapper(impl: KSType): TypeSpec {
-        val constructor = FunSpec.constructorBuilder()
-            .addParameter(impl.toClassName().simpleName.decapitalize(), impl.toTypeName())
-            .build()
-        return TypeSpec.classBuilder(impl.toClassName().simpleName + "Wrapper")
-            .addModifiers(KModifier.PRIVATE)
-            .primaryConstructor(constructor)
-            .superclass(RSubServerSubscriptionsAbstract.InterfaceWrapperAbstract::class)
-            .build()
+        return impls.map(subscriptionWrapperGenerator::generateSubscriptionWrapper)
     }
 
     private fun generateInitializer(subscriptions: KSClassDeclaration): CodeBlock {
@@ -106,8 +97,6 @@ class RSubSymbolProcessor(
                 it.toClassName().simpleName.decapitalize(),
             )
         }
-        return builder
-            .build()
-
+        return builder.build()
     }
 }
