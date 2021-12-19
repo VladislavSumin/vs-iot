@@ -7,7 +7,7 @@ open class RSubServerSubscriptionsAbstract {
         return impls[name]!!.methodImpls[methodName]!!
     }
 
-    abstract class InterfaceWrapperAbstract {
+    open class InterfaceWrapperAbstract {
         val methodImpls: MutableMap<String, RSubServerSubscription> = mutableMapOf()
     }
 }

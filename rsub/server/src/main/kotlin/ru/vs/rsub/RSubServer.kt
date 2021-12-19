@@ -13,7 +13,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToJsonElement
 
-abstract class RSubServerAbstract(
+class RSubServer(
     private val rSubServerSubscriptions: RSubServerSubscriptionsAbstract,
     private val json: Json = Json,
     private val logger: Logger = Logger.withTag("RSubServer"),
@@ -51,6 +51,7 @@ abstract class RSubServerAbstract(
         // TODO check possible data corrupt on id error from client (add sync?)
         // TODO add error handling
         // TODO make cancelable
+        @Suppress("TooGenericExceptionCaught")
         private suspend fun processSubscribe(request: RSubMessage.Subscribe, scope: CoroutineScope) {
             val job = scope.launch(start = CoroutineStart.LAZY) {
                 logger.v("Subscribe id=${request.id} to ${request.interfaceName}::${request.functionName}")

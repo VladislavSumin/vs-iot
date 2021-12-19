@@ -14,6 +14,7 @@ import ru.vs.rsub.RSubServerSubscription
 import ru.vs.rsub.RSubServerSubscriptionsAbstract
 
 @OptIn(KotlinPoetKspPreview::class)
+@Suppress("UnusedPrivateMember")
 class RSubSubscriptionWrapperGenerator(
     private val logger: KSPLogger,
 ) {
