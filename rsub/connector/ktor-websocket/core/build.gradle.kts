@@ -4,4 +4,5 @@ plugins {
 
 dependencies {
     api(project(":rsub:core"))
+    api(libs.ktor.cio)
 }
