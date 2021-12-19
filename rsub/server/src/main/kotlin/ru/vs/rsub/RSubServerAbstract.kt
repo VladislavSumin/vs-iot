@@ -5,7 +5,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
@@ -22,7 +21,7 @@ abstract class RSubServerAbstract(
         ConnectionHandler(connection).handle()
     }
 
-    protected abstract fun findSubscription(interfaceName: String, methodName: String): Subscription
+    protected abstract fun findSubscription(interfaceName: String, methodName: String): RSubServerSubscription
 
     private inner class ConnectionHandler(
         private val connection: RSubConnection
@@ -110,15 +109,5 @@ abstract class RSubServerAbstract(
             )
             send(message)
         }
-    }
-
-    protected interface Subscription
-
-    protected abstract class SuspendSubscription<T : Any> : Subscription {
-        abstract suspend fun get(): T
-    }
-
-    protected abstract class FlowSubscription<T : Any> : Subscription {
-        abstract fun get(): Flow<T>
     }
 }
