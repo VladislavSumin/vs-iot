@@ -68,6 +68,7 @@ open class RSubClientAbstract(
                     }
                 } catch (e: Exception) {
                     when (e) {
+                        // TODO вынести проверку таких исключений в connection
                         is SocketTimeoutException,
                         is SocketException -> {
                             logger.d("Connection failed by socket exception: ${e.message}")
@@ -78,8 +79,10 @@ open class RSubClientAbstract(
                         }
                         is CancellationException -> throw e
                         else -> {
-                            logger.e("Unknown exception on connection", e)
-                            throw e
+                            val message = "Unknown exception on connection or listening"
+                            val exception = RSubException(message, e)
+                            logger.e(message, exception)
+                            throw exception
                         }
                     }
                 }
