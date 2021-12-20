@@ -26,6 +26,7 @@ version = "1.0-SNAPSHOT"
 tasks.register("ci") {
     dependsOn(":client:android:assemble")
     dependsOn(":server:assemble")
+    dependsOn(":rsub:playground:assemble")
     dependsOn(":dependencyUpdates")
 }
 
