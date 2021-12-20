@@ -9,8 +9,8 @@ kotlinpoet = "1.10.2"
 ktor = "1.6.7"
 kodein = "7.9.0"
 
-logging-kermit = "1.0.2"
-logging-log4j = "2.16.0"
+logging-kermit = "1.0.3"
+logging-log4j = "2.17.0"
 logging-slf4j = "1.7.32"
 
 gradlePlugins-checkUpdates = "0.39.0"
