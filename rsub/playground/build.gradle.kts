@@ -12,8 +12,10 @@ sourceSets {
 }
 
 dependencies {
-    implementation(project(":rsub:client"))
-    implementation(project(":rsub:server"))
+    implementation(project(":rsub:connector:ktor-websocket:client"))
+    implementation(project(":rsub:connector:ktor-websocket:server"))
+    implementation(project(":core:ktor-server"))
+    implementation(libs.ktor.client.okhttp)
     ksp(project(":rsub:ksp:client"))
     ksp(project(":rsub:ksp:server"))
 }
