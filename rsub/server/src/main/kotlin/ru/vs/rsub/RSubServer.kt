@@ -8,10 +8,12 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToJsonElement
+import kotlinx.serialization.serializer
 
 class RSubServer(
     private val rSubServerSubscriptions: RSubServerSubscriptionsAbstract,
@@ -96,9 +98,12 @@ class RSubServer(
             activeSubscriptions.remove(request.id)?.cancel()
         }
 
+        @OptIn(InternalSerializationApi::class)
         private suspend fun sendData(id: Int, data: Any?) {
             val responsePayload =
                 json.encodeToJsonElement(
+                    // TODO
+                    data!!.javaClass.kotlin.serializer(),
                     // json.serializersModule.serializer(type),
                     data
                 )
