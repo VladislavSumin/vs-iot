@@ -2,6 +2,7 @@ package ru.vs.rsub
 
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.NonCancellable
@@ -19,6 +20,7 @@ import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.retry
 import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.plus
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.decodeFromString
@@ -98,7 +100,7 @@ open class RSubClientAbstract(
         .distinctUntilChanged()
         .onEach { logger.d("New connection status: ${it.status}") }
         .shareIn(
-            scope,
+            scope + CoroutineName("RSubClient::connection"),
             SharingStarted.WhileSubscribed(
                 stopTimeoutMillis = connectionKeepAliveTime,
                 replayExpirationMillis = 0

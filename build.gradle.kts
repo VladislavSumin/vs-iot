@@ -27,6 +27,7 @@ tasks.register("ci") {
     dependsOn(":client:android:assemble")
     dependsOn(":server:assemble")
     dependsOn(":rsub:playground:assemble")
+    dependsOn(":rsub:test:test")
     dependsOn(":dependencyUpdates")
 }
 
