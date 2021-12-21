@@ -17,6 +17,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
 import org.mockito.kotlin.any
+import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.reset
 import org.mockito.kotlin.times
@@ -26,6 +27,7 @@ import ru.vs.rsub.RSubClientAbstract
 import ru.vs.rsub.RSubConnection
 import ru.vs.rsub.RSubConnectionStatus
 import ru.vs.rsub.RSubConnector
+import java.net.SocketException
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension::class)
@@ -71,6 +73,29 @@ class ClientAbstractTest {
         scope.coroutineContext.job.join()
 
         verify(connector, times(1)).connect()
+        verify(connection, times(1)).receive
+        verify(connection, times(0)).send(any())
+        verify(connection, times(1)).close()
+    }
+
+    @Test
+    fun `fail at first connection try and success on reconnect`(): Unit = runBlocking {
+        whenever(connector.connect())
+            .doAnswer { throw SocketException("test exception") }
+            .doReturn(connection)
+
+        client.observeConnectionStatus().test {
+            assertEquals(RSubConnectionStatus.CONNECTING, awaitItem())
+            assertEquals(RSubConnectionStatus.DISCONNECTED, awaitItem())
+            assertEquals(RSubConnectionStatus.CONNECTING, awaitItem())
+            assertEquals(RSubConnectionStatus.CONNECTED, awaitItem())
+            cancel()
+        }
+
+        scope.cancel()
+        scope.coroutineContext.job.join()
+
+        verify(connector, times(2)).connect()
         verify(connection, times(1)).receive
         verify(connection, times(0)).send(any())
         verify(connection, times(1)).close()
