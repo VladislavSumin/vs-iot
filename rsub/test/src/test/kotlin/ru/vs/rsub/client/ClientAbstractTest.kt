@@ -27,7 +27,7 @@ import ru.vs.rsub.RSubClientAbstract
 import ru.vs.rsub.RSubConnection
 import ru.vs.rsub.RSubConnectionStatus
 import ru.vs.rsub.RSubConnector
-import java.net.SocketException
+import ru.vs.rsub.RSubExpectedExceptionOnConnectionException
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension::class)
@@ -81,7 +81,7 @@ class ClientAbstractTest {
     @Test
     fun `fail at first connection try and success on reconnect`(): Unit = runBlocking {
         whenever(connector.connect())
-            .doAnswer { throw SocketException("test exception") }
+            .doAnswer { throw RSubExpectedExceptionOnConnectionException("test exception", Exception()) }
             .doReturn(connection)
 
         client.observeConnectionStatus().test {

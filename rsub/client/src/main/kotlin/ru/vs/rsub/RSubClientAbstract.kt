@@ -28,7 +28,6 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
 import java.net.SocketException
-import java.net.SocketTimeoutException
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.reflect.KClass
 
@@ -70,10 +69,8 @@ open class RSubClientAbstract(
                     }
                 } catch (e: Exception) {
                     when (e) {
-                        // TODO вынести проверку таких исключений в connection
-                        is SocketTimeoutException,
-                        is SocketException -> {
-                            logger.d("Connection failed by socket exception: ${e.message}")
+                        is RSubExpectedExceptionOnConnectionException -> {
+                            logger.d("Connection failed with checked exception: ${e.message}")
                             send(ConnectionState.Disconnected)
                             connectionGlobal?.close()
                             delay(reconnectInterval)

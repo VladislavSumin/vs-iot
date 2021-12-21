@@ -2,4 +2,10 @@
 
 package ru.vs.rsub
 
-class RSubException(message: String, cause: Throwable) : RuntimeException(message, cause)
+open class RSubException(message: String, cause: Throwable) : RuntimeException(message, cause)
+
+/**
+ * throw this when catch expected exception while connection
+ * if that exception catch, then rSubClient try to reconnect
+ */
+class RSubExpectedExceptionOnConnectionException(message: String, cause: Throwable) : RSubException(message, cause)
