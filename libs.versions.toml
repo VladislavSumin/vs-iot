@@ -29,9 +29,9 @@ android-accompanist = "0.22.0-rc"
 
 jb-compose = "1.0.0"
 
-testing-junit5-core = "5.8.1"
-testing-junit5-platformSuite = "1.8.1"
-testing-mockito-core = "2.21.0"
+testing-junit5-core = "5.8.2"
+testing-junit5-platformSuite = "1.8.2"
+testing-mockito-core = "4.2.0"
 testing-mockito-kotlin = "4.0.0"
 testing-turbine = "0.7.0"
 
