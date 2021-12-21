@@ -20,11 +20,11 @@ gradlePlugins-detekt = "1.19.0"
 
 android-core = "1.7.0"
 android-datastore = "1.0.0"
-android-compose = "1.1.0-beta04"
+android-compose = "1.1.0-rc01"
 android-activity-compose = "1.4.0"
 android-lifecycle = "2.4.0"
-android-navigation = "2.4.0-beta02"
-android-accompanist = "0.21.4-beta"
+android-navigation = "2.4.0-rc01"
+android-accompanist = "0.22.0-rc"
 
 jb-compose = "1.0.0"
 
