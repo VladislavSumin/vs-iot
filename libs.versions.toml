@@ -7,7 +7,7 @@ sqldelight = "1.5.3"
 kotlinpoet = "1.10.2"
 
 ktor = "1.6.7"
-kodein = "7.9.0"
+kodein = "7.10.0"
 
 logging-kermit = "1.0.3"
 logging-log4j = "2.17.0"
