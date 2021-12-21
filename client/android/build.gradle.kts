@@ -1,5 +1,6 @@
 plugins {
     id("convention.android.application")
+    id("convention.android.compose")
     kotlin("kapt")
     id("com.squareup.sqldelight")
 }
@@ -16,14 +17,6 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
         }
-    }
-
-    buildFeatures {
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.android.compose.get()
     }
 
     packagingOptions {

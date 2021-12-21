@@ -1,16 +1,7 @@
 plugins {
     id("convention.android.library")
+    id("convention.android.compose")
     id("com.squareup.sqldelight")
-}
-
-android {
-    buildFeatures {
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.android.compose.get()
-    }
 }
 
 sqldelight {
