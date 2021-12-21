@@ -27,7 +27,6 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
-import java.net.SocketException
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.reflect.KClass
 
@@ -70,7 +69,7 @@ open class RSubClientAbstract(
                 } catch (e: Exception) {
                     when (e) {
                         is RSubExpectedExceptionOnConnectionException -> {
-                            logger.d("Connection failed with checked exception: ${e.message}")
+                            logger.d("Connection or listening failed with checked exception: ${e.message}")
                             send(ConnectionState.Disconnected)
                             connectionGlobal?.close()
                             delay(reconnectInterval)
@@ -119,18 +118,15 @@ open class RSubClientAbstract(
         return withConnection { connection ->
             val id = nextId.getAndIncrement()
             try {
-                // TODO
                 coroutineScope {
                     val responseDeferred = async { connection.incoming.filter { it.id == id }.first() }
-
                     connection.subscribe(id, interfaceName, methodName)
-
                     val response = responseDeferred.await()
-
                     parseServerMessage(response, type)
                 }
             } catch (e: Exception) {
                 withContext(NonCancellable) {
+                    // TODO кажется тут только при отмене корутины нужно отписываться
                     connection.unsubscribe(id)
                 }
                 throw e
@@ -230,7 +226,7 @@ open class RSubClientAbstract(
 //                        true
 //                    }
                     throwOnDisconnect -> false
-                    it is SocketException -> true
+//                    it is SocketException -> true
                     else -> {
                         logger.e("Unexpected exception ", it)
                         false
@@ -242,22 +238,15 @@ open class RSubClientAbstract(
 
     @OptIn(InternalSerializationApi::class)
     @Suppress("ThrowsCount", "TooGenericExceptionThrown")
-    private fun <T : Any> parseServerMessage(message: RSubMessage, kClass: KClass<T>): T {
-        return when (message) {
-            is RSubMessage.Data -> {
-                val data = message.data
-                if (data != null)
-                    json.decodeFromJsonElement(
-                        kClass.serializer(),
-                        data
-                    )
-                // TODO
-                else Unit as T
-            }
-            is RSubMessage.FlowComplete -> throw FlowCompleted()
-            is RSubMessage.Error -> throw RuntimeException("Server return error")
-            is RSubMessage.Subscribe, is RSubMessage.Unsubscribe -> throw RuntimeException("Unexpected server data")
+    private fun <T : Any> parseServerMessage(message: RSubMessage, kClass: KClass<T>): T = when (message) {
+        is RSubMessage.Data -> {
+            val data = message.data
+            if (data != null) json.decodeFromJsonElement(kClass.serializer(), data)
+            else Unit as T
         }
+        is RSubMessage.FlowComplete -> throw FlowCompleted()
+        is RSubMessage.Error -> throw RuntimeException("Server return error")
+        is RSubMessage.Subscribe, is RSubMessage.Unsubscribe -> throw RuntimeException("Unexpected server data")
     }
 
     private suspend fun ConnectionState.Connected.subscribe(
@@ -265,13 +254,9 @@ open class RSubClientAbstract(
         name: String,
         methodName: String,
         // arguments: Array<Any?>?
-    ) {
-        send(RSubMessage.Subscribe(id, name, methodName))
-    }
+    ) = send(RSubMessage.Subscribe(id, name, methodName))
 
-    private suspend fun ConnectionState.Connected.unsubscribe(id: Int) {
-        this.send(RSubMessage.Unsubscribe(id))
-    }
+    private suspend fun ConnectionState.Connected.unsubscribe(id: Int) = send(RSubMessage.Unsubscribe(id))
 
     private sealed class ConnectionState(val status: RSubConnectionStatus) {
         object Connecting : ConnectionState(RSubConnectionStatus.CONNECTING)
