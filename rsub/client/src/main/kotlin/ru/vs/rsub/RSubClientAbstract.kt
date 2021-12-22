@@ -22,13 +22,12 @@ import kotlinx.coroutines.flow.retry
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.plus
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
 import java.util.concurrent.atomic.AtomicInteger
-import kotlin.reflect.KClass
+import kotlin.reflect.KType
 
 open class RSubClientAbstract(
     private val connector: RSubConnector,
@@ -113,7 +112,7 @@ open class RSubClientAbstract(
     protected suspend fun <T : Any> processSuspend(
         interfaceName: String,
         methodName: String,
-        type: KClass<T>
+        type: KType
     ): T {
         return withConnection { connection ->
             val id = nextId.getAndIncrement()
@@ -122,14 +121,14 @@ open class RSubClientAbstract(
                     val responseDeferred = async { connection.incoming.filter { it.id == id }.first() }
                     connection.subscribe(id, interfaceName, methodName)
                     val response = responseDeferred.await()
-                    parseServerMessage(response, type)
+                    parseServerMessage<T>(response, type)
                 }
             } catch (e: Exception) {
-                withContext(NonCancellable) {
-                    // TODO кажется тут только при отмене корутины нужно отписываться
-                    connection.unsubscribe(id)
-                }
-                throw e
+                // withContext(NonCancellable) {
+                //    // TODO кажется тут только при отмене корутины нужно отписываться
+                //    connection.unsubscribe(id)
+                // }
+                throw RSubException("Unknown exception", e)
             }
         }
     }
@@ -236,12 +235,11 @@ open class RSubClientAbstract(
             .first()
     }
 
-    @OptIn(InternalSerializationApi::class)
     @Suppress("ThrowsCount", "TooGenericExceptionThrown")
-    private fun <T : Any> parseServerMessage(message: RSubMessage, kClass: KClass<T>): T = when (message) {
+    private fun <T : Any> parseServerMessage(message: RSubMessage, type: KType): T = when (message) {
         is RSubMessage.Data -> {
             val data = message.data
-            if (data != null) json.decodeFromJsonElement(kClass.serializer(), data)
+            if (data != null) json.decodeFromJsonElement(json.serializersModule.serializer(type), data) as T
             else Unit as T
         }
         is RSubMessage.FlowComplete -> throw FlowCompleted()
@@ -256,7 +254,7 @@ open class RSubClientAbstract(
         // arguments: Array<Any?>?
     ) = send(RSubMessage.Subscribe(id, name, methodName))
 
-    private suspend fun ConnectionState.Connected.unsubscribe(id: Int) = send(RSubMessage.Unsubscribe(id))
+    // private suspend fun ConnectionState.Connected.unsubscribe(id: Int) = send(RSubMessage.Unsubscribe(id))
 
     private sealed class ConnectionState(val status: RSubConnectionStatus) {
         object Connecting : ConnectionState(RSubConnectionStatus.CONNECTING)

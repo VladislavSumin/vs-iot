@@ -33,6 +33,11 @@ class ClientTest : BaseClientTest() {
         testSuspend(123456789L, client.testInterface::longSuspend)
     }
 
+    @Test
+    fun `success call suspend function with list string return type`(): Unit = runBlocking {
+        testSuspend(listOf("test1", "test2", "test3"), client.testInterface::listStringSuspend)
+    }
+
     private suspend inline fun <reified T : Any> testSuspend(
         testData: T,
         noinline method: suspend () -> T

@@ -14,6 +14,7 @@ import com.google.devtools.ksp.symbol.KSNode
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
@@ -31,6 +32,7 @@ import ru.vs.rsub.RSubClientAbstract
 import ru.vs.rsub.RSubConnector
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
+import kotlin.reflect.typeOf
 
 class RSubSymbolProcessor(
     private val codeGenerator: CodeGenerator,
@@ -126,14 +128,17 @@ class RSubSymbolProcessor(
         baseInterface.getAllFunctions()
             .filter { it.isAbstract }
             .map {
+                val typeOf = MemberName("kotlin.reflect", "typeOf")
+                val returnType = it.returnType!!.resolve()
                 FunSpec.builder(it.simpleName.asString())
                     .addModifiers(KModifier.OVERRIDE, KModifier.SUSPEND)
                     .returns(it.returnType!!.toTypeName())
                     .addCode(
-                        "return processSuspend(%S, %S, %L)",
+                        "return processSuspend(%S, %S, %M<%T>())",
                         baseInterface.simpleName.asString(),
                         it.simpleName.asString(),
-                        "${it.returnType!!.resolve().declaration.simpleName.asString()}::class"
+                        typeOf, it.returnType!!.resolve().toTypeName()
+//                        "${it.returnType!!.resolve().declaration.simpleName.asString()}::class"
                     )
                     .build()
             }
