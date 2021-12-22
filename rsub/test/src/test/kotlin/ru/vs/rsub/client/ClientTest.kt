@@ -14,6 +14,11 @@ import ru.vs.rsub.RSubMessage
 
 class ClientTest : BaseClientTest() {
     @Test
+    fun `success call suspend function with unit return type`(): Unit = runBlocking {
+        testSuspend(Unit, client.testInterface::unitSuspend)
+    }
+
+    @Test
     fun `success call suspend function with string return type`(): Unit = runBlocking {
         testSuspend("test", client.testInterface::stringSuspend)
     }
