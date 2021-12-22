@@ -57,6 +57,7 @@ class ClientTest : BaseClientTest() {
         val rawSubscribeMessage = receiveFromClientChannel.receive()
         val subscribeMessage = Json.decodeFromString<RSubMessage>(rawSubscribeMessage)
         assertInstanceOf(RSubMessage.Subscribe::class.java, subscribeMessage)
+        assertEquals(0, (subscribeMessage as RSubMessage.Subscribe).id)
 
         val message = RSubMessage.Data(0, Json.encodeToJsonElement(testData))
         sendToClientChannel.send(Json.encodeToString<RSubMessage>(message))
