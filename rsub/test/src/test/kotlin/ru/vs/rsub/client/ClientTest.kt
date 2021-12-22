@@ -38,6 +38,16 @@ class ClientTest : BaseClientTest() {
         testSuspend(listOf("test1", "test2", "test3"), client.testInterface::listStringSuspend)
     }
 
+    @Test
+    fun `success call suspend function with set string return type`(): Unit = runBlocking {
+        testSuspend(setOf("test1", "test2", "test3"), client.testInterface::setStringSuspend)
+    }
+
+    @Test
+    fun `success call suspend function with map string string return type`(): Unit = runBlocking {
+        testSuspend(mapOf("testKey1" to "test1", "testKey2" to "test2"), client.testInterface::mapStringStringSuspend)
+    }
+
     private suspend inline fun <reified T : Any> testSuspend(
         testData: T,
         noinline method: suspend () -> T

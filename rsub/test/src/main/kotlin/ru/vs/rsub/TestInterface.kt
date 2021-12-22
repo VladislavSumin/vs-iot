@@ -8,4 +8,6 @@ interface TestInterface {
     suspend fun longSuspend(): Long
 
     suspend fun listStringSuspend(): List<String>
+    suspend fun setStringSuspend(): Set<String>
+    suspend fun mapStringStringSuspend(): Map<String, String>
 }
