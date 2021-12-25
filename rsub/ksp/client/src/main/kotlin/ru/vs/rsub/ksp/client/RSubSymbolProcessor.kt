@@ -2,20 +2,15 @@
 
 package ru.vs.rsub.ksp.client
 
-import com.google.devtools.ksp.isAbstract
 import com.google.devtools.ksp.processing.CodeGenerator
-import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
-import com.google.devtools.ksp.symbol.ClassKind
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
-import com.google.devtools.ksp.symbol.KSNode
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterSpec
-import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asTypeName
 import com.squareup.kotlinpoet.ksp.KotlinPoetKspPreview
@@ -28,12 +23,9 @@ import kotlinx.serialization.json.Json
 import ru.vs.rsub.RSubClient
 import ru.vs.rsub.RSubClientAbstract
 import ru.vs.rsub.RSubConnector
-import kotlin.contracts.ExperimentalContracts
-import kotlin.contracts.contract
 
 class RSubSymbolProcessor(
-    private val codeGenerator: CodeGenerator,
-    private val logger: KSPLogger,
+    private val codeGenerator: CodeGenerator
 ) : SymbolProcessor {
     private val proxyGenerator = RSSubInterfaceProxyGenerator()
 
@@ -45,15 +37,33 @@ class RSubSymbolProcessor(
     }
 
     private fun processRSubClients(client: KSAnnotated) {
-        check(client is KSClassDeclaration, client, "Only class declaration supported")
-        check(client.classKind == ClassKind.INTERFACE, client, "Only interfaces supported")
-        generateRSubClientImpl(client)
+        generateRSubClientImpl(client as KSClassDeclaration)
+    }
+
+    private fun generateRSubClientImpl(client: KSClassDeclaration) {
+        val name = client.simpleName.asString() + "Impl"
+        val clazz = with(proxyGenerator) {
+            val constructor = generateConstructor()
+            TypeSpec.classBuilder(name)
+                .addOriginatingKSFile(client.containingFile!!)
+                .addModifiers(KModifier.INTERNAL)
+                .superclass(RSubClientAbstract::class)
+                .addSuperinterface(client.toClassName())
+                .primaryConstructor(constructor)
+                .addSuperclassConstructorParameter(constructor.parameters.joinToString { it.name })
+                .generateProxyClassesWithProxyInstances(client.getAllProperties())
+                .build()
+        }
+
+        FileSpec.builder(client.packageName.asString(), name)
+            .addType(clazz)
+            .build()
+            .writeTo(codeGenerator, false)
     }
 
     @Suppress("MagicNumber")
-    private fun generateRSubClientImpl(client: KSClassDeclaration) {
-
-        val constructor = FunSpec.constructorBuilder()
+    private fun generateConstructor(): FunSpec {
+        return FunSpec.constructorBuilder()
             .addParameter("connector", RSubConnector::class)
             .addParameter(
                 ParameterSpec.builder("reconnectInterval", Long::class)
@@ -76,57 +86,5 @@ class RSubSymbolProcessor(
                     .build()
             )
             .build()
-
-        val clazz = TypeSpec.classBuilder(client.simpleName.asString() + "Impl")
-            .addOriginatingKSFile(client.containingFile!!)
-            .addModifiers(KModifier.INTERNAL)
-            .superclass(RSubClientAbstract::class)
-            .addSuperinterface(client.toClassName())
-            .primaryConstructor(constructor)
-            .addSuperclassConstructorParameter("connector, reconnectInterval, connectionKeepAliveTime, json, scope")
-            .addProperties(generateRSubInterfacePropertiesImpl(client))
-            .addTypes(generateRSubInterfaceImpls(client))
-            .build()
-
-        val file = FileSpec.builder(client.packageName.asString(), "${client.simpleName.asString()}Impl")
-            .addType(clazz)
-            .build()
-
-        file.writeTo(codeGenerator, false)
-    }
-
-    private fun generateRSubInterfacePropertiesImpl(client: KSClassDeclaration) =
-        client.getAllProperties()
-            .filter { it.isAbstract() }
-            .map {
-                val superInterface = it.type.resolve().declaration as KSClassDeclaration
-                PropertySpec.builder(
-                    it.simpleName.asString(),
-                    superInterface.toClassName(),
-                    KModifier.OVERRIDE
-                )
-                    .initializer("${superInterface.simpleName.asString()}Impl()")
-                    .build()
-            }
-            .asIterable()
-
-    private fun generateRSubInterfaceImpls(client: KSClassDeclaration): Iterable<TypeSpec> =
-        client.getAllProperties()
-            .filter { it.isAbstract() }
-            .map {
-                val superInterface = it.type.resolve().declaration as KSClassDeclaration
-                proxyGenerator.generateProxyClass(superInterface)
-            }
-            .asIterable()
-
-    @OptIn(ExperimentalContracts::class)
-    private fun check(value: Boolean, node: KSNode, message: String) {
-        contract {
-            returns() implies value
-        }
-        if (!value) {
-            logger.error(message, node)
-            throw IllegalStateException(message)
-        }
     }
 }
