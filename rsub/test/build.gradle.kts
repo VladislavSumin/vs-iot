@@ -17,7 +17,9 @@ tasks.named<Test>("test") {
 
 dependencies {
     implementation(project(":rsub:client"))
+    implementation(project(":rsub:server"))
     ksp(project(":rsub:ksp:client"))
+    ksp(project(":rsub:ksp:server"))
 
     testImplementation(libs.kotlin.coroutines.test)
     testImplementation(libs.testing.turbine)
