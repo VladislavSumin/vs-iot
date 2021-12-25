@@ -13,8 +13,8 @@ class ServerTest : BaseServerTest() {
     @Test
     fun test(): Unit = runBlocking {
         initConnection()
-        sendToServerChannel.send(getSubscribeMessage("stringSuspend"))
-        val rawResponse = receiveFromServerChannel.receive()
+        sendChannel.send(getSubscribeMessage("stringSuspend"))
+        val rawResponse = receiveChannel.receive()
         val responseMsg = Json.decodeFromString<RSubMessage>(rawResponse) as RSubMessage.Data
         assertEquals(testInterface.stringSuspend(), Json.decodeFromJsonElement<String>(responseMsg.data!!))
     }

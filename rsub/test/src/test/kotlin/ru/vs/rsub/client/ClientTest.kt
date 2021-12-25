@@ -54,13 +54,13 @@ class ClientTest : BaseClientTest() {
     ) = coroutineScope {
         val resultDeferred = async { method() }
 
-        val rawSubscribeMessage = receiveFromClientChannel.receive()
+        val rawSubscribeMessage = receiveChannel.receive()
         val subscribeMessage = Json.decodeFromString<RSubMessage>(rawSubscribeMessage)
         assertInstanceOf(RSubMessage.Subscribe::class.java, subscribeMessage)
         assertEquals(0, (subscribeMessage as RSubMessage.Subscribe).id)
 
         val message = RSubMessage.Data(0, Json.encodeToJsonElement(testData))
-        sendToClientChannel.send(Json.encodeToString<RSubMessage>(message))
+        sendChannel.send(Json.encodeToString<RSubMessage>(message))
 
         val result = resultDeferred.await()
         assertEquals(testData, result)
