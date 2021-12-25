@@ -14,7 +14,6 @@ import com.google.devtools.ksp.symbol.KSNode
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
-import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
@@ -22,7 +21,6 @@ import com.squareup.kotlinpoet.asTypeName
 import com.squareup.kotlinpoet.ksp.KotlinPoetKspPreview
 import com.squareup.kotlinpoet.ksp.addOriginatingKSFile
 import com.squareup.kotlinpoet.ksp.toClassName
-import com.squareup.kotlinpoet.ksp.toTypeName
 import com.squareup.kotlinpoet.ksp.writeTo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
@@ -32,12 +30,13 @@ import ru.vs.rsub.RSubClientAbstract
 import ru.vs.rsub.RSubConnector
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
-import kotlin.reflect.typeOf
 
 class RSubSymbolProcessor(
     private val codeGenerator: CodeGenerator,
     private val logger: KSPLogger,
 ) : SymbolProcessor {
+    private val proxyGenerator = RSSubInterfaceProxyGenerator()
+
     override fun process(resolver: Resolver): List<KSAnnotated> {
         resolver.getSymbolsWithAnnotation(RSubClient::class.qualifiedName!!)
             .forEach(this::processRSubClients)
@@ -116,31 +115,7 @@ class RSubSymbolProcessor(
             .filter { it.isAbstract() }
             .map {
                 val superInterface = it.type.resolve().declaration as KSClassDeclaration
-                TypeSpec.classBuilder("${superInterface.simpleName.asString()}Impl")
-                    .addModifiers(KModifier.INNER, KModifier.PRIVATE)
-                    .addSuperinterface(superInterface.toClassName())
-                    .addFunctions(generateRSubInterfaceFunctionsImpls(superInterface))
-                    .build()
-            }
-            .asIterable()
-
-    private fun generateRSubInterfaceFunctionsImpls(baseInterface: KSClassDeclaration) =
-        baseInterface.getAllFunctions()
-            .filter { it.isAbstract }
-            .map {
-                val typeOf = MemberName("kotlin.reflect", "typeOf")
-                val returnType = it.returnType!!.resolve()
-                FunSpec.builder(it.simpleName.asString())
-                    .addModifiers(KModifier.OVERRIDE, KModifier.SUSPEND)
-                    .returns(it.returnType!!.toTypeName())
-                    .addCode(
-                        "return processSuspend(%S, %S, %M<%T>())",
-                        baseInterface.simpleName.asString(),
-                        it.simpleName.asString(),
-                        typeOf, it.returnType!!.resolve().toTypeName()
-//                        "${it.returnType!!.resolve().declaration.simpleName.asString()}::class"
-                    )
-                    .build()
+                proxyGenerator.generateProxyClass(superInterface)
             }
             .asIterable()
 
