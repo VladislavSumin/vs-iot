@@ -8,12 +8,12 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToJsonElement
 import kotlinx.serialization.serializer
+import kotlin.reflect.KType
 
 class RSubServer(
     private val rSubServerSubscriptions: RSubServerSubscriptionsAbstract,
@@ -64,15 +64,15 @@ class RSubServer(
                     when (impl) {
                         is RSubServerSubscription.SuspendSub<*> -> {
                             val response = impl.get()
-                            sendData(request.id, response)
+                            sendData(request.id, response, impl.type)
                         }
-                        is RSubServerSubscription.FlowSub<*> -> {
+//                        is RSubServerSubscription.FlowSub<*> -> {
 //                            val flow = kFunction.call(instance) as Flow<*>
 //                            flow.collect {
 //                                sendData(request.id, kFunction.returnType.arguments[0].type!!, it)
 //                            }
 //                            send(RSubMessage.FlowComplete(request.id))
-                        }
+//                        }
                     }
                 } catch (e: Exception) {
                     send(RSubMessage.Error(request.id))
@@ -98,19 +98,9 @@ class RSubServer(
             activeSubscriptions.remove(request.id)?.cancel()
         }
 
-        @OptIn(InternalSerializationApi::class)
-        private suspend fun sendData(id: Int, data: Any?) {
-            val responsePayload =
-                json.encodeToJsonElement(
-                    // TODO
-                    data!!.javaClass.kotlin.serializer(),
-                    // json.serializersModule.serializer(type),
-                    data
-                )
-            val message = RSubMessage.Data(
-                id,
-                responsePayload
-            )
+        private suspend fun sendData(id: Int, data: Any?, type: KType) {
+            val responsePayload = json.encodeToJsonElement(json.serializersModule.serializer(type), data)
+            val message = RSubMessage.Data(id, responsePayload)
             send(message)
         }
     }

@@ -30,6 +30,21 @@ class ServerTest : BaseServerTest() {
         testSuspend("longSuspend", testInterface::longSuspend)
     }
 
+    @Test
+    fun `success call suspend function with list string return type`(): Unit = runBlocking {
+        testSuspend("listStringSuspend", testInterface::listStringSuspend)
+    }
+
+    @Test
+    fun `success call suspend function with set string return type`(): Unit = runBlocking {
+        testSuspend("setStringSuspend", testInterface::setStringSuspend)
+    }
+
+    @Test
+    fun `success call suspend function with map string string return type`(): Unit = runBlocking {
+        testSuspend("mapStringStringSuspend", testInterface::mapStringStringSuspend)
+    }
+
     @Suppress("REDUNDANT_INLINE_SUSPEND_FUNCTION_TYPE")
     private suspend inline fun <reified T> testSuspend(methodName: String, expected: suspend () -> T) {
         initConnection()

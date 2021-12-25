@@ -6,7 +6,9 @@ import com.google.devtools.ksp.symbol.KSType
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.asClassName
 import com.squareup.kotlinpoet.ksp.KotlinPoetKspPreview
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
@@ -31,17 +33,21 @@ class RSubSubscriptionWrapperGenerator(
     }
 
     private fun generateInitializer(impl: KSType): CodeBlock {
+        val typeOf = MemberName("kotlin.reflect", "typeOf")
         val builder = CodeBlock.builder()
         (impl.declaration as KSClassDeclaration)
             .getAllFunctions()
             .filter { it.isAbstract }
             .forEach {
                 builder.addStatement(
-                    "methodImpls[%S] = %T { %L.%L() }",
+                    "methodImpls[%S] = %T.%L(%L::%L, %M<%T>())",
                     it.simpleName.asString(),
-                    RSubServerSubscription.SuspendSub::class,
+                    RSubServerSubscription::class.asClassName(),
+                    "createSuspend",
                     impl.toClassName().simpleName.decapitalize(),
-                    it.simpleName.asString()
+                    it.simpleName.asString(),
+                    typeOf,
+                    it.returnType!!.resolve().toTypeName()
                 )
             }
         return builder.build()
