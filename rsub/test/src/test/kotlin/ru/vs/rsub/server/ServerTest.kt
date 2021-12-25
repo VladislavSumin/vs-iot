@@ -11,12 +11,37 @@ import ru.vs.rsub.RSubMessage
 
 class ServerTest : BaseServerTest() {
     @Test
-    fun test(): Unit = runBlocking {
+    fun `success call suspend function with unit return type`(): Unit = runBlocking {
+        testSuspend("unitSuspend", testInterface::unitSuspend)
+    }
+
+    @Test
+    fun `success call suspend function with string return type`(): Unit = runBlocking {
+        testSuspend("stringSuspend", testInterface::stringSuspend)
+    }
+
+    @Test
+    fun `success call suspend function with int return type`(): Unit = runBlocking {
+        testSuspend("intSuspend", testInterface::intSuspend)
+    }
+
+    @Test
+    fun `success call suspend function with long return type`(): Unit = runBlocking {
+        testSuspend("longSuspend", testInterface::longSuspend)
+    }
+
+    @Suppress("REDUNDANT_INLINE_SUSPEND_FUNCTION_TYPE")
+    private suspend inline fun <reified T> testSuspend(methodName: String, expected: suspend () -> T) {
         initConnection()
-        sendChannel.send(getSubscribeMessage("stringSuspend"))
+        sendChannel.send(getSubscribeMessage(methodName))
+        val response = parseResponse<T>()
+        assertEquals(expected(), response)
+    }
+
+    private suspend inline fun <reified T> parseResponse(): T {
         val rawResponse = receiveChannel.receive()
         val responseMsg = Json.decodeFromString<RSubMessage>(rawResponse) as RSubMessage.Data
-        assertEquals(testInterface.stringSuspend(), Json.decodeFromJsonElement<String>(responseMsg.data!!))
+        return Json.decodeFromJsonElement(responseMsg.data!!)
     }
 
     private fun getSubscribeMessage(functionName: String): String {
