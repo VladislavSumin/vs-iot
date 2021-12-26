@@ -11,6 +11,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.Timeout
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.junit.jupiter.MockitoExtension
 import org.mockito.junit.jupiter.MockitoSettings
@@ -19,10 +20,12 @@ import ru.vs.rsub.RSubConnection
 import ru.vs.rsub.RSubServer
 import ru.vs.rsub.TestInterfaceImpl
 import ru.vs.rsub.connection.createTestConnection
+import java.util.concurrent.TimeUnit
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension::class)
 @MockitoSettings(strictness = Strictness.LENIENT)
+@Timeout(10, unit = TimeUnit.SECONDS)
 open class BaseServerTest {
     protected val testInterface = TestInterfaceImpl()
     private val testServerSubscriptions = TestServerSubscriptionsImpl(testInterface)

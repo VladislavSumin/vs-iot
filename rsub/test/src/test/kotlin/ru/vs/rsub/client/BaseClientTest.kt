@@ -25,6 +25,7 @@ import ru.vs.rsub.connection.createTestConnection
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension::class)
 @MockitoSettings(strictness = Strictness.LENIENT)
+@Timeout(10, unit = TimeUnit.SECONDS)
 open class BaseClientTest {
 
     lateinit var sendChannel: SendChannel<String>
