@@ -1,9 +1,14 @@
 package ru.vs.rsub.client_server
 
+import app.cash.turbine.test
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertInstanceOf
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import ru.vs.rsub.RSubServerException
 
 class ClientServerTest : ClientServerBaseTest() {
     @Test
@@ -44,5 +49,23 @@ class ClientServerTest : ClientServerBaseTest() {
     @Test
     fun `success call flow function with string return type`(): Unit = runBlocking {
         assertEquals(testInterface.stringFlow().toList(), client.testInterface.stringFlow().toList())
+    }
+
+    @Test
+    fun `success call flow function with list string return type`(): Unit = runBlocking {
+        assertEquals(testInterface.listStringFlow().toList(), client.testInterface.listStringFlow().toList())
+    }
+
+    @Test
+    fun `fail call suspend function with string return type`(): Unit = runBlocking {
+        assertThrows<RSubServerException> { client.testInterface.errorSuspend() }
+    }
+
+    @Test
+    fun `fail call flow function with string return type`(): Unit = runBlocking {
+        client.testInterface.errorFlow().test {
+            assertEquals("string1", awaitItem())
+            assertInstanceOf(RSubServerException::class.java, awaitError())
+        }
     }
 }

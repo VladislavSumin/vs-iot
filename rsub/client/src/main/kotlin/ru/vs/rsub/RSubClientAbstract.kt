@@ -131,11 +131,10 @@ open class RSubClientAbstract(
                     parseServerMessage<T>(response, type)
                 }
             } catch (e: Exception) {
-                // withContext(NonCancellable) {
-                //    // TODO кажется тут только при отмене корутины нужно отписываться
-                //    connection.unsubscribe(id)
-                // }
-                throw RSubException("Unknown exception", e)
+                when (e) {
+                    is RSubServerException -> throw e
+                    else -> throw RSubException("Unknown exception", e)
+                }
             }
         }
     }
@@ -251,7 +250,7 @@ open class RSubClientAbstract(
             .first()
     }
 
-    @Suppress("ThrowsCount", "TooGenericExceptionThrown")
+    @Suppress("ThrowsCount")
     private fun <T : Any> parseServerMessage(message: RSubMessage, type: KType): T = when (message) {
         is RSubMessage.Data -> {
             val data = message.data
@@ -259,8 +258,8 @@ open class RSubClientAbstract(
             else Unit as T
         }
         is RSubMessage.FlowComplete -> throw FlowCompleted()
-        is RSubMessage.Error -> throw RuntimeException("Server return error")
-        is RSubMessage.Subscribe, is RSubMessage.Unsubscribe -> throw RuntimeException("Unexpected server data")
+        is RSubMessage.Error -> throw RSubServerException("Server return error")
+        is RSubMessage.Subscribe, is RSubMessage.Unsubscribe -> throw RSubException("Unexpected server data")
     }
 
     private suspend fun ConnectionState.Connected.subscribe(

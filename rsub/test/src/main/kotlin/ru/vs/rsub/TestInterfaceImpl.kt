@@ -1,6 +1,8 @@
 package ru.vs.rsub
 
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 
 class TestInterfaceImpl : TestInterface {
@@ -34,5 +36,33 @@ class TestInterfaceImpl : TestInterface {
 
     override fun stringFlow(): Flow<String> {
         return flowOf("string1", "string2", "string3")
+    }
+
+    override fun listStringFlow(): Flow<List<String>> {
+        return flowOf(
+            listOf("string1", "string2", "string3"),
+            listOf("string4", "string5", "string6"),
+            listOf("string7", "string8", "string9")
+        )
+    }
+
+    override fun stringFlowWithNoEnd(): Flow<String> {
+        return flow {
+            emit("string1")
+            delay(Long.MAX_VALUE)
+        }
+    }
+
+    @Suppress("TooGenericExceptionThrown")
+    override suspend fun errorSuspend(): String {
+        throw RuntimeException("errorSuspend")
+    }
+
+    @Suppress("TooGenericExceptionThrown")
+    override fun errorFlow(): Flow<String> {
+        return flow {
+            emit("string1")
+            throw RuntimeException("errorFlow")
+        }
     }
 }

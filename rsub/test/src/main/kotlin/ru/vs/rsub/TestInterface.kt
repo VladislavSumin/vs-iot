@@ -14,4 +14,10 @@ interface TestInterface {
     suspend fun mapStringStringSuspend(): Map<String, String>
 
     fun stringFlow(): Flow<String>
+    fun listStringFlow(): Flow<List<String>>
+
+    fun stringFlowWithNoEnd(): Flow<String>
+
+    suspend fun errorSuspend(): String
+    fun errorFlow(): Flow<String>
 }
