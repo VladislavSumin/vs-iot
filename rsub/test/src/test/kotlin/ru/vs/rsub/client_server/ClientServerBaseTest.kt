@@ -1,5 +1,6 @@
 package ru.vs.rsub.client_server
 
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancelAndJoin
@@ -42,6 +43,7 @@ open class ClientServerBaseTest {
 
     @AfterEach
     fun afterEach(): Unit = runBlocking {
+        Logger.i("Closing test context...")
         scope.coroutineContext.job.cancelAndJoin()
     }
 }

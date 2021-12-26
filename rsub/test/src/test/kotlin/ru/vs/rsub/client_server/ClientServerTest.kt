@@ -7,8 +7,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertInstanceOf
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import ru.vs.rsub.RSubServerException
 
 class ClientServerTest : ClientServerBaseTest() {
     @Test
@@ -56,18 +59,18 @@ class ClientServerTest : ClientServerBaseTest() {
         assertEquals(testInterface.listStringFlow().toList(), client.testInterface.listStringFlow().toList())
     }
 
-//    @Test
-//    fun `fail call suspend function with string return type`(): Unit = runBlocking {
-//        assertThrows<RSubServerException> { client.testInterface.errorSuspend() }
-//    }
-//
-//    @Test
-//    fun `fail call flow function with string return type`(): Unit = runBlocking {
-//        client.testInterface.errorFlow().test {
-//            assertEquals("string1", awaitItem())
-//            assertInstanceOf(RSubServerException::class.java, awaitError())
-//        }
-//    }
+    @Test
+    fun `fail call suspend function with string return type`(): Unit = runBlocking {
+        assertThrows<RSubServerException> { client.testInterface.errorSuspend() }
+    }
+
+    @Test
+    fun `fail call flow function with string return type`(): Unit = runBlocking {
+        client.testInterface.errorFlow().test {
+            assertEquals("string1", awaitItem())
+            assertInstanceOf(RSubServerException::class.java, awaitError())
+        }
+    }
 
     @Test
     fun `success call infinity flow`(): Unit = runBlocking {
