@@ -28,6 +28,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.reflect.KType
+import kotlin.reflect.typeOf
 
 open class RSubClientAbstract(
     private val connector: RSubConnector,
@@ -107,6 +108,11 @@ open class RSubClientAbstract(
      * Keep connection active while subscribed, return actual connection status
      */
     fun observeConnectionStatus(): Flow<RSubConnectionStatus> = connection.map { it.status }
+
+    protected suspend inline fun <reified T : Any> processSuspend(
+        interfaceName: String,
+        methodName: String,
+    ): T = processSuspend(interfaceName, methodName, typeOf<T>())
 
     @Suppress("TooGenericExceptionCaught")
     protected suspend fun <T : Any> processSuspend(

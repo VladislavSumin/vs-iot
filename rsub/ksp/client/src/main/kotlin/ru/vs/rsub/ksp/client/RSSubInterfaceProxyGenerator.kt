@@ -62,19 +62,15 @@ class RSSubInterfaceProxyGenerator {
             .addModifiers(KModifier.OVERRIDE, KModifier.SUSPEND)
             .returns(function.returnType!!.toTypeName())
             .addCode(
-                // return processSuspend(interfaceName, functionName, typeOf<FunctionReturnType>())
-                "return %M(%S, %S, %M<%T>())",
+                "return %M(%S, %S)",
                 processSuspend,
                 interfaceName,
-                function.simpleName.asString(),
-                typeOf,
-                function.returnType!!.toTypeName()
+                function.simpleName.asString()
             )
             .build()
     }
 
     companion object {
         private val processSuspend = MemberName("", "processSuspend")
-        private val typeOf = MemberName("kotlin.reflect", "typeOf")
     }
 }
