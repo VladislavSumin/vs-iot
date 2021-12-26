@@ -1,5 +1,6 @@
 package ru.vs.rsub
 
+import kotlinx.coroutines.flow.Flow
 import kotlin.reflect.KType
 import kotlin.reflect.typeOf
 
@@ -10,9 +11,9 @@ sealed interface RSubServerSubscription {
         suspend fun get(): T
     }
 
-//    fun interface FlowSub<T> {
-//        fun get(): Flow<T>
-//    }
+    interface FlowSub<T> : RSubServerSubscription {
+        fun get(): Flow<T>
+    }
 
     companion object {
         inline fun <reified T> createSuspend(crossinline method: suspend () -> T): SuspendSub<T> {
@@ -21,6 +22,16 @@ sealed interface RSubServerSubscription {
 
                 override suspend fun get(): T {
                     return method()
+                }
+            }
+        }
+
+        inline fun <reified T> createFlow(flow: Flow<T>): FlowSub<T> {
+            return object : FlowSub<T> {
+                override val type: KType = typeOf<T>()
+
+                override fun get(): Flow<T> {
+                    return flow
                 }
             }
         }

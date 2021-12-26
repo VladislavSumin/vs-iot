@@ -63,13 +63,11 @@ class RSubServer(
                             val response = impl.get()
                             sendData(request.id, response, impl.type)
                         }
-//                        is RSubServerSubscription.FlowSub<*> -> {
-//                            val flow = kFunction.call(instance) as Flow<*>
-//                            flow.collect {
-//                                sendData(request.id, kFunction.returnType.arguments[0].type!!, it)
-//                            }
-//                            send(RSubMessage.FlowComplete(request.id))
-//                        }
+                        is RSubServerSubscription.FlowSub<*> -> {
+                            val flow = impl.get()
+                            flow.collect { sendData(request.id, it, impl.type) }
+                            send(RSubMessage.FlowComplete(request.id))
+                        }
                     }
                 } catch (e: Exception) {
                     send(RSubMessage.Error(request.id))
