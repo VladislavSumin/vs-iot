@@ -24,3 +24,8 @@ jobs:
           -PpIsBuildAgent=true
           --scan
           :ci
+      - name: Upload test result
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-result
+          path: "**/build/reports/tests/**"
