@@ -18,7 +18,7 @@ sealed class RSubMessage {
 
     @Serializable
     @SerialName("data")
-    data class Data(override val id: Int, val data: JsonElement? = null) : RSubMessage()
+    data class Data(override val id: Int, val data: JsonElement) : RSubMessage()
 
     @Serializable
     @SerialName("flow_complete")

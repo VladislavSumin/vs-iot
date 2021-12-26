@@ -253,9 +253,7 @@ open class RSubClientAbstract(
     @Suppress("ThrowsCount")
     private fun <T : Any> parseServerMessage(message: RSubMessage, type: KType): T = when (message) {
         is RSubMessage.Data -> {
-            val data = message.data
-            if (data != null) json.decodeFromJsonElement(json.serializersModule.serializer(type), data) as T
-            else Unit as T
+            json.decodeFromJsonElement(json.serializersModule.serializer(type), message.data) as T
         }
         is RSubMessage.FlowComplete -> throw FlowCompleted()
         is RSubMessage.Error -> throw RSubServerException("Server return error")
