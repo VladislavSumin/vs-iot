@@ -2,6 +2,7 @@ package ru.vs.rsub.client_server
 
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.job
 import kotlinx.coroutines.runBlocking
@@ -35,7 +36,7 @@ open class ClientServerBaseTest {
 
     @BeforeEach
     fun beforeEach(): Unit = runBlocking {
-        scope = CoroutineScope(CoroutineName("test-scope"))
+        scope = CoroutineScope(CoroutineName("test-scope") + Dispatchers.IO)
         server = RSubServer(testServerSubscriptions)
         connector = ClientServerTestConnector(server, scope)
         client = TestClientImpl(connector, scope = scope, connectionKeepAliveTime = 0, reconnectInterval = 0)
