@@ -1,11 +1,14 @@
 package ru.vs.rsub.client_server
 
 import app.cash.turbine.test
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertInstanceOf
-import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import ru.vs.rsub.RSubServerException
@@ -67,5 +70,22 @@ class ClientServerTest : ClientServerBaseTest() {
             assertEquals("string1", awaitItem())
             assertInstanceOf(RSubServerException::class.java, awaitError())
         }
+    }
+
+    @Test
+    fun `success call infinity flow`(): Unit = runBlocking {
+        assertFalse(testInterface.isInfinityFlowActive)
+
+        val connectionHolder = launch { testInterface.infinityStringFlow2().toList() }
+
+        client.testInterface.infinityStringFlow().test {
+            assertEquals("string1", awaitItem())
+            assertTrue(testInterface.isInfinityFlowActive)
+            cancel()
+        }
+
+        assertFalse(testInterface.isInfinityFlowActive)
+
+        connectionHolder.cancelAndJoin()
     }
 }

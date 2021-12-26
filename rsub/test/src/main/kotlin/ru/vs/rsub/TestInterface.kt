@@ -16,7 +16,8 @@ interface TestInterface {
     fun stringFlow(): Flow<String>
     fun listStringFlow(): Flow<List<String>>
 
-    fun stringFlowWithNoEnd(): Flow<String>
+    fun infinityStringFlow(): Flow<String>
+    fun infinityStringFlow2(): Flow<String>
 
     suspend fun errorSuspend(): String
     fun errorFlow(): Flow<String>

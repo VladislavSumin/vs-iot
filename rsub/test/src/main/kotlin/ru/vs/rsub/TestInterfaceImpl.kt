@@ -6,6 +6,9 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 
 class TestInterfaceImpl : TestInterface {
+    var isInfinityFlowActive: Boolean = false
+        private set
+
     override suspend fun unitSuspend() {
         // no action
     }
@@ -46,7 +49,19 @@ class TestInterfaceImpl : TestInterface {
         )
     }
 
-    override fun stringFlowWithNoEnd(): Flow<String> {
+    override fun infinityStringFlow(): Flow<String> {
+        return flow {
+            try {
+                isInfinityFlowActive = true
+                emit("string1")
+                delay(Long.MAX_VALUE)
+            } finally {
+                isInfinityFlowActive = false
+            }
+        }
+    }
+
+    override fun infinityStringFlow2(): Flow<String> {
         return flow {
             emit("string1")
             delay(Long.MAX_VALUE)
