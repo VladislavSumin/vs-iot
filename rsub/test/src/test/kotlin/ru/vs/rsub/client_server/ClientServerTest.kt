@@ -1,5 +1,6 @@
 package ru.vs.rsub.client_server
 
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -38,5 +39,10 @@ class ClientServerTest : ClientServerBaseTest() {
     @Test
     fun `success call suspend function with map string string return type`(): Unit = runBlocking {
         assertEquals(testInterface.mapStringStringSuspend(), client.testInterface.mapStringStringSuspend())
+    }
+
+    @Test
+    fun `success call flow function with string return type`(): Unit = runBlocking {
+        assertEquals(testInterface.stringFlow().toList(), client.testInterface.stringFlow().toList())
     }
 }
