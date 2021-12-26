@@ -7,7 +7,6 @@ import kotlinx.coroutines.job
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.Timeout
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.junit.jupiter.MockitoExtension
@@ -20,7 +19,7 @@ import ru.vs.rsub.client.TestClientImpl
 import ru.vs.rsub.server.TestServerSubscriptionsImpl
 import java.util.concurrent.TimeUnit
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+// @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension::class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 @Timeout(10, unit = TimeUnit.SECONDS)
