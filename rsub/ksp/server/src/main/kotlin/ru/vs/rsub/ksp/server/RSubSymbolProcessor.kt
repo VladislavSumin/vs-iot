@@ -1,5 +1,3 @@
-@file:OptIn(KotlinPoetKspPreview::class)
-
 package ru.vs.rsub.ksp.server
 
 import com.google.devtools.ksp.processing.CodeGenerator
@@ -21,9 +19,11 @@ import com.squareup.kotlinpoet.ksp.addOriginatingKSFile
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
 import com.squareup.kotlinpoet.ksp.writeTo
+import ru.vs.iot.utils.decapitalized
 import ru.vs.rsub.RSubServerSubscriptions
 import ru.vs.rsub.RSubServerSubscriptionsAbstract
 
+@OptIn(KotlinPoetKspPreview::class)
 class RSubSymbolProcessor(
     private val codeGenerator: CodeGenerator,
 ) : SymbolProcessor {
@@ -40,6 +40,7 @@ class RSubSymbolProcessor(
     }
 
     private fun generateSubscriptions(subscriptions: KSClassDeclaration) {
+        @Suppress("UNCHECKED_CAST")
         val impls = subscriptions
             .annotations
             .first { it.annotationType.toTypeName() == RSubServerSubscriptions::class.asTypeName() }
@@ -68,7 +69,7 @@ class RSubSymbolProcessor(
     private fun generateConstructor(impls: List<KSType>): FunSpec {
         val params = impls.map {
             val implClassName = it.toClassName()
-            ParameterSpec.builder(implClassName.simpleName.decapitalize(), implClassName).build()
+            ParameterSpec.builder(implClassName.simpleName.decapitalized(), implClassName).build()
         }
         return FunSpec.constructorBuilder()
             .addParameters(params)
@@ -88,7 +89,7 @@ class RSubSymbolProcessor(
             "impls[%S] = %T(%L)",
             implName,
             ClassName("", implName + "Wrapper"),
-            implName.decapitalize(),
+            implName.decapitalized(),
         )
     }
 }
