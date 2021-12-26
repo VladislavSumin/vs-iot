@@ -1,6 +1,7 @@
 package ru.vs.rsub
 
 import kotlin.reflect.KType
+import kotlin.reflect.typeOf
 
 sealed interface RSubServerSubscription {
     val type: KType
@@ -14,9 +15,9 @@ sealed interface RSubServerSubscription {
 //    }
 
     companion object {
-        fun <T> createSuspend(method: suspend () -> T, type: KType): SuspendSub<T> {
+        inline fun <reified T> createSuspend(crossinline method: suspend () -> T): SuspendSub<T> {
             return object : SuspendSub<T> {
-                override val type: KType = type
+                override val type: KType = typeOf<T>()
 
                 override suspend fun get(): T {
                     return method()

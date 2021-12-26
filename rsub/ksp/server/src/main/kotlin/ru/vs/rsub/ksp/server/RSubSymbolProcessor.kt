@@ -3,7 +3,6 @@
 package ru.vs.rsub.ksp.server
 
 import com.google.devtools.ksp.processing.CodeGenerator
-import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.symbol.KSAnnotated
@@ -27,9 +26,8 @@ import ru.vs.rsub.RSubServerSubscriptionsAbstract
 
 class RSubSymbolProcessor(
     private val codeGenerator: CodeGenerator,
-    private val logger: KSPLogger,
 ) : SymbolProcessor {
-    private val subscriptionWrapperGenerator = RSubSubscriptionWrapperGenerator(logger)
+    private val subscriptionWrapperGenerator = RSubSubscriptionWrapperGenerator()
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
         resolver.getSymbolsWithAnnotation(RSubServerSubscriptions::class.qualifiedName!!)
@@ -42,18 +40,17 @@ class RSubSymbolProcessor(
     }
 
     private fun generateSubscriptions(subscriptions: KSClassDeclaration) {
-        val clazz = TypeSpec.classBuilder(subscriptions.simpleName.asString() + "Impl")
+        val name = subscriptions.simpleName.asString() + "Impl"
+        val clazz = TypeSpec.classBuilder(name)
             .addOriginatingKSFile(subscriptions.containingFile!!)
             .addModifiers(KModifier.INTERNAL)
             .superclass(RSubServerSubscriptionsAbstract::class)
             .addSuperinterface(subscriptions.toClassName())
             .primaryConstructor(generateConstructor(subscriptions))
             .addTypes(generateWrappers(subscriptions))
-            // .addProperties(generateRSubInterfacePropertiesImpl(client))
-            // .addTypes(generateRSubInterfaceImpls(client))
             .build()
 
-        val file = FileSpec.builder(subscriptions.packageName.asString(), "${subscriptions.simpleName.asString()}Impl")
+        val file = FileSpec.builder(subscriptions.packageName.asString(), name)
             .addType(clazz)
             .build()
 
@@ -80,7 +77,7 @@ class RSubSymbolProcessor(
             .first { it.annotationType.toTypeName() == RSubServerSubscriptions::class.asTypeName() }
         val impls = annotation.arguments.first().value!! as List<KSType>
 
-        return impls.map(subscriptionWrapperGenerator::generateSubscriptionWrapper)
+        return impls.map(subscriptionWrapperGenerator::generateWrapper)
     }
 
     private fun generateInitializer(subscriptions: KSClassDeclaration): CodeBlock {
