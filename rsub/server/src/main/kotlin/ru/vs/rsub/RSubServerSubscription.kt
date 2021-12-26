@@ -26,12 +26,12 @@ sealed interface RSubServerSubscription {
             }
         }
 
-        inline fun <reified T> createFlow(flow: Flow<T>): FlowSub<T> {
+        inline fun <reified T> createFlow(crossinline flow: () -> Flow<T>): FlowSub<T> {
             return object : FlowSub<T> {
                 override val type: KType = typeOf<T>()
 
                 override fun get(): Flow<T> {
-                    return flow
+                    return flow()
                 }
             }
         }

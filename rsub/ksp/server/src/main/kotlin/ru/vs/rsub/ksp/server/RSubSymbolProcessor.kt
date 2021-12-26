@@ -1,6 +1,7 @@
 package ru.vs.rsub.ksp.server
 
 import com.google.devtools.ksp.processing.CodeGenerator
+import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.symbol.KSAnnotated
@@ -26,8 +27,9 @@ import ru.vs.rsub.RSubServerSubscriptionsAbstract
 @OptIn(KotlinPoetKspPreview::class)
 class RSubSymbolProcessor(
     private val codeGenerator: CodeGenerator,
+    logger: KSPLogger
 ) : SymbolProcessor {
-    private val subscriptionWrapperGenerator = RSubSubscriptionWrapperGenerator()
+    private val subscriptionWrapperGenerator = RSubSubscriptionWrapperGenerator(logger)
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
         resolver.getSymbolsWithAnnotation(RSubServerSubscriptions::class.qualifiedName!!)

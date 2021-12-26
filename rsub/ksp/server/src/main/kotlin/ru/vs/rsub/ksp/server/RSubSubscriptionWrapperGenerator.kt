@@ -1,8 +1,10 @@
 package ru.vs.rsub.ksp.server
 
+import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSFunctionDeclaration
 import com.google.devtools.ksp.symbol.KSType
+import com.google.devtools.ksp.symbol.Modifier
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
@@ -13,11 +15,14 @@ import com.squareup.kotlinpoet.asClassName
 import com.squareup.kotlinpoet.ksp.KotlinPoetKspPreview
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
+import kotlinx.coroutines.flow.Flow
 import ru.vs.rsub.RSubServerSubscription
 import ru.vs.rsub.RSubServerSubscriptionsAbstract
 
 @OptIn(KotlinPoetKspPreview::class)
-class RSubSubscriptionWrapperGenerator {
+class RSubSubscriptionWrapperGenerator(
+    private val logger: KSPLogger
+) {
     fun generateWrappers(impls: List<KSType>): List<TypeSpec> {
         return impls.map(this::generateWrapper)
     }
@@ -47,8 +52,18 @@ class RSubSubscriptionWrapperGenerator {
     }
 
     private fun CodeBlock.Builder.generateInitializer(method: KSFunctionDeclaration) {
+        when {
+            method.modifiers.contains(Modifier.SUSPEND) -> generateInitializerTyped(createSuspend, method)
+            method.returnType!!.resolve().toClassName() == flowClassName -> generateInitializerTyped(createFlow, method)
+            else -> {
+                logger.error("Cannot generate wrapper for this function", method)
+            }
+        }
+    }
+
+    private fun CodeBlock.Builder.generateInitializerTyped(wrapperFunction: MemberName, method: KSFunctionDeclaration) {
         val methodName = method.simpleName.asString()
-        addStatement("%M[%S] = %M(%L::%L)", methodImpls, methodName, createSuspend, PARAM_NAME, methodName)
+        addStatement("%M[%S] = %M(%L::%L)", methodImpls, methodName, wrapperFunction, PARAM_NAME, methodName)
     }
 
     companion object {
@@ -57,6 +72,10 @@ class RSubSubscriptionWrapperGenerator {
         private val createSuspend = RSubServerSubscription::class.asClassName()
             .nestedClass("Companion")
             .member("createSuspend")
+        private val createFlow = RSubServerSubscription::class.asClassName()
+            .nestedClass("Companion")
+            .member("createFlow")
         private val methodImpls = MemberName("", "methodImpls")
+        private val flowClassName = Flow::class.asClassName()
     }
 }
