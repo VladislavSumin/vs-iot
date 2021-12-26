@@ -27,7 +27,7 @@ class ClientServerTestConnector(private val server: RSubServer, private val scop
     }
 
     private class Connection(
-        receiveChannel: ReceiveChannel<String>,
+        private val receiveChannel: ReceiveChannel<String>,
         private val sendChannel: SendChannel<String>
     ) : RSubConnection {
         override val receive: Flow<String> = receiveChannel.receiveAsFlow()
@@ -38,6 +38,7 @@ class ClientServerTestConnector(private val server: RSubServer, private val scop
 
         override suspend fun close() {
             sendChannel.close()
+            receiveChannel.cancel()
         }
     }
 }
