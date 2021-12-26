@@ -3,6 +3,7 @@
 package ru.vs.rsub.ksp.client
 
 import com.google.devtools.ksp.processing.CodeGenerator
+import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.symbol.KSAnnotated
@@ -25,9 +26,10 @@ import ru.vs.rsub.RSubClientAbstract
 import ru.vs.rsub.RSubConnector
 
 class RSubSymbolProcessor(
-    private val codeGenerator: CodeGenerator
+    private val codeGenerator: CodeGenerator,
+    logger: KSPLogger
 ) : SymbolProcessor {
-    private val proxyGenerator = RSSubInterfaceProxyGenerator()
+    private val proxyGenerator = RSSubInterfaceProxyGenerator(logger)
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
         resolver.getSymbolsWithAnnotation(RSubClient::class.qualifiedName!!)

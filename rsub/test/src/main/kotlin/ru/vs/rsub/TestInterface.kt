@@ -1,5 +1,7 @@
 package ru.vs.rsub
 
+import kotlinx.coroutines.flow.Flow
+
 @RSubInterface
 interface TestInterface {
     suspend fun unitSuspend(): Unit
@@ -10,4 +12,6 @@ interface TestInterface {
     suspend fun listStringSuspend(): List<String>
     suspend fun setStringSuspend(): Set<String>
     suspend fun mapStringStringSuspend(): Map<String, String>
+
+    fun stringFlow(): Flow<String>
 }

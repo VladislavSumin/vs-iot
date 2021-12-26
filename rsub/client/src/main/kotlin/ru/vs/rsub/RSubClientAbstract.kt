@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.retry
 import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.decodeFromString
@@ -139,46 +140,55 @@ open class RSubClientAbstract(
         }
     }
 
-//    private fun processFlow(
-//        name: String,
-//        method: KFunction<*>,
-//        arguments: Array<Any?>?
-//    ): Flow<Any?> = channelFlow {
-//        //Check reconnect policy
+    protected inline fun <reified T : Any> processFlow(
+        interfaceName: String,
+        methodName: String
+    ): Flow<T> = processFlow(interfaceName, methodName, typeOf<T>())
+
+    @Suppress("TooGenericExceptionCaught")
+    protected fun <T : Any> processFlow(
+        interfaceName: String,
+        methodName: String,
+        type: KType
+    ): Flow<T> = channelFlow {
+        // Check reconnect policy
+        val throwException = true
 //        val throwException = when (
-//            method.findAnnotation<RSubFlowPolicy>()?.policy ?: RSubFlowPolicy.Policy.THROW_EXCEPTION
+//            methodName.findAnnotation<RSubFlowPolicy>()?.policy ?: RSubFlowPolicy.Policy.THROW_EXCEPTION
 //        ) {
 //            RSubFlowPolicy.Policy.THROW_EXCEPTION -> true
 //            RSubFlowPolicy.Policy.SUPPRESS_EXCEPTION_AND_RECONNECT -> false
 //        }
-//
-//        withConnection(throwException) { connection ->
-//            val id = nextId.getAndIncrement()
-//            try {
-//                coroutineScope {
-//                    launch {
-//                        connection.incoming
-//                            .filter { it.id == id }
-//                            .collect {
-//                                val item = parseServerMessage(
-//                                    it,
-//                                    method.returnType.arguments[0].type!!
-//                                )
-//                                send(item)
-//                            }
-//                    }
-//                    connection.subscribe(id, name, method, arguments)
-//                }
-//            } catch (e: FlowCompleted) {
-//                // suppress
-//            } catch (e: Exception) {
-//                withContext(NonCancellable) {
-//                    connection.unsubscribe(id)
-//                }
-//                throw e
-//            }
-//        }
-//    }
+
+        withConnection(throwException) { connection ->
+            val id = nextId.getAndIncrement()
+            try {
+                coroutineScope {
+                    launch {
+                        connection.incoming
+                            .filter { it.id == id }
+                            .collect {
+                                val item = parseServerMessage<T>(it, type)
+                                send(item)
+                            }
+                    }
+                    connection.subscribe(id, interfaceName, methodName)
+                }
+            } catch (e: Exception) {
+                when (e) {
+                    is FlowCompleted -> {
+                        // suppress
+                    }
+                    else -> {
+                        withContext(NonCancellable) {
+                            connection.unsubscribe(id)
+                        }
+                        throw e
+                    }
+                }
+            }
+        }
+    }
 
     /**
      * Create wrapped connection, with shared receive flow
@@ -260,7 +270,7 @@ open class RSubClientAbstract(
         // arguments: Array<Any?>?
     ) = send(RSubMessage.Subscribe(id, name, methodName))
 
-    // private suspend fun ConnectionState.Connected.unsubscribe(id: Int) = send(RSubMessage.Unsubscribe(id))
+    private suspend fun ConnectionState.Connected.unsubscribe(id: Int) = send(RSubMessage.Unsubscribe(id))
 
     private sealed class ConnectionState(val status: RSubConnectionStatus) {
         object Connecting : ConnectionState(RSubConnectionStatus.CONNECTING)
