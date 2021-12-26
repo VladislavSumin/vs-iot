@@ -40,14 +40,22 @@ class RSubSymbolProcessor(
     }
 
     private fun generateSubscriptions(subscriptions: KSClassDeclaration) {
+        val impls = subscriptions
+            .annotations
+            .first { it.annotationType.toTypeName() == RSubServerSubscriptions::class.asTypeName() }
+            .arguments
+            .first()
+            .value!! as List<KSType>
+
         val name = subscriptions.simpleName.asString() + "Impl"
+
         val clazz = TypeSpec.classBuilder(name)
             .addOriginatingKSFile(subscriptions.containingFile!!)
             .addModifiers(KModifier.INTERNAL)
             .superclass(RSubServerSubscriptionsAbstract::class)
             .addSuperinterface(subscriptions.toClassName())
-            .primaryConstructor(generateConstructor(subscriptions))
-            .addTypes(generateWrappers(subscriptions))
+            .primaryConstructor(generateConstructor(impls))
+            .addTypes(subscriptionWrapperGenerator.generateWrappers(impls))
             .build()
 
         val file = FileSpec.builder(subscriptions.packageName.asString(), name)
@@ -57,43 +65,30 @@ class RSubSymbolProcessor(
         file.writeTo(codeGenerator, false)
     }
 
-    private fun generateConstructor(subscriptions: KSClassDeclaration): FunSpec {
-        val annotation = subscriptions.annotations
-            .first { it.annotationType.toTypeName() == RSubServerSubscriptions::class.asTypeName() }
-        val impls = annotation.arguments.first().value!! as List<KSType>
-
+    private fun generateConstructor(impls: List<KSType>): FunSpec {
         val params = impls.map {
-            ParameterSpec.builder(it.toClassName().simpleName.decapitalize(), it.toClassName())
-                .build()
+            val implClassName = it.toClassName()
+            ParameterSpec.builder(implClassName.simpleName.decapitalize(), implClassName).build()
         }
         return FunSpec.constructorBuilder()
             .addParameters(params)
-            .addCode(generateInitializer(subscriptions))
+            .addCode(generateInitializer(impls))
             .build()
     }
 
-    private fun generateWrappers(subscriptions: KSClassDeclaration): List<TypeSpec> {
-        val annotation = subscriptions.annotations
-            .first { it.annotationType.toTypeName() == RSubServerSubscriptions::class.asTypeName() }
-        val impls = annotation.arguments.first().value!! as List<KSType>
-
-        return impls.map(subscriptionWrapperGenerator::generateWrapper)
+    private fun generateInitializer(impls: List<KSType>): CodeBlock {
+        val builder = CodeBlock.builder()
+        impls.forEach { builder.generateInitializer(it) }
+        return builder.build()
     }
 
-    private fun generateInitializer(subscriptions: KSClassDeclaration): CodeBlock {
-        val annotation = subscriptions.annotations
-            .first { it.annotationType.toTypeName() == RSubServerSubscriptions::class.asTypeName() }
-        val impls = annotation.arguments.first().value!! as List<KSType>
-
-        val builder = CodeBlock.builder()
-        impls.forEach {
-            builder.addStatement(
-                "impls[%S] = %T(%L)",
-                it.toClassName().simpleName,
-                ClassName("", it.toClassName().simpleName + "Wrapper"),
-                it.toClassName().simpleName.decapitalize(),
-            )
-        }
-        return builder.build()
+    private fun CodeBlock.Builder.generateInitializer(implType: KSType) {
+        val implName = implType.toClassName().simpleName
+        addStatement(
+            "impls[%S] = %T(%L)",
+            implName,
+            ClassName("", implName + "Wrapper"),
+            implName.decapitalize(),
+        )
     }
 }

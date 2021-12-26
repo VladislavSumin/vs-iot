@@ -6,6 +6,7 @@ import com.google.devtools.ksp.symbol.KSType
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
@@ -17,8 +18,12 @@ import ru.vs.rsub.RSubServerSubscriptionsAbstract
 
 @OptIn(KotlinPoetKspPreview::class)
 class RSubSubscriptionWrapperGenerator {
-    fun generateWrapper(impl: KSType): TypeSpec {
-        return TypeSpec.classBuilder(impl.toClassName().simpleName + "Wrapper")
+    fun generateWrappers(impls: List<KSType>): List<TypeSpec> {
+        return impls.map(this::generateWrapper)
+    }
+
+    private fun generateWrapper(impl: KSType): TypeSpec {
+        return TypeSpec.classBuilder(impl.toClassName().simpleName + NAME_POSTFIX)
             .addModifiers(KModifier.PRIVATE)
             .primaryConstructor(generateConstructor(impl))
             .superclass(RSubServerSubscriptionsAbstract.InterfaceWrapperAbstract::class)
@@ -37,27 +42,21 @@ class RSubSubscriptionWrapperGenerator {
         (impl.declaration as KSClassDeclaration)
             .getAllFunctions()
             .filter { it.isAbstract }
-            .forEach {
-                builder.generateInitializer(it)
-            }
+            .forEach { builder.generateInitializer(it) }
         return builder.build()
     }
 
     private fun CodeBlock.Builder.generateInitializer(method: KSFunctionDeclaration) {
         val methodName = method.simpleName.asString()
-        addStatement(
-            "methodImpls[%S] = %M(%L::%L)",
-            methodName,
-            createSuspend,
-            PARAM_NAME,
-            methodName
-        )
+        addStatement("%M[%S] = %M(%L::%L)", methodImpls, methodName, createSuspend, PARAM_NAME, methodName)
     }
 
     companion object {
+        private const val NAME_POSTFIX = "Wrapper"
         private const val PARAM_NAME = "impl"
         private val createSuspend = RSubServerSubscription::class.asClassName()
             .nestedClass("Companion")
             .member("createSuspend")
+        private val methodImpls = MemberName("", "methodImpls")
     }
 }
