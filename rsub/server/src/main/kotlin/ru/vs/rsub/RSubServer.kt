@@ -6,12 +6,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.encodeToJsonElement
 import kotlinx.serialization.serializer
 import kotlin.reflect.KType
 
@@ -36,13 +34,12 @@ class RSubServer(
                     when (val request = Json.decodeFromString<RSubMessage>(it)) {
                         is RSubMessage.Subscribe -> processSubscribe(request, this)
                         is RSubMessage.Unsubscribe -> processUnsubscribe(request)
-                        else -> {
-                            // TODO!!
-                        }
+                        else -> throw RSubException("Unexpected message type $request")
                     }
                 }
-                activeSubscriptions.forEach { (_, v) -> v.cancel() }
             }
+            activeSubscriptions.forEach { (_, v) -> v.cancel() }
+            connection.close()
             logger.d("Connection closed")
         }
 

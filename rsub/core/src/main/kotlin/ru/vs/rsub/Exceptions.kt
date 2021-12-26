@@ -2,7 +2,7 @@
 
 package ru.vs.rsub
 
-open class RSubException(message: String, cause: Throwable) : RuntimeException(message, cause)
+open class RSubException(message: String, cause: Throwable? = null) : RuntimeException(message, cause)
 
 /**
  * throw this when catch expected exception while connection
