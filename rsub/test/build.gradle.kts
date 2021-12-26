@@ -13,6 +13,9 @@ sourceSets {
 
 tasks.named<Test>("test") {
     useJUnitPlatform()
+    this.testLogging {
+        showStandardStreams = true
+    }
 }
 
 dependencies {
