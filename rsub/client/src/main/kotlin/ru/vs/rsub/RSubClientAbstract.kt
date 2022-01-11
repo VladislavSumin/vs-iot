@@ -181,7 +181,6 @@ open class RSubClientAbstract(
                 }
             } catch (e: Exception) {
                 when (e) {
-                    is CancellationException,
                     is FlowCompleted -> {
                         // suppress
                     }

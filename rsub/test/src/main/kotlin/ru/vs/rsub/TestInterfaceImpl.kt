@@ -2,12 +2,12 @@ package ru.vs.rsub
 
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 
 class TestInterfaceImpl : TestInterface {
-    var isInfinityFlowActive: Boolean = false
-        private set
+    val isInfinityFlowActive: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     override suspend fun unitSuspend() {
         // no action
@@ -52,11 +52,11 @@ class TestInterfaceImpl : TestInterface {
     override fun infinityStringFlow(): Flow<String> {
         return flow {
             try {
-                isInfinityFlowActive = true
+                isInfinityFlowActive.emit(true)
                 emit("string1")
                 delay(Long.MAX_VALUE)
             } finally {
-                isInfinityFlowActive = false
+                isInfinityFlowActive.emit(false)
             }
         }
     }

@@ -2,9 +2,11 @@ package ru.vs.rsub.client_server
 
 import app.cash.turbine.test
 import kotlinx.coroutines.cancelAndJoin
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertInstanceOf
@@ -74,17 +76,20 @@ class ClientServerTest : ClientServerBaseTest() {
 
     @Test
     fun `success call infinity flow`(): Unit = runBlocking {
-        assertFalse(testInterface.isInfinityFlowActive)
+        assertFalse(testInterface.isInfinityFlowActive.value)
 
         val connectionHolder = launch { testInterface.infinityStringFlow2().toList() }
 
         client.testInterface.infinityStringFlow().test {
             assertEquals("string1", awaitItem())
-            assertTrue(testInterface.isInfinityFlowActive)
+            assertTrue(testInterface.isInfinityFlowActive.value)
             cancel()
         }
 
-        assertFalse(testInterface.isInfinityFlowActive)
+        withTimeout(100) {
+            testInterface.isInfinityFlowActive.first { !it }
+        }
+        assertFalse(testInterface.isInfinityFlowActive.value)
 
         connectionHolder.cancelAndJoin()
     }
