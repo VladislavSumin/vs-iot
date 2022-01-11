@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.yield
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -126,12 +127,15 @@ open class RSubClientAbstract(
             try {
                 coroutineScope {
                     val responseDeferred = async { connection.incoming.filter { it.id == id }.first() }
+                    // yield для гарантии старта async ДО подписки
+                    yield()
                     connection.subscribe(id, interfaceName, methodName)
                     val response = responseDeferred.await()
                     parseServerMessage<T>(response, type)
                 }
             } catch (e: Exception) {
                 when (e) {
+                    is CancellationException,
                     is RSubServerException -> throw e
                     else -> throw RSubException("Unknown exception", e)
                 }
@@ -171,10 +175,13 @@ open class RSubClientAbstract(
                                 send(item)
                             }
                     }
+                    // yield для гарантии старта launch ДО подписки
+                    yield()
                     connection.subscribe(id, interfaceName, methodName)
                 }
             } catch (e: Exception) {
                 when (e) {
+                    is CancellationException,
                     is FlowCompleted -> {
                         // suppress
                     }
@@ -201,6 +208,7 @@ open class RSubClientAbstract(
             { connection.send(json.encodeToString(it)) },
             connection.receive
                 .map { json.decodeFromString<RSubMessage>(it) }
+                .onEach { logger.v { "Received message: $it" } }
                 // Hot observable, subscribe immediately, shared, no buffer, connection scoped
                 .shareIn(scope, SharingStarted.Eagerly)
         )
