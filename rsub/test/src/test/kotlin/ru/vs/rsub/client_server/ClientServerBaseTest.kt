@@ -3,9 +3,7 @@ package ru.vs.rsub.client_server
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.cancelAndJoin
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.job
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -45,8 +43,9 @@ open class ClientServerBaseTest {
 
     @AfterEach
     fun afterEach(): Unit = runBlocking {
-        delay(300)
         Logger.i("Closing test context...")
-        scope.coroutineContext.job.cancelAndJoin()
+        // TODO виснет при тестах git actions
+        // scope.coroutineContext.job.cancelAndJoin()
+        scope.cancel()
     }
 }
