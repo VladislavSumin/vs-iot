@@ -27,7 +27,7 @@ android-lifecycle = "2.4.0"
 android-navigation = "2.4.0-rc01"
 android-accompanist = "0.22.0-rc"
 
-jb-compose = "1.0.0"
+jb-compose = "1.0.1"
 
 testing-junit5-core = "5.8.2"
 testing-junit5-platformSuite = "1.8.2"

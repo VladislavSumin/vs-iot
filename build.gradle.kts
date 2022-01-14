@@ -24,10 +24,18 @@ group = "org.example"
 version = "1.0-SNAPSHOT"
 
 tasks.register("ci") {
+    // Client
     dependsOn(":client:android:assemble")
+    dependsOn(":client:jvm:assemble")
+
+    // Server
     dependsOn(":server:assemble")
+
+    // RSub
     dependsOn(":rsub:playground:assemble")
     dependsOn(":rsub:test:test")
+
+    // Other
     dependsOn(":dependencyUpdates")
 }
 

@@ -12,7 +12,6 @@ fun main() {
             state = rememberWindowState(),
             title = "vs-iot"
         ) {
-
         }
     }
 }
