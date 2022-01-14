@@ -6,8 +6,6 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import ru.vs.iot.uikit.theme.MainTheme
 
 @Composable
 fun UKWaiting() {
@@ -18,11 +16,11 @@ fun UKWaiting() {
     }
 }
 
-@Suppress("UnusedPrivateMember")
-@Preview(showBackground = true)
-@Composable
-private fun UKWaitingPreview() {
-    MainTheme {
-        UKWaiting()
-    }
-}
+// @Suppress("UnusedPrivateMember")
+// @Preview(showBackground = true)
+// @Composable
+// private fun UKWaitingPreview() {
+//    MainTheme {
+//        UKWaiting()
+//    }
+// }

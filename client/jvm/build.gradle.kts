@@ -7,10 +7,7 @@ kotlin {
     sourceSets {
         named("commonMain") {
             dependencies {
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.material)
-                implementation(compose.desktop.currentOs)
+                implementation(project(":core:uikit"))
             }
         }
     }
