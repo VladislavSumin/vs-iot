@@ -13,7 +13,9 @@ kotlin {
                 api(compose.runtime)
                 api(compose.foundation)
                 api(compose.material)
-//                implementation(compose.desktop.currentOs)
+
+                // api(compose.uiTooling)
+                // api(compose.preview)
             }
         }
         named("jvmMain") {
