@@ -66,6 +66,7 @@ include(
 
 include(":server")
 include(
+    ":client:common",
     ":client:android",
     ":client:jvm",
 )

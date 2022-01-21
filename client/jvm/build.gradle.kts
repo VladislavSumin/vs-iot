@@ -7,7 +7,7 @@ kotlin {
     sourceSets {
         named("commonMain") {
             dependencies {
-                implementation(project(":core:uikit"))
+                implementation(project(":client:common"))
             }
         }
     }

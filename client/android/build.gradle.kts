@@ -41,8 +41,9 @@ dependencies {
     implementation(project(":core:di"))
     implementation(project(":core:navigation"))
     implementation(project(":core:serialization"))
-    implementation(project(":core:uikit"))
     implementation(project(":core:utils"))
+
+    implementation(project(":client:common"))
 
     implementation(project(":feature:entities:client"))
     implementation(project(":feature:servers:client"))
