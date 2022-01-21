@@ -16,6 +16,5 @@ dependencies {
     api(project(":feature:entities:core"))
     implementation(project(":feature:servers:client"))
 
-
     implementation(libs.ktor.client.android)
 }

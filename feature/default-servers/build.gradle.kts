@@ -4,6 +4,7 @@ plugins {
 }
 
 val pIsBuildAgent: String by project
+@Suppress("MagicNumber")
 android {
     buildTypes {
         debug {

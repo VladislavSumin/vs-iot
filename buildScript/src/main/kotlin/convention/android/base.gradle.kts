@@ -1,8 +1,8 @@
 package convention.android
 
 import ru.vs.iot.build_script.utils.android
-import ru.vs.iot.build_script.utils.kotlinOptions
 
+@Suppress("MagicNumber")
 android {
     setCompileSdkVersion(31)
 

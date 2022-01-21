@@ -61,8 +61,7 @@ dependencies {
     implementation(libs.android.lifecycle.runtime)
     implementation(libs.android.lifecycle.runtime)
     implementation(libs.android.lifecycle.viewmodel.compose)
-    //implementation(libs.android.accompanist.navigation.animation)
-
+    // implementation(libs.android.accompanist.navigation.animation)
 
 //    testImplementation 'junit:junit:4.13.2'
 //    androidTestImplementation 'androidx.test.ext:junit:1.1.3'

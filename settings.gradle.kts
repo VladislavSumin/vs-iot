@@ -87,6 +87,7 @@ dependencyResolutionManagement {
     }
 }
 
+@Suppress("MagicNumber")
 buildCache {
     local {
         removeUnusedEntriesAfterDays = 30

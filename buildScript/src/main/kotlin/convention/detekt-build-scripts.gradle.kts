@@ -8,7 +8,7 @@ plugins {
 
 val detektBuildScript = tasks.register<Detekt>("detektBuildScript") {
     source = fileTree(project.rootDir).matching {
-        include("buildScript/src/**/*.kt", "**/gradle.kts")
+        include("buildScript/src/**/*.kt", "**/*.gradle.kts")
     }
 }
 
