@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import ru.vs.iot.ui.RootUi
@@ -18,7 +19,7 @@ import ru.vs.iot.uikit.theme.MainTheme
 
 fun main() {
     val lifecycle = LifecycleRegistry()
-    // val defaultComponentContext = DefaultComponentContext(lifecycle)
+    val defaultComponentContext = DefaultComponentContext(lifecycle)
 
     application {
         val windowState = rememberWindowState()
@@ -32,7 +33,7 @@ fun main() {
             Surface(Modifier.fillMaxSize()) {
                 MainTheme {
                     DesktopScrollbarStyle {
-                        RootUi()
+                        RootUi(defaultComponentContext)
                     }
                 }
             }
