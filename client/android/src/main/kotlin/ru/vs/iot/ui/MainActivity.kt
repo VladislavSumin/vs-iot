@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
-import ru.vs.iot.ui.core.MainScreen
 import ru.vs.iot.uikit.theme.MainTheme
 
 class MainActivity : BaseActivity() {
@@ -19,7 +18,7 @@ class MainActivity : BaseActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MainScreen()
+                    RootUi()
                 }
             }
         }
