@@ -14,10 +14,18 @@ import androidx.compose.ui.window.rememberWindowState
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
+import org.kodein.di.DI
+import org.kodein.di.compose.withDI
+import ru.vs.iot.di.Modules
+import ru.vs.iot.di.clientCommon
 import ru.vs.iot.ui.RootUi
 import ru.vs.iot.uikit.theme.MainTheme
 
 fun main() {
+    val di = DI.lazy {
+        importOnce(Modules.clientCommon())
+    }
+
     val lifecycle = LifecycleRegistry()
     val defaultComponentContext = DefaultComponentContext(lifecycle)
 
@@ -30,10 +38,12 @@ fun main() {
             state = windowState,
             title = "vs-iot"
         ) {
-            Surface(Modifier.fillMaxSize()) {
-                MainTheme {
-                    DesktopScrollbarStyle {
-                        RootUi(defaultComponentContext)
+            withDI(di) {
+                Surface(Modifier.fillMaxSize()) {
+                    MainTheme {
+                        DesktopScrollbarStyle {
+                            RootUi(defaultComponentContext)
+                        }
                     }
                 }
             }

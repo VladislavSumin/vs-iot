@@ -14,13 +14,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.arkivanov.essenty.instancekeeper.getOrCreate
+import org.kodein.di.compose.localDI
+import org.kodein.di.direct
+import org.kodein.di.instance
 import ru.vs.iot.decompose.ui.LocalComponentContext
-import ru.vs.iot.theming.domain.ThemingInteractorImpl
 
 @Composable
 fun ThemeSettingsScreenView() {
     val componentContext = LocalComponentContext.current
-    val viewModel = componentContext.instanceKeeper.getOrCreate(ThemeSettingsViewModel::class) { ThemeSettingsViewModel(ThemingInteractorImpl()) }
+    val di = localDI()
+    val viewModel = componentContext.instanceKeeper.getOrCreate(ThemeSettingsViewModel::class) {
+        di.direct.instance<ThemeSettingsViewModel>()
+    }
 
     Card(Modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp, 8.dp)) {

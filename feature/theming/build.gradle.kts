@@ -11,6 +11,7 @@ kotlin {
             dependencies {
                 implementation(project(":core:coroutines"))
                 implementation(project(":core:decompose"))
+                implementation(project(":core:di"))
                 implementation(project(":core:navigation2"))
                 implementation(project(":core:uikit"))
             }

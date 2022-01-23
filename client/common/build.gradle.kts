@@ -9,11 +9,14 @@ kotlin {
     sourceSets {
         named("commonMain") {
             dependencies {
+                api(project(":core:coroutines"))
                 api(project(":core:decompose"))
+                api(project(":core:di"))
                 api(project(":core:navigation2"))
                 api(project(":core:uikit"))
 
                 implementation(project(":feature:settings"))
+                implementation(project(":feature:theming"))
             }
         }
     }

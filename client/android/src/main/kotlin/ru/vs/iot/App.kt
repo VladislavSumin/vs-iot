@@ -9,6 +9,7 @@ import org.kodein.di.allInstances
 import org.kodein.di.android.x.androidXModule
 import ru.vs.iot.autostart.AutoStartComponent
 import ru.vs.iot.di.Modules
+import ru.vs.iot.di.clientCommon
 import ru.vs.iot.di.coreDi
 import ru.vs.iot.di.navigation
 import ru.vs.iot.di.root
@@ -23,6 +24,8 @@ class App : Application(), DIAware {
 
     override val di: DI by DI.lazy {
         import(androidXModule(this@App))
+
+        importOnce(Modules.clientCommon())
 
         importOnce(Modules.coreDi())
         importOnce(Modules.coreSerialization())
