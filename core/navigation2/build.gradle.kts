@@ -9,8 +9,7 @@ kotlin {
     sourceSets {
         named("commonMain") {
             dependencies {
-                api(project(":core:uikit"))
-                api(project(":core:decompose"))
+                implementation(project(":core:decompose"))
             }
         }
     }
