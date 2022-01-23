@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
     <string name="theming_settings_screen_title">Тема приложения</string>
+    <string name="theming_settings_screen_theme_light">светлая</string>
+    <string name="theming_settings_screen_theme_dark">тёмная</string>
+    <string name="theming_settings_screen_theme_system">системная</string>
 </resources>

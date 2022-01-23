@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
     <string name="theming_settings_screen_title">App theme</string>
+    <string name="theming_settings_screen_theme_light">light</string>
+    <string name="theming_settings_screen_theme_dark">dark</string>
+    <string name="theming_settings_screen_theme_system">system</string>
 </resources>

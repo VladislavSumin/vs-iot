@@ -33,9 +33,15 @@ fun ThemeSettingsScreenView() {
                 color = Color.Green,
             ) {
                 Row {
-                    TextButton(onClick = { viewModel.onClickSetTheme(Theme.LIGHT) }) { Text("Светлая") }
-                    TextButton(onClick = { viewModel.onClickSetTheme(Theme.SYSTEM) }) { Text("Системная") }
-                    TextButton(onClick = { viewModel.onClickSetTheme(Theme.DARK) }) { Text("Темная") }
+                    TextButton(onClick = { viewModel.onClickSetTheme(Theme.LIGHT) }) {
+                        Text(stringResource(MR.strings.theming_settings_screen_theme_light))
+                    }
+                    TextButton(onClick = { viewModel.onClickSetTheme(Theme.SYSTEM) }) {
+                        Text(stringResource(MR.strings.theming_settings_screen_theme_system))
+                    }
+                    TextButton(onClick = { viewModel.onClickSetTheme(Theme.DARK) }) {
+                        Text(stringResource(MR.strings.theming_settings_screen_theme_dark))
+                    }
                 }
             }
         }
