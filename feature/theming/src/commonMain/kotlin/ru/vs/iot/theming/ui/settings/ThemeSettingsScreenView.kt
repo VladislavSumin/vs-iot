@@ -14,7 +14,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import dev.icerock.moko.resources.compose.stringResource
 import ru.vs.iot.decompose.view_model.decomposeViewModel
+import ru.vs.iot.theming.MR
 import ru.vs.iot.theming.domain.Theme
 
 @Composable
@@ -24,7 +26,7 @@ fun ThemeSettingsScreenView() {
 
     Card(Modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp, 8.dp)) {
-            Text("Theme")
+            Text(stringResource(MR.strings.theming_settings_screen_title))
             Text(theme.toString())
             Surface(
                 shape = MaterialTheme.shapes.medium,

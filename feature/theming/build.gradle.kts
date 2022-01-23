@@ -1,6 +1,7 @@
 plugins {
     id("convention.android.library-multiplatform")
     id("convention.multiplatform.jvm")
+    id("convention.multiplatform.resources")
     id("org.jetbrains.compose")
     id("kotlin-parcelize")
 }
