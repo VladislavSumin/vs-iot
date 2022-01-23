@@ -1,14 +1,17 @@
 package ru.vs.iot.theming.domain
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 internal interface ThemingInteractor {
-    fun observeCurrentTheme(): Flow<Theme>
+    fun observeCurrentTheme(): StateFlow<Theme>
+    suspend fun setTheme(theme: Theme)
 }
 
 internal class ThemingInteractorImpl : ThemingInteractor {
-    override fun observeCurrentTheme(): Flow<Theme> {
-        return flowOf(Theme.SYSTEM)
+    private val theme = MutableStateFlow(Theme.SYSTEM)
+    override fun observeCurrentTheme(): StateFlow<Theme> = theme
+    override suspend fun setTheme(theme: Theme) {
+        this.theme.emit(theme)
     }
 }
