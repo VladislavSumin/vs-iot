@@ -1,13 +1,27 @@
 plugins {
-    id("convention.android.library")
-    id("convention.android.compose")
+    id("convention.android.library-multiplatform")
+    id("convention.multiplatform.jvm")
+    id("org.jetbrains.compose")
+    id("kotlin-parcelize")
 }
 
-dependencies {
-    implementation(project(":core:compose"))
-    implementation(project(":core:coroutines"))
-    implementation(project(":core:di"))
-    implementation(project(":core:navigation"))
-    implementation(project(":core:uikit"))
-    implementation(project(":core:utils"))
+kotlin {
+    sourceSets {
+        named("commonMain") {
+            dependencies {
+                implementation(project(":core:decompose"))
+                implementation(project(":core:navigation2"))
+                implementation(project(":core:uikit"))
+            }
+        }
+    }
 }
+
+// dependencies {
+//    implementation(project(":core:compose"))
+//    implementation(project(":core:coroutines"))
+//    implementation(project(":core:di"))
+//    implementation(project(":core:navigation"))
+//    implementation(project(":core:uikit"))
+//    implementation(project(":core:utils"))
+// }

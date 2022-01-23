@@ -8,7 +8,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -19,7 +18,6 @@ import ru.vs.iot.navigation.ui.Screen
 import ru.vs.iot.navigation.ui.command.NavigationCommand
 import ru.vs.iot.servers.ui.Servers
 import ru.vs.iot.services.ui.Services
-import ru.vs.iot.settings.ui.Settings
 
 @Composable
 fun BottomNavigationBar() {
@@ -57,7 +55,7 @@ fun BottomNavigationBar() {
     }
 }
 
-private val items = listOf(Item.Entities, Item.Services, Item.Servers, Item.Settings)
+private val items = listOf(Item.Entities, Item.Services, Item.Servers)
 
 private sealed class Item(
     val navigationCommand: NavigationCommand,
@@ -67,5 +65,4 @@ private sealed class Item(
     object Entities : Item(Screen.Entities, Icons.Filled.Home)
     object Services : Item(Screen.Services, Icons.Filled.Email)
     object Servers : Item(Screen.Servers, Icons.Filled.Call)
-    object Settings : Item(Screen.Settings, Icons.Filled.Settings)
 }

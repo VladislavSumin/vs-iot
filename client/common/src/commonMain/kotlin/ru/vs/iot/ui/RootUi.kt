@@ -13,8 +13,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -28,6 +28,7 @@ import ru.vs.iot.navigation.ui.LocalNavigation2
 import ru.vs.iot.navigation.ui.LocalNavigationHolder
 import ru.vs.iot.navigation.ui.NavigationView
 import ru.vs.iot.navigation.ui.defaultRouter
+import ru.vs.iot.settings.ui.SettingsScreen
 
 @Composable
 fun RootUi(componentContext: ComponentContext) {
@@ -53,14 +54,12 @@ private fun BottomBarView(content: @Composable BoxScope.() -> Unit) {
                     BottomNavigationItem(
                         selected = currentScreen::class == S1::class,
                         icon = { Icon(Icons.Filled.Home, "") },
-                        onClick = {
-                            router.navigate { listOf(S1) }
-                        }
+                        onClick = { router.navigate { listOf(S1) } }
                     )
                     BottomNavigationItem(
-                        selected = currentScreen::class == S2::class,
-                        icon = { Icon(Icons.Filled.Call, "") },
-                        onClick = {}
+                        selected = currentScreen::class == SettingsScreen::class,
+                        icon = { Icon(Icons.Filled.Settings, "") },
+                        onClick = { router.navigate { listOf(SettingsScreen) } }
                     )
                 }
             },
@@ -91,7 +90,7 @@ private fun Screen2() {
 @Parcelize
 private object S1 : Screen {
     @Composable
-    override fun render() {
+    override fun ScreenView() {
         Screen1()
     }
 }
@@ -99,7 +98,7 @@ private object S1 : Screen {
 @Parcelize
 private object S2 : Screen {
     @Composable
-    override fun render() {
+    override fun ScreenView() {
         Screen2()
     }
 }

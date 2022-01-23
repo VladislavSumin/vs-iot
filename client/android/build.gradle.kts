@@ -48,7 +48,6 @@ dependencies {
     implementation(project(":feature:entities:client"))
     implementation(project(":feature:servers:client"))
     implementation(project(":feature:services:client"))
-    implementation(project(":feature:settings"))
 
     implementation(libs.ktor.client.android)
     implementation(libs.ktor.client.serialization)

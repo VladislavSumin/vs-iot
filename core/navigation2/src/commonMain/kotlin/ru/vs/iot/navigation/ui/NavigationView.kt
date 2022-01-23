@@ -10,5 +10,5 @@ fun NavigationView() {
     Children(
         routerState = routerState,
         animation = crossfade(),
-    ) { childCreated -> childCreated.instance.render() }
+    ) { childCreated -> childCreated.instance.ScreenView() }
 }

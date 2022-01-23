@@ -12,6 +12,8 @@ kotlin {
                 api(project(":core:decompose"))
                 api(project(":core:navigation2"))
                 api(project(":core:uikit"))
+
+                implementation(project(":feature:settings"))
             }
         }
     }
