@@ -23,6 +23,7 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import com.arkivanov.decompose.router.pop
 import com.arkivanov.decompose.router.push
 import com.arkivanov.essenty.parcelable.Parcelize
+import ru.vs.iot.decompose.ui.LocalComponentContextHolder
 import ru.vs.iot.navigation.Screen
 import ru.vs.iot.navigation.ui.LocalNavigation2
 import ru.vs.iot.navigation.ui.LocalNavigationHolder
@@ -36,9 +37,11 @@ fun RootUi(componentContext: ComponentContext) {
         componentContext.defaultRouter(S1)
     }
 
-    LocalNavigationHolder(router) {
-        BottomBarView {
-            NavigationView()
+    LocalComponentContextHolder(componentContext) {
+        LocalNavigationHolder(router) {
+            BottomBarView {
+                NavigationView()
+            }
         }
     }
 }

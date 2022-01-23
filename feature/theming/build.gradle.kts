@@ -9,6 +9,7 @@ kotlin {
     sourceSets {
         named("commonMain") {
             dependencies {
+                implementation(project(":core:coroutines"))
                 implementation(project(":core:decompose"))
                 implementation(project(":core:navigation2"))
                 implementation(project(":core:uikit"))

@@ -5,7 +5,7 @@ import com.arkivanov.decompose.router.Router
 import com.arkivanov.decompose.router.router
 import ru.vs.iot.navigation.Screen
 
-fun ComponentContext.defaultRouter(initialScreen: Screen): Router<Screen, Screen> {
+fun ComponentContext.defaultRouter(initialScreen: Screen): Router<Screen, ScreenInstance> {
     return this.router(
         initialConfiguration = initialScreen,
         key = "defaultRouter",
@@ -14,4 +14,4 @@ fun ComponentContext.defaultRouter(initialScreen: Screen): Router<Screen, Screen
 }
 
 @Suppress("UnusedPrivateMember")
-private fun createChild(config: Screen, componentContext: ComponentContext) = config
+private fun createChild(config: Screen, componentContext: ComponentContext) = ScreenInstance(config, componentContext)
