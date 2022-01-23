@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ru.vs.iot.theming.ui.ThemeSettingsScreenView
+import ru.vs.iot.theming.ui.settings.ThemeSettingsScreenView
 
 @Composable
 internal fun SettingsScreenView() {

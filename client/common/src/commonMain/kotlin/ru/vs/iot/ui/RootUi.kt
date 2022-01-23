@@ -30,6 +30,7 @@ import ru.vs.iot.navigation.ui.LocalNavigationHolder
 import ru.vs.iot.navigation.ui.NavigationView
 import ru.vs.iot.navigation.ui.defaultRouter
 import ru.vs.iot.settings.ui.SettingsScreen
+import ru.vs.iot.theming.ui.selector.ThemeSelectorView
 
 @Composable
 fun RootUi(componentContext: ComponentContext) {
@@ -38,9 +39,11 @@ fun RootUi(componentContext: ComponentContext) {
     }
 
     LocalComponentContextHolder(componentContext) {
-        LocalNavigationHolder(router) {
-            BottomBarView {
-                NavigationView()
+        ThemeSelectorView {
+            LocalNavigationHolder(router) {
+                BottomBarView {
+                    NavigationView()
+                }
             }
         }
     }

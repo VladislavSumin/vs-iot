@@ -1,4 +1,4 @@
-package ru.vs.iot.theming.ui
+package ru.vs.iot.theming.ui.settings
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
