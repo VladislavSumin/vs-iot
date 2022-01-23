@@ -10,5 +10,10 @@ kotlin {
                 implementation(project(":client:common"))
             }
         }
+        named("jvmMain") {
+            dependencies {
+                implementation(project(":core:logging:slf4j"))
+            }
+        }
     }
 }
