@@ -13,11 +13,13 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import com.arkivanov.decompose.router.pop
 import com.arkivanov.decompose.router.push
 import com.arkivanov.essenty.parcelable.Parcelize
@@ -34,21 +36,30 @@ fun RootUi(componentContext: ComponentContext) {
     }
 
     LocalNavigationHolder(router) {
-        RootNavigation {
+        BottomBarView {
             NavigationView()
         }
     }
 }
 
 @Composable
-private fun RootNavigation(content: @Composable BoxScope.() -> Unit) {
+private fun BottomBarView(content: @Composable BoxScope.() -> Unit) {
+    val router = LocalNavigation2.current
+    val currentScreen = router.state.subscribeAsState().value.activeChild.instance
     BoxWithConstraints(Modifier.fillMaxSize()) {
         Scaffold(
             bottomBar = {
                 BottomNavigation(backgroundColor = MaterialTheme.colors.surface) {
                     BottomNavigationItem(
-                        selected = false,
+                        selected = currentScreen::class == S1::class,
                         icon = { Icon(Icons.Filled.Home, "") },
+                        onClick = {
+                            router.navigate { listOf(S1) }
+                        }
+                    )
+                    BottomNavigationItem(
+                        selected = currentScreen::class == S2::class,
+                        icon = { Icon(Icons.Filled.Call, "") },
                         onClick = {}
                     )
                 }
