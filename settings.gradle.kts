@@ -65,6 +65,8 @@ include(
     ":feature:services:server",
 
     ":feature:settings",
+
+    ":feature:theming",
 )
 
 include(":server")

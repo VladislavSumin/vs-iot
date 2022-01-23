@@ -12,8 +12,6 @@ kotlin {
                 implementation(project(":core:decompose"))
                 implementation(project(":core:navigation2"))
                 implementation(project(":core:uikit"))
-
-                implementation(project(":feature:theming"))
             }
         }
     }
