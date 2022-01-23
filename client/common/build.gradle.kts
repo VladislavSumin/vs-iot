@@ -12,6 +12,7 @@ kotlin {
                 api(project(":core:coroutines"))
                 api(project(":core:decompose"))
                 api(project(":core:di"))
+                api(project(":core:logging"))
                 api(project(":core:navigation2"))
                 api(project(":core:uikit"))
 

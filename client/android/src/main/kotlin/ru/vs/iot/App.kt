@@ -1,6 +1,8 @@
 package ru.vs.iot
 
 import android.app.Application
+import co.touchlab.kermit.Logger
+import co.touchlab.kermit.platformLogWriter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.kodein.di.DI
@@ -40,6 +42,9 @@ class App : Application(), DIAware {
 
     override fun onCreate() {
         super.onCreate()
+
+        Logger.setLogWriters(platformLogWriter())
+
         applicationScope.launch {
             val autoStartComponents: List<AutoStartComponent> by allInstances()
             autoStartComponents.size

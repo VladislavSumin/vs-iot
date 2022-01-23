@@ -10,8 +10,11 @@ kotlin {
             dependencies {
                 api(libs.decompose.core)
                 api(libs.decompose.jetbrains)
-                implementation(project(":core:compose2"))
+
                 api(libs.kodein.compose)
+
+                implementation(project(":core:compose2"))
+                implementation(project(":core:logging"))
             }
         }
         named("androidMain") {

@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import co.touchlab.kermit.Logger
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
@@ -18,10 +19,13 @@ import org.kodein.di.DI
 import org.kodein.di.compose.withDI
 import ru.vs.iot.di.Modules
 import ru.vs.iot.di.clientCommon
+import ru.vs.iot.logging.setupDefault
 import ru.vs.iot.ui.RootUi
 import ru.vs.iot.uikit.theme.MainTheme
 
 fun main() {
+    Logger.setupDefault()
+
     val di = DI.lazy {
         importOnce(Modules.clientCommon())
     }

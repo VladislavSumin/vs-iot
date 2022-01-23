@@ -4,9 +4,13 @@ plugins {
 
 kotlin {
     sourceSets {
-        named("jvmMain") {
+        named("commonMain") {
             dependencies {
                 api(libs.logging.kermit)
+            }
+        }
+        named("jvmMain") {
+            dependencies {
                 implementation(libs.logging.log4j.api)
                 implementation(libs.logging.log4j.core)
                 implementation(libs.logging.log4j.slf4j)
