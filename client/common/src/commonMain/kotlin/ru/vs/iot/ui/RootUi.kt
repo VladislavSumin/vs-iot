@@ -15,7 +15,9 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.ComponentContext
@@ -27,13 +29,14 @@ import com.arkivanov.decompose.router.pop
 import com.arkivanov.decompose.router.push
 import com.arkivanov.decompose.router.router
 import com.arkivanov.decompose.value.Value
-import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
+import ru.vs.iot.navigation.Screen
+import ru.vs.iot.navigation.ScreenFactory
 
 @Composable
 fun RootUi(componentContext: ComponentContext) {
     val router = remember {
-        componentContext.router<ScreenConfig, ScreenConfig>(
+        componentContext.router<Screen, Screen>(
             initialConfiguration = S1,
             key = "root",
             childFactory = ::createChild
@@ -41,13 +44,20 @@ fun RootUi(componentContext: ComponentContext) {
     }
     val routerState = remember { router.state }
 
-    RootNavigation {
-        NavigationScreen(routerState, router)
+    CompositionLocalProvider(LocalNavigation provides router) {
+        RootNavigation {
+            NavigationScreen(routerState)
+        }
     }
 }
 
+@Suppress("TooGenericExceptionThrown")
+val LocalNavigation = staticCompositionLocalOf<Router<Screen, Screen>> {
+    throw RuntimeException("Local navigation is not set")
+}
+
 @Suppress("UnusedPrivateMember")
-private fun createChild(config: ScreenConfig, componentContext: ComponentContext) = config
+private fun createChild(config: Screen, componentContext: ComponentContext) = config
 
 private val SHOW_DRAWER_NAVIGATION_STATE = 600.dp
 private val SHOW_DRAWER_NAVIGATION_MOVE_CONTENT_STATE = 800.dp
@@ -90,19 +100,19 @@ private fun RootNavigation(content: @Composable BoxScope.() -> Unit) {
 
 @Composable
 private fun NavigationScreen(
-    routerState: Value<RouterState<ScreenConfig, ScreenConfig>>,
-    router: Router<ScreenConfig, ScreenConfig>
+    routerState: Value<RouterState<Screen, Screen>>,
 ) {
     Children(routerState, animation = crossfade()) {
         when (val child = it.instance) {
-            S1 -> Screen1(router)
-            S2 -> Screen2(router)
+            is S1 -> S1F.render(child)
+            is S2 -> S2F.render(child)
         }
     }
 }
 
 @Composable
-private fun Screen1(router: Router<ScreenConfig, ScreenConfig>) {
+private fun Screen1() {
+    val router = LocalNavigation.current
     Text("Hello from Screen1")
     Button(onClick = { router.push(S2) }) {
         Text("goto s2")
@@ -110,21 +120,30 @@ private fun Screen1(router: Router<ScreenConfig, ScreenConfig>) {
 }
 
 @Composable
-private fun Screen2(router: Router<ScreenConfig, ScreenConfig>) {
+private fun Screen2() {
+    val router = LocalNavigation.current
     Text("Hello from Screen2")
     Button(onClick = { router.pop() }) {
         Text("back")
     }
 }
 
-// private sealed class Screen {
-//    object S1 : Screen()
-//    object S2 : Screen()
-// }
+private object S1F : ScreenFactory<S1> {
+    @Composable
+    override fun render(screen: S1) {
+        Screen1()
+    }
+}
 
-private interface ScreenConfig : Parcelable
-@Parcelize
-private object S1 : ScreenConfig
+private object S2F : ScreenFactory<S2> {
+    @Composable
+    override fun render(screen: S2) {
+        Screen2()
+    }
+}
 
 @Parcelize
-private object S2 : ScreenConfig
+private object S1 : Screen
+
+@Parcelize
+private object S2 : Screen
