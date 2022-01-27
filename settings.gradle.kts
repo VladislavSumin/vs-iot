@@ -31,6 +31,7 @@ include(
     ":core:navigation",
     ":core:navigation2",
     ":core:serialization",
+    ":core:settings",
     ":core:uikit",
     ":core:utils",
 )

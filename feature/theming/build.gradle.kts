@@ -14,6 +14,7 @@ kotlin {
                 implementation(project(":core:decompose"))
                 implementation(project(":core:di"))
                 implementation(project(":core:navigation2"))
+                implementation(project(":core:settings"))
                 implementation(project(":core:uikit"))
             }
         }

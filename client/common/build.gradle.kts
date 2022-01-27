@@ -14,6 +14,7 @@ kotlin {
                 api(project(":core:di"))
                 api(project(":core:logging"))
                 api(project(":core:navigation2"))
+                api(project(":core:settings"))
                 api(project(":core:uikit"))
 
                 implementation(project(":feature:settings"))
