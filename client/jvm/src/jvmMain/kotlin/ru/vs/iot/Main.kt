@@ -12,10 +12,7 @@ import co.touchlab.kermit.Logger
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
-import com.russhwolf.settings.JvmPreferencesSettings
-import com.russhwolf.settings.Settings
 import org.kodein.di.DI
-import org.kodein.di.bindSingleton
 import org.kodein.di.compose.withDI
 import ru.vs.iot.di.Modules
 import ru.vs.iot.di.clientCommon
@@ -27,8 +24,6 @@ fun main() {
 
     val di = DI.lazy {
         importOnce(Modules.clientCommon())
-
-        bindSingleton<Settings.Factory> { JvmPreferencesSettings.Factory() }
     }
 
     val lifecycle = LifecycleRegistry()

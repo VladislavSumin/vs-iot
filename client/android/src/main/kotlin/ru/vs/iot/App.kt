@@ -3,15 +3,12 @@ package ru.vs.iot
 import android.app.Application
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.platformLogWriter
-import com.russhwolf.settings.AndroidSettings
-import com.russhwolf.settings.Settings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.allInstances
 import org.kodein.di.android.x.androidXModule
-import org.kodein.di.bindSingleton
 import ru.vs.iot.autostart.AutoStartComponent
 import ru.vs.iot.di.Modules
 import ru.vs.iot.di.clientCommon
@@ -41,9 +38,6 @@ class App : Application(), DIAware {
         importOnce(Modules.featureEntities())
         importOnce(Modules.featureServers())
         importOnce(Modules.featureServices())
-
-        // TODO перенести в settings модуль
-        bindSingleton<Settings.Factory> { AndroidSettings.Factory(this@App) }
     }
 
     override fun onCreate() {
