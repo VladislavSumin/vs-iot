@@ -1,7 +1,5 @@
 package ru.vs.iot.servers.ui.server
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -15,6 +13,7 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import ru.vs.iot.decompose.view_model.ViewModel
 import ru.vs.iot.servers.domain.ServersInteractor
 import ru.vs.iot.servers.dto.AboutServerDTO
 import ru.vs.iot.servers.repository.Server
@@ -23,7 +22,7 @@ import ru.vs.iot.utils.onException
 internal class ServersViewModel(
     private val serversInteractor: ServersInteractor
 ) : ViewModel() {
-    // TODO придумать более адекватный способо управления состоянием обновления
+    // TODO придумать более адекватный способ управления состоянием обновления
     private val refreshState = MutableStateFlow(false)
     private val refreshEvent: Flow<Unit> = refreshState
         .filter { it }

@@ -10,21 +10,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.tooling.preview.Preview
+import com.arkivanov.decompose.router.pop
 import kotlinx.coroutines.channels.consumeEach
-import ru.vs.iot.compose.di.kodeinViewModel
-import ru.vs.iot.navigation.ui.LocalNavigation
-import ru.vs.iot.uikit.theme.MainTheme
+import ru.vs.iot.decompose.view_model.decomposeViewModel
+import ru.vs.iot.navigation.ui.LocalNavigation2
 
 @Composable
-internal fun AddServerScreen(
-    viewModel: AddServerViewModel = kodeinViewModel()
+internal fun AddServerScreenView(
+    viewModel: AddServerViewModel = decomposeViewModel()
 ) {
-    val navigation = LocalNavigation.current
+    val navigation = LocalNavigation2.current
     LaunchedEffect(Unit) {
         viewModel.events.consumeEach {
             when (it) {
-                Event.CloseScreen -> navigation.popBackStack()
+                Event.CloseScreen -> navigation.pop()
             }
         }
     }
@@ -44,11 +43,11 @@ private fun AddServer(onClickSave: (name: String, url: String) -> Unit) {
     }
 }
 
-@Suppress("UnusedPrivateMember")
-@Preview(showBackground = true)
-@Composable
-private fun AddServerScreenPreview() {
-    MainTheme {
-        AddServer { _, _ -> }
-    }
-}
+// @Suppress("UnusedPrivateMember")
+// @Preview(showBackground = true)
+// @Composable
+// private fun AddServerScreenPreview() {
+//    MainTheme {
+//        AddServer { _, _ -> }
+//    }
+// }

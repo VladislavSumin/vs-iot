@@ -13,6 +13,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
@@ -29,6 +30,7 @@ import ru.vs.iot.navigation.ui.LocalNavigation2
 import ru.vs.iot.navigation.ui.LocalNavigationHolder
 import ru.vs.iot.navigation.ui.NavigationView
 import ru.vs.iot.navigation.ui.defaultRouter
+import ru.vs.iot.servers.ui.ServersScreen
 import ru.vs.iot.settings.ui.SettingsScreen
 import ru.vs.iot.theming.ui.selector.ThemeSelectorView
 
@@ -61,6 +63,11 @@ private fun BottomBarView(content: @Composable BoxScope.() -> Unit) {
                         selected = currentScreen::class == S1::class,
                         icon = { Icon(Icons.Filled.Home, "") },
                         onClick = { router.navigate { listOf(S1) } }
+                    )
+                    BottomNavigationItem(
+                        selected = currentScreen::class == ServersScreen::class,
+                        icon = { Icon(Icons.Filled.Face, "") },
+                        onClick = { router.navigate { listOf(ServersScreen) } }
                     )
                     BottomNavigationItem(
                         selected = currentScreen::class == SettingsScreen::class,

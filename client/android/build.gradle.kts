@@ -2,7 +2,6 @@ plugins {
     id("convention.android.application")
     id("convention.android.compose")
     kotlin("kapt")
-    id("com.squareup.sqldelight")
 }
 
 android {
@@ -26,14 +25,6 @@ android {
     }
 }
 
-evaluationDependsOn(":feature:servers")
-sqldelight {
-    database("Database") {
-        packageName = "ru.vs.iot.repository"
-        dependency(project(":feature:servers:client"))
-    }
-}
-
 dependencies {
     implementation(project(":core:autostart"))
     implementation(project(":core:compose"))
@@ -44,14 +35,10 @@ dependencies {
     implementation(project(":client:common"))
 
     implementation(project(":feature:entities:client"))
-    implementation(project(":feature:servers:client"))
     implementation(project(":feature:services:client"))
 
     implementation(libs.ktor.client.android)
     implementation(libs.ktor.client.serialization)
-
-    implementation(libs.sqldelight.coroutines)
-    implementation(libs.sqldelight.android)
 
     implementation(libs.android.core)
 

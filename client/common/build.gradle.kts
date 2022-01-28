@@ -3,6 +3,15 @@ plugins {
     id("convention.multiplatform.jvm")
     id("org.jetbrains.compose")
     id("kotlin-parcelize")
+    id("com.squareup.sqldelight")
+}
+
+evaluationDependsOn(":feature:servers")
+sqldelight {
+    database("Database") {
+        packageName = "ru.vs.iot.repository"
+        dependency(project(":feature:servers:client"))
+    }
 }
 
 kotlin {
@@ -17,8 +26,17 @@ kotlin {
                 api(project(":core:settings"))
                 api(project(":core:uikit"))
 
+                api(libs.sqldelight.coroutines)
+
                 implementation(project(":feature:settings"))
                 implementation(project(":feature:theming"))
+                implementation(project(":feature:servers:client"))
+            }
+        }
+
+        named("androidMain") {
+            dependencies {
+                implementation(libs.sqldelight.android)
             }
         }
     }

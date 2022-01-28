@@ -11,8 +11,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -20,7 +18,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -31,20 +28,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.swiperefresh.SwipeRefresh
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import ru.vs.iot.compose.di.kodeinViewModel
-import ru.vs.iot.navigation.ui.LocalNavigation
-import ru.vs.iot.navigation.ui.Screen
+import com.arkivanov.decompose.router.push
+import ru.vs.iot.decompose.view_model.decomposeViewModel
+import ru.vs.iot.navigation.ui.LocalNavigation2
 import ru.vs.iot.servers.repository.Server
-import ru.vs.iot.servers.ui.AddServer
+import ru.vs.iot.servers.ui.AddServerScreen
 import ru.vs.iot.uikit.theme.NONE
 import ru.vs.iot.uikit.theme.Shapes
 import ru.vs.iot.uikit.view.UKWaiting
 
 @Composable
-internal fun ServersScreen(
-    viewModel: ServersViewModel = kodeinViewModel()
+internal fun ServersScreenView(
+    viewModel: ServersViewModel = decomposeViewModel()
 ) {
     when (val state = viewModel.state.collectAsState().value) {
         ServersScreenState.Loading -> UKWaiting()
@@ -54,9 +49,9 @@ internal fun ServersScreen(
 
 @Composable
 private fun RenderServerListState(state: ServersScreenState.ShowServersList, viewModel: ServersViewModel) {
-    val navigation = LocalNavigation.current
+    val navigation = LocalNavigation2.current
     Scaffold(floatingActionButton = {
-        FloatingActionButton(onClick = { navigation.navigate(Screen.AddServer) }) {
+        FloatingActionButton(onClick = { navigation.push(AddServerScreen) }) {
             Text("+")
         }
     }) {
@@ -71,17 +66,17 @@ private fun ServersList(
     onClickDelete: (Server) -> Unit
 ) {
     val servers = state.servers
-    SwipeRefresh(state = rememberSwipeRefreshState(state.isRefreshing), onRefresh = onRefresh) {
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            contentPadding = PaddingValues(0.dp, 8.dp)
-        ) {
-            items(servers, { it.server.id }) {
-                ServerItem(it, onClickDelete)
-            }
+//    SwipeRefresh(state = rememberSwipeRefreshState(state.isRefreshing), onRefresh = onRefresh) {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(0.dp, 8.dp)
+    ) {
+        items(servers, { it.server.id }) {
+            ServerItem(it, onClickDelete)
         }
     }
+//    }
 }
 
 @Composable
@@ -114,12 +109,12 @@ private fun RenderServerItemMenu(onClickDelete: () -> Unit) {
 
     IconButton(onClick = { showPopupMenu = true }) {
         Icon(Icons.Filled.MoreVert, "Options")
-        DropdownMenu(expanded = showPopupMenu, onDismissRequest = { showPopupMenu = false }) {
-            DropdownMenuItem(onClick = onClickDelete) {
-                Icon(Icons.Filled.Delete, "Delete")
-                Text("Delete")
-            }
-        }
+//        DropdownMenu(expanded = showPopupMenu, onDismissRequest = { showPopupMenu = false }) {
+//            DropdownMenuItem(onClick = onClickDelete) {
+//                Icon(Icons.Filled.Delete, "Delete")
+//                Text("Delete")
+//            }
+//        }
     }
 }
 
