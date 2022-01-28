@@ -37,18 +37,9 @@ dependencies {
     implementation(project(":feature:entities:client"))
     implementation(project(":feature:services:client"))
 
-    implementation(libs.ktor.client.android)
-    implementation(libs.ktor.client.serialization)
-
     implementation(libs.android.core)
 
     implementation(libs.android.lifecycle.runtime)
     implementation(libs.android.lifecycle.runtime)
     implementation(libs.android.lifecycle.viewmodel.compose)
-    // implementation(libs.android.accompanist.navigation.animation)
-
-//    testImplementation 'junit:junit:4.13.2'
-//    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-//    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
 }
