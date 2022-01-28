@@ -59,6 +59,7 @@ private fun RenderServerListState(state: ServersScreenState.ShowServersList, vie
     }
 }
 
+@Suppress("UnusedPrivateMember")
 @Composable
 private fun ServersList(
     state: ServersScreenState.ShowServersList,
@@ -103,6 +104,7 @@ private fun ServerItem(serverState: ServersScreenState.ServerState, onClickDelet
     }
 }
 
+@Suppress("UnusedPrivateMember")
 @Composable
 private fun RenderServerItemMenu(onClickDelete: () -> Unit) {
     var showPopupMenu by remember { mutableStateOf(false) }

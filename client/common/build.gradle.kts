@@ -39,5 +39,11 @@ kotlin {
                 implementation(libs.sqldelight.android)
             }
         }
+
+        named("jvmMain") {
+            dependencies {
+                implementation(libs.sqldelight.sqlite)
+            }
+        }
     }
 }
