@@ -11,7 +11,7 @@ sqldelight {
 }
 
 dependencies {
-    implementation(project(":core:autostart"))
+    // implementation(project(":core:autostart"))
     implementation(project(":core:compose"))
     implementation(project(":core:coroutines"))
     implementation(project(":core:di"))
@@ -20,7 +20,7 @@ dependencies {
     implementation(project(":core:utils"))
 
     implementation(project(":feature:servers:dto"))
-    implementation(project(":feature:default-servers"))
+    // implementation(project(":feature:default-servers"))
 
     implementation(libs.sqldelight.coroutines)
     implementation(libs.sqldelight.android)

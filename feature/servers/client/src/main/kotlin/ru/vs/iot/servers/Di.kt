@@ -5,7 +5,6 @@ import org.kodein.di.bindSingleton
 import org.kodein.di.inSet
 import org.kodein.di.instance
 import org.kodein.di.provider
-import ru.vs.iot.default_servers.featureDefaultServers
 import ru.vs.iot.di.Modules
 import ru.vs.iot.di.bindViewModel
 import ru.vs.iot.di.i
@@ -27,7 +26,7 @@ import ru.vs.iot.servers.ui.server.ServersScreen
 import ru.vs.iot.servers.ui.server.ServersViewModel
 
 fun Modules.featureServers() = DI.Module("feature-servers") {
-    importOnce(Modules.featureDefaultServers())
+    // importOnce(Modules.featureDefaultServers())
 
     // Apis
     bindSingleton<ServerApi> { ServerApiImpl(i()) }
@@ -39,7 +38,7 @@ fun Modules.featureServers() = DI.Module("feature-servers") {
     bindSingleton<ServersRepository> { ServersRepositoryImpl(i()) }
 
     // Interactors
-    bindSingleton<ServersInteractor> { ServersInteractorImpl(i(), i(), i()) }
+    bindSingleton<ServersInteractor> { ServersInteractorImpl(i(), i() /*, i()*/) }
 
     // View models
     bindViewModel { ServersViewModel(i()) }
