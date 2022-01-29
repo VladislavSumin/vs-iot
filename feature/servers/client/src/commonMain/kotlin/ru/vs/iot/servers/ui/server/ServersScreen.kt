@@ -30,7 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.router.push
 import ru.vs.iot.decompose.view_model.decomposeViewModel
-import ru.vs.iot.navigation.ui.LocalNavigation
+import ru.vs.iot.navigation.ui.LocalRootNavigation
 import ru.vs.iot.servers.repository.Server
 import ru.vs.iot.servers.ui.AddServerScreen
 import ru.vs.iot.uikit.theme.NONE
@@ -49,7 +49,7 @@ internal fun ServersScreenView(
 
 @Composable
 private fun RenderServerListState(state: ServersScreenState.ShowServersList, viewModel: ServersViewModel) {
-    val navigation = LocalNavigation.current
+    val navigation = LocalRootNavigation.current
     Scaffold(floatingActionButton = {
         FloatingActionButton(onClick = { navigation.push(AddServerScreen) }) {
             Text("+")

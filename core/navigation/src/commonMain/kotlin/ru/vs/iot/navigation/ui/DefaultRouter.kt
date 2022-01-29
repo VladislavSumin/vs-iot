@@ -5,10 +5,13 @@ import com.arkivanov.decompose.router.Router
 import com.arkivanov.decompose.router.router
 import ru.vs.iot.navigation.Screen
 
-fun ComponentContext.defaultRouter(initialScreen: Screen): Router<Screen, ScreenInstance> {
+fun ComponentContext.defaultRouter(
+    initialScreen: Screen,
+    key: String = "defaultRouter"
+): Router<Screen, ScreenInstance> {
     return this.router(
         initialConfiguration = initialScreen,
-        key = "defaultRouter",
+        key = key,
         handleBackButton = true,
         childFactory = ::createChild
     )
