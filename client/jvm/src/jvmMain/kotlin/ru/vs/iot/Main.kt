@@ -21,7 +21,7 @@ import org.kodein.di.compose.withDI
 import ru.vs.iot.di.Modules
 import ru.vs.iot.di.clientCommon
 import ru.vs.iot.logging.setupDefault
-import ru.vs.iot.ui.RootUi
+import ru.vs.iot.ui.root.RootScreenView
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
@@ -53,7 +53,7 @@ fun main() {
         ) {
             withDI(di) {
                 DesktopScrollbarStyle {
-                    RootUi(defaultComponentContext)
+                    RootScreenView(defaultComponentContext)
                 }
             }
         }

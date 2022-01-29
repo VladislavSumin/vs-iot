@@ -1,4 +1,4 @@
-package ru.vs.iot.ui
+package ru.vs.iot.ui.main
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -19,46 +19,26 @@ import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import com.arkivanov.decompose.router.pop
 import com.arkivanov.decompose.router.push
 import com.arkivanov.essenty.parcelable.Parcelize
 import ru.vs.iot.decompose.ui.LocalComponentContext
-import ru.vs.iot.decompose.ui.LocalComponentContextHolder
 import ru.vs.iot.entities.ui.EntitiesScreen
 import ru.vs.iot.navigation.Screen
 import ru.vs.iot.navigation.ui.LocalNavigation
 import ru.vs.iot.navigation.ui.LocalNavigationHolder
 import ru.vs.iot.navigation.ui.LocalRootNavigation
-import ru.vs.iot.navigation.ui.LocalRootNavigationHolder
 import ru.vs.iot.navigation.ui.NavigationView
 import ru.vs.iot.navigation.ui.defaultRouter
 import ru.vs.iot.navigation.ui.getOrCreateRouter
 import ru.vs.iot.servers.ui.ServersScreen
 import ru.vs.iot.services.ui.ServicesScreen
 import ru.vs.iot.settings.ui.SettingsScreen
-import ru.vs.iot.theming.ui.selector.ThemeSelectorView
 
 @Composable
-fun RootUi(componentContext: ComponentContext) {
-    val router = remember {
-        componentContext.defaultRouter(MainScreen, "rootRouter")
-    }
-
-    LocalComponentContextHolder(componentContext) {
-        ThemeSelectorView {
-            LocalRootNavigationHolder(router) {
-                NavigationView()
-            }
-        }
-    }
-}
-
-@Composable
-private fun MainScreenView() {
+internal fun MainScreenView() {
     val componentContext = LocalComponentContext.current
     val router = componentContext.instanceKeeper.getOrCreateRouter("mainScreenRouter") {
         componentContext.defaultRouter(S1, "mainScreenRouter")
@@ -73,7 +53,7 @@ private fun MainScreenView() {
 @Composable
 private fun BottomBarView(content: @Composable BoxScope.() -> Unit) {
     val router = LocalNavigation.current
-    val currentScreen = router.state.subscribeAsState().value.activeChild.instance
+    val currentScreen = router.state.subscribeAsState().value.activeChild.configuration
     BoxWithConstraints(Modifier.fillMaxSize()) {
         Scaffold(
             bottomBar = {
@@ -142,13 +122,5 @@ private object S2 : Screen {
     @Composable
     override fun ScreenView() {
         Screen2()
-    }
-}
-
-@Parcelize
-private object MainScreen : Screen {
-    @Composable
-    override fun ScreenView() {
-        MainScreenView()
     }
 }
