@@ -33,7 +33,6 @@ dependencies {
 
     implementation(project(":client:common"))
 
-    implementation(project(":feature:entities:client"))
     implementation(project(":feature:services:client"))
 
     implementation(libs.android.core)

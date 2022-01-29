@@ -13,6 +13,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
@@ -25,6 +26,7 @@ import com.arkivanov.decompose.router.pop
 import com.arkivanov.decompose.router.push
 import com.arkivanov.essenty.parcelable.Parcelize
 import ru.vs.iot.decompose.ui.LocalComponentContextHolder
+import ru.vs.iot.entities.ui.EntitiesScreen
 import ru.vs.iot.navigation.Screen
 import ru.vs.iot.navigation.ui.LocalNavigation2
 import ru.vs.iot.navigation.ui.LocalNavigationHolder
@@ -63,6 +65,11 @@ private fun BottomBarView(content: @Composable BoxScope.() -> Unit) {
                         selected = currentScreen::class == S1::class,
                         icon = { Icon(Icons.Filled.Home, "") },
                         onClick = { router.navigate { listOf(S1) } }
+                    )
+                    BottomNavigationItem(
+                        selected = currentScreen::class == EntitiesScreen::class,
+                        icon = { Icon(Icons.Filled.Email, "") },
+                        onClick = { router.navigate { listOf(EntitiesScreen) } }
                     )
                     BottomNavigationItem(
                         selected = currentScreen::class == ServersScreen::class,

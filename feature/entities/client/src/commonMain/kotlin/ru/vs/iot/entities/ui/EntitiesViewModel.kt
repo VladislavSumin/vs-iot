@@ -1,12 +1,11 @@
 package ru.vs.iot.entities.ui
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
+import ru.vs.iot.decompose.view_model.ViewModel
 import ru.vs.iot.entities.domain.EntitiesInteractor
 import ru.vs.iot.servers.domain.ServersInteractor
 import ru.vs.iot.servers.repository.Server

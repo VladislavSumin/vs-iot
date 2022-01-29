@@ -16,20 +16,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ru.vs.iot.compose.di.kodeinViewModel
-import ru.vs.iot.entities.dto.entity.EntityDTO
+import ru.vs.iot.decompose.view_model.decomposeViewModel
 import ru.vs.iot.entities.dto.entity_state.primitive.BooleanEntityState
 import ru.vs.iot.entities.dto.entity_state.primitive.StringEntityState
-import ru.vs.iot.id.Id
-import ru.vs.iot.servers.repository.Server
-import ru.vs.iot.uikit.theme.MainTheme
 import ru.vs.iot.uikit.theme.NONE
 import ru.vs.iot.uikit.theme.Shapes
 
 @Composable
-internal fun EntitiesScreen(viewModel: EntitiesViewModel = kodeinViewModel()) {
+internal fun EntitiesScreenView(viewModel: EntitiesViewModel = decomposeViewModel()) {
     when (val state = viewModel.state.collectAsState().value) {
         is EntitiesScreenState.ShowEntities -> RenderEntities(state)
     }
@@ -66,18 +61,18 @@ private fun RenderEntityItem(entityItem: EntitiesScreenState.EntityItem) {
     }
 }
 
-@Suppress("UnusedPrivateMember")
-@Preview(showBackground = true)
-@Composable
-private fun EntityItemPreview() {
-    MainTheme {
-        RenderEntityItem(
-            EntitiesScreenState.EntityItem(
-                Server(0L, "Server name", "https://server.url.ru:443"),
-                Id("entity/id"),
-                EntityDTO(),
-                StringEntityState("Entity state")
-            )
-        )
-    }
-}
+// @Suppress("UnusedPrivateMember")
+// @Preview(showBackground = true)
+// @Composable
+// private fun EntityItemPreview() {
+//    MainTheme {
+//        RenderEntityItem(
+//            EntitiesScreenState.EntityItem(
+//                Server(0L, "Server name", "https://server.url.ru:443"),
+//                Id("entity/id"),
+//                EntityDTO(),
+//                StringEntityState("Entity state")
+//            )
+//        )
+//    }
+// }

@@ -1,6 +1,7 @@
 package ru.vs.iot.di
 
 import org.kodein.di.DI
+import ru.vs.iot.entities.featureEntities
 import ru.vs.iot.ktor_client.coreKtorClient
 import ru.vs.iot.serialization.coreSerialization
 import ru.vs.iot.servers.featureServers
@@ -15,5 +16,6 @@ fun Modules.clientCommon() = DI.Module("client-common") {
     importOnce(Modules.clientCommonDatabase())
 
     importOnce(Modules.featureServers())
+    importOnce(Modules.featureEntities())
     importOnce(Modules.featureTheming())
 }

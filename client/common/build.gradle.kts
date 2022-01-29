@@ -32,6 +32,7 @@ kotlin {
 
                 implementation(project(":feature:settings"))
                 implementation(project(":feature:theming"))
+                implementation(project(":feature:entities:client"))
                 implementation(project(":feature:servers:client"))
             }
         }
