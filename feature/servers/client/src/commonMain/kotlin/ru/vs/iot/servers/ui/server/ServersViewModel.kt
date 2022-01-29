@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onEmpty
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -50,6 +51,7 @@ internal class ServersViewModel(
 
     private suspend fun observeServersConnectivity(servers: List<Server>): Flow<List<ServersScreenState.ServerState>> =
         combine(servers.map { observeServerConnectivity(it) }) { it.toList() }
+            .onEmpty { emit(emptyList()) }
             .onCompletion { refreshState.emit(false) }
 
     private suspend fun observeServerConnectivity(server: Server) = flow {
