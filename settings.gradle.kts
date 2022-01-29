@@ -19,7 +19,7 @@ rootProject.name = "vs-iot"
 
 include(
     ":core:autostart",
-    ":core:compose2",
+    ":core:compose",
     ":core:coroutines",
     ":core:decompose",
     ":core:di",
