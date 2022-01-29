@@ -29,7 +29,6 @@ include(
     ":core:ktor-server",
     ":core:logging",
     ":core:logging:slf4j",
-    ":core:navigation",
     ":core:navigation2",
     ":core:serialization",
     ":core:settings",
