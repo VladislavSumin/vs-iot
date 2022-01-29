@@ -12,7 +12,6 @@ import org.kodein.di.android.x.androidXModule
 import ru.vs.iot.autostart.AutoStartComponent
 import ru.vs.iot.di.Modules
 import ru.vs.iot.di.clientCommon
-import ru.vs.iot.di.coreDi
 import kotlin.coroutines.EmptyCoroutineContext
 
 class App : Application(), DIAware {
@@ -22,8 +21,6 @@ class App : Application(), DIAware {
         import(androidXModule(this@App))
 
         importOnce(Modules.clientCommon())
-
-        importOnce(Modules.coreDi())
     }
 
     override fun onCreate() {
