@@ -9,6 +9,7 @@ fun ComponentContext.defaultRouter(initialScreen: Screen): Router<Screen, Screen
     return this.router(
         initialConfiguration = initialScreen,
         key = "defaultRouter",
+        handleBackButton = true,
         childFactory = ::createChild
     )
 }
