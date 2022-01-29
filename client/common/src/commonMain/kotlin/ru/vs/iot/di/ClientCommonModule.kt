@@ -5,6 +5,7 @@ import ru.vs.iot.entities.featureEntities
 import ru.vs.iot.ktor_client.coreKtorClient
 import ru.vs.iot.serialization.coreSerialization
 import ru.vs.iot.servers.featureServers
+import ru.vs.iot.services.featureServices
 import ru.vs.iot.settings.coreSettings
 import ru.vs.iot.theming.featureTheming
 
@@ -17,5 +18,6 @@ fun Modules.clientCommon() = DI.Module("client-common") {
 
     importOnce(Modules.featureServers())
     importOnce(Modules.featureEntities())
+    importOnce(Modules.featureServices())
     importOnce(Modules.featureTheming())
 }

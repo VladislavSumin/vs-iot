@@ -33,8 +33,6 @@ dependencies {
 
     implementation(project(":client:common"))
 
-    implementation(project(":feature:services:client"))
-
     implementation(libs.android.core)
 
     implementation(libs.android.lifecycle.runtime)
