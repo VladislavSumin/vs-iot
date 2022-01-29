@@ -7,11 +7,11 @@ import com.arkivanov.decompose.router.Router
 import ru.vs.iot.navigation.Screen
 
 @Suppress("TooGenericExceptionThrown")
-val LocalNavigation2 = staticCompositionLocalOf<Router<Screen, ScreenInstance>> {
+val LocalNavigation = staticCompositionLocalOf<Router<Screen, ScreenInstance>> {
     throw RuntimeException("Local navigation is not set")
 }
 
 @Composable
 fun LocalNavigationHolder(router: Router<Screen, ScreenInstance>, content: @Composable () -> Unit) {
-    CompositionLocalProvider(LocalNavigation2 provides router, content = content)
+    CompositionLocalProvider(LocalNavigation provides router, content = content)
 }

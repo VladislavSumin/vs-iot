@@ -21,7 +21,7 @@ kotlin {
                 implementation(project(":core:di"))
                 implementation(project(":core:ktor-client"))
                 implementation(project(":core:logging"))
-                implementation(project(":core:navigation2"))
+                implementation(project(":core:navigation"))
                 implementation(project(":core:uikit"))
                 implementation(project(":core:utils"))
 

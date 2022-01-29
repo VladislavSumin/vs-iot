@@ -13,7 +13,6 @@ import ru.vs.iot.autostart.AutoStartComponent
 import ru.vs.iot.di.Modules
 import ru.vs.iot.di.clientCommon
 import ru.vs.iot.di.coreDi
-import ru.vs.iot.di.navigation
 import kotlin.coroutines.EmptyCoroutineContext
 
 class App : Application(), DIAware {
@@ -25,8 +24,6 @@ class App : Application(), DIAware {
         importOnce(Modules.clientCommon())
 
         importOnce(Modules.coreDi())
-
-        importOnce(Modules.navigation())
     }
 
     override fun onCreate() {

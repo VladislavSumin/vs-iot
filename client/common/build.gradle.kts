@@ -23,7 +23,7 @@ kotlin {
                 api(project(":core:di"))
                 api(project(":core:ktor-client"))
                 api(project(":core:logging"))
-                api(project(":core:navigation2"))
+                api(project(":core:navigation"))
                 api(project(":core:serialization"))
                 api(project(":core:settings"))
                 api(project(":core:uikit"))

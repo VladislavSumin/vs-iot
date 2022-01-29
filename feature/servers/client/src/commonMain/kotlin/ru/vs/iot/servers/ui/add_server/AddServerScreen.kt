@@ -13,13 +13,13 @@ import androidx.compose.runtime.setValue
 import com.arkivanov.decompose.router.pop
 import kotlinx.coroutines.channels.consumeEach
 import ru.vs.iot.decompose.view_model.decomposeViewModel
-import ru.vs.iot.navigation.ui.LocalNavigation2
+import ru.vs.iot.navigation.ui.LocalNavigation
 
 @Composable
 internal fun AddServerScreenView(
     viewModel: AddServerViewModel = decomposeViewModel()
 ) {
-    val navigation = LocalNavigation2.current
+    val navigation = LocalNavigation.current
     LaunchedEffect(Unit) {
         viewModel.events.consumeEach {
             when (it) {

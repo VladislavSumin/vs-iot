@@ -6,7 +6,7 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.animation.child.cros
 
 @Composable
 fun NavigationView() {
-    val routerState = LocalNavigation2.current.state
+    val routerState = LocalNavigation.current.state
     Children(
         routerState = routerState,
         animation = crossfade(),

@@ -29,7 +29,7 @@ include(
     ":core:ktor-server",
     ":core:logging",
     ":core:logging:slf4j",
-    ":core:navigation2",
+    ":core:navigation",
     ":core:serialization",
     ":core:settings",
     ":core:uikit",

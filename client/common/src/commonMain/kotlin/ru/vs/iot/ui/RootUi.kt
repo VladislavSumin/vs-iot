@@ -29,7 +29,7 @@ import com.arkivanov.essenty.parcelable.Parcelize
 import ru.vs.iot.decompose.ui.LocalComponentContextHolder
 import ru.vs.iot.entities.ui.EntitiesScreen
 import ru.vs.iot.navigation.Screen
-import ru.vs.iot.navigation.ui.LocalNavigation2
+import ru.vs.iot.navigation.ui.LocalNavigation
 import ru.vs.iot.navigation.ui.LocalNavigationHolder
 import ru.vs.iot.navigation.ui.NavigationView
 import ru.vs.iot.navigation.ui.defaultRouter
@@ -57,7 +57,7 @@ fun RootUi(componentContext: ComponentContext) {
 
 @Composable
 private fun BottomBarView(content: @Composable BoxScope.() -> Unit) {
-    val router = LocalNavigation2.current
+    val router = LocalNavigation.current
     val currentScreen = router.state.subscribeAsState().value.activeChild.instance
     BoxWithConstraints(Modifier.fillMaxSize()) {
         Scaffold(
@@ -98,7 +98,7 @@ private fun BottomBarView(content: @Composable BoxScope.() -> Unit) {
 
 @Composable
 private fun Screen1() {
-    val router = LocalNavigation2.current
+    val router = LocalNavigation.current
     Text("Hello from Screen1")
     Button(onClick = { router.push(S2) }) {
         Text("goto s2")
@@ -107,7 +107,7 @@ private fun Screen1() {
 
 @Composable
 private fun Screen2() {
-    val router = LocalNavigation2.current
+    val router = LocalNavigation.current
     Text("Hello from Screen2")
     Button(onClick = { router.pop() }) {
         Text("back")
