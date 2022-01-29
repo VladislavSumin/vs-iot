@@ -14,7 +14,6 @@ import ru.vs.iot.di.Modules
 import ru.vs.iot.di.clientCommon
 import ru.vs.iot.di.coreDi
 import ru.vs.iot.di.navigation
-import ru.vs.iot.di.root
 import ru.vs.iot.entities.featureEntities
 import ru.vs.iot.serialization.coreSerialization
 import ru.vs.iot.services.featureServices
@@ -31,7 +30,6 @@ class App : Application(), DIAware {
         importOnce(Modules.coreDi())
         importOnce(Modules.coreSerialization())
 
-        importOnce(Modules.root())
         importOnce(Modules.navigation())
 
         importOnce(Modules.featureEntities())
