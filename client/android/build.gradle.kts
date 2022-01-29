@@ -29,7 +29,6 @@ dependencies {
     implementation(project(":core:autostart"))
     implementation(project(":core:compose"))
     implementation(project(":core:navigation"))
-    implementation(project(":core:serialization"))
     implementation(project(":core:utils"))
 
     implementation(project(":client:common"))

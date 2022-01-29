@@ -15,7 +15,6 @@ import ru.vs.iot.di.clientCommon
 import ru.vs.iot.di.coreDi
 import ru.vs.iot.di.navigation
 import ru.vs.iot.entities.featureEntities
-import ru.vs.iot.serialization.coreSerialization
 import ru.vs.iot.services.featureServices
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -28,7 +27,6 @@ class App : Application(), DIAware {
         importOnce(Modules.clientCommon())
 
         importOnce(Modules.coreDi())
-        importOnce(Modules.coreSerialization())
 
         importOnce(Modules.navigation())
 
