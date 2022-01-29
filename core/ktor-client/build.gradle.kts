@@ -9,8 +9,8 @@ kotlin {
             dependencies {
                 implementation(project(":core:di"))
 
-                implementation(libs.ktor.client.core)
-                implementation(libs.ktor.client.serialization)
+                api(libs.ktor.client.core)
+                api(libs.ktor.client.serialization)
             }
         }
 
