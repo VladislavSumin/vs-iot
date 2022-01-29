@@ -21,7 +21,17 @@ kotlin {
     }
 }
 
+// TODO очень плохая идя вычислять пакет таким образом
+fun getPackageName(): String {
+    val projectName = project.name
+    return if (projectName == "client") {
+        project.parent!!.name
+    } else {
+        projectName
+    }
+}
+
 multiplatformResources {
-    multiplatformResourcesPackage = "ru.vs.iot.${project.name}"
+    multiplatformResourcesPackage = "ru.vs.iot.${getPackageName()}"
     multiplatformResourcesVisibility = MRVisibility.Internal
 }

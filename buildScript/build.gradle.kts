@@ -13,6 +13,7 @@ dependencies {
     implementation(libs.gradlePlugins.checkUpdates)
     implementation(libs.gradlePlugins.detekt)
     implementation(libs.gradlePlugins.moko.resources)
+    implementation(libs.gradlePlugins.jb.compose)
 
     implementation(libs.kotlinpoet.core)
 }
