@@ -1,8 +1,11 @@
 package ru.vs.iot.theming.ui.selector
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
 import ru.vs.iot.decompose.view_model.decomposeViewModel
 import ru.vs.iot.theming.domain.Theme
 import ru.vs.iot.uikit.theme.MainTheme
@@ -15,5 +18,7 @@ fun ThemeSelectorView(content: @Composable () -> Unit) {
         Theme.DARK -> true
         Theme.LIGHT -> false
     }
-    MainTheme(darkTheme = isDark, content = content)
+    MainTheme(darkTheme = isDark) {
+        Surface(Modifier.fillMaxSize(), content = content)
+    }
 }
