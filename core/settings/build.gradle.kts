@@ -1,6 +1,6 @@
 plugins {
     id("ru.vs.convention.multiplatform.jvm")
-    id("convention.android.library-multiplatform")
+    id("ru.vs.convention.multiplatform.android-library")
 }
 
 kotlin {

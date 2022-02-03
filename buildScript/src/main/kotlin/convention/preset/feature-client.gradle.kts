@@ -3,7 +3,7 @@ package convention.preset
 import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
-    id("convention.android.library-multiplatform")
+    id("ru.vs.convention.multiplatform.android-library")
     id("ru.vs.convention.multiplatform.jvm")
     id("org.jetbrains.compose")
     id("kotlin-parcelize")
