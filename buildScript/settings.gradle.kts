@@ -19,3 +19,5 @@ dependencyResolutionManagement {
         }
     }
 }
+
+includeBuild("../../vs-core/build-script")

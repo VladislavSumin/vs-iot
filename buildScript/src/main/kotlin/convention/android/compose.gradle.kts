@@ -2,7 +2,7 @@ package convention.android
 
 import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.kotlin.dsl.the
-import ru.vs.iot.build_script.utils.android
+import ru.vs.build_script.utils.android
 
 val libs = the<LibrariesForLibs>()
 

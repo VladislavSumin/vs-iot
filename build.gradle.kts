@@ -1,4 +1,4 @@
-import ru.vs.iot.build_script.utils.namedOrNull
+import ru.vs.build_script.utils.namedOrNull
 
 buildscript {
     dependencies {

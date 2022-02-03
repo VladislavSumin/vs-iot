@@ -16,6 +16,7 @@ dependencies {
     implementation(libs.gradlePlugins.jb.compose)
 
     implementation(libs.kotlinpoet.core)
+    implementation("ru.vs:build-script:0.1.0")
 }
 
 java {

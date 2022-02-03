@@ -2,7 +2,7 @@
 @file:Suppress("UnstableApiUsage")
 
 pluginManagement {
-    includeBuild("../vs-core/build-script")
+    // /includeBuild("../vs-core/build-script")
     includeBuild("buildScript")
 
     repositories {

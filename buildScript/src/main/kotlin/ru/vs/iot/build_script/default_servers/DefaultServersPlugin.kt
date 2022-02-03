@@ -10,9 +10,9 @@ import org.gradle.api.plugins.ExtensionAware
 import org.gradle.kotlin.dsl.container
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.register
-import ru.vs.iot.build_script.utils.android
-import ru.vs.iot.build_script.utils.namedOrNull
-import ru.vs.iot.build_script.utils.variants
+import ru.vs.build_script.utils.android
+import ru.vs.build_script.utils.namedOrNull
+import ru.vs.build_script.utils.variants
 
 private const val DEFAULT_SERVERS_TASK_NAME = "generateDefaultServers"
 private const val DEFAULT_SERVERS_EXTENSION_NAME = "defaultServers"
