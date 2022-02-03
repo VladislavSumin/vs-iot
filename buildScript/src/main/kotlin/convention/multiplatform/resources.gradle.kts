@@ -4,7 +4,7 @@ import dev.icerock.gradle.MRVisibility
 import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
-    id("convention.multiplatform.jvm")
+    id("ru.vs.convention.multiplatform.jvm")
     id("dev.icerock.mobile.multiplatform-resources")
 }
 

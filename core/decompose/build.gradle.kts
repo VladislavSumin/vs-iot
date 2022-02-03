@@ -1,6 +1,6 @@
 plugins {
     id("convention.android.library-multiplatform")
-    id("convention.multiplatform.jvm")
+    id("ru.vs.convention.multiplatform.jvm")
     id("org.jetbrains.compose")
 }
 

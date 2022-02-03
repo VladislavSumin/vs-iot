@@ -1,5 +1,5 @@
 plugins {
-    id("convention.multiplatform.jvm")
+    id("ru.vs.convention.multiplatform.jvm")
     id("convention.android.library-multiplatform")
 }
 
