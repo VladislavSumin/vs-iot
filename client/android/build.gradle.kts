@@ -1,5 +1,5 @@
 plugins {
-    id("convention.android.application")
+    id("ru.vs.convention.android.application")
     id("convention.android.compose")
     kotlin("kapt")
 }

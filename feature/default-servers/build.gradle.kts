@@ -1,5 +1,5 @@
 plugins {
-    id("convention.android.library")
+    id("ru.vs.convention.android.library")
     id("default_servers")
 }
 
