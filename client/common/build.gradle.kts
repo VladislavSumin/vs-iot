@@ -18,7 +18,7 @@ kotlin {
     sourceSets {
         named("commonMain") {
             dependencies {
-                api(project(":core:coroutines"))
+                api(libs.vs.coroutines)
                 api(project(":core:decompose"))
                 api(project(":core:di"))
                 api(project(":core:ktor-client"))

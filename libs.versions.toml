@@ -1,4 +1,5 @@
 [versions]
+vs-core = "0.1.0"
 kotlin = "1.6.10"
 ksp = "1.6.10-1.0.2"
 kotlin-coroutines = "1.6.0"
@@ -50,6 +51,9 @@ gradlePlugins-buildConfig = { module = "com.github.gmazzo:gradle-buildconfig-plu
 gradlePlugins-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "gradlePlugins-detekt" }
 gradlePlugins-ksp = { module = "com.google.devtools.ksp:symbol-processing-gradle-plugin", version.ref = "ksp" }
 gradlePlugins-moko-resources = { module = "dev.icerock.moko:resources-generator", version.ref = "moko-resources" }
+
+# vs core
+vs-coroutines = { module = "ru.vs:coroutines", version.ref = "vs-core" }
 
 # Kotlin
 kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-coroutines" }

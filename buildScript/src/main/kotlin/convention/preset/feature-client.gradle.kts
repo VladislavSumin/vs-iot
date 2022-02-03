@@ -1,5 +1,7 @@
 package convention.preset
 
+import org.gradle.accessors.dm.LibrariesForLibs
+
 plugins {
     id("convention.android.library-multiplatform")
     id("convention.multiplatform.jvm")
@@ -8,12 +10,14 @@ plugins {
     id("convention.multiplatform.resources")
 }
 
+val libs = the<LibrariesForLibs>()
+
 kotlin {
     sourceSets {
         named("commonMain") {
             dependencies {
                 implementation(project(":core:compose"))
-                implementation(project(":core:coroutines"))
+                implementation(libs.vs.coroutines)
                 implementation(project(":core:decompose"))
                 implementation(project(":core:di"))
                 implementation(project(":core:ktor-client"))

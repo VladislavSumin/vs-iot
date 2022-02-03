@@ -23,7 +23,6 @@ includeBuild("../vs-core")
 include(
     ":core:autostart",
     ":core:compose",
-    ":core:coroutines",
     ":core:decompose",
     ":core:di",
     ":core:id",

@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    api(project(":core:coroutines"))
+    api(libs.vs.coroutines)
     api(project(":core:logging"))
     api(libs.kotlin.serialization.core)
     api(libs.kotlin.serialization.json)
