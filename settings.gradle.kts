@@ -2,6 +2,7 @@
 @file:Suppress("UnstableApiUsage")
 
 pluginManagement {
+    includeBuild("../vs-core/build-script")
     includeBuild("buildScript")
 
     repositories {
@@ -16,6 +17,8 @@ plugins {
 }
 
 rootProject.name = "vs-iot"
+
+includeBuild("../vs-core")
 
 include(
     ":core:autostart",
