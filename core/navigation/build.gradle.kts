@@ -9,7 +9,7 @@ kotlin {
     sourceSets {
         named("commonMain") {
             dependencies {
-                implementation(project(":core:compose"))
+                implementation(libs.vs.compose)
                 implementation(project(":core:decompose"))
             }
         }

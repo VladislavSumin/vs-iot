@@ -49,6 +49,7 @@ gradlePlugins-ksp = { module = "com.google.devtools.ksp:symbol-processing-gradle
 gradlePlugins-moko-resources = { module = "dev.icerock.moko:resources-generator", version.ref = "moko-resources" }
 
 # vs core
+vs-compose = { module = "ru.vs:compose", version.ref = "vs-core" }
 vs-coroutines = { module = "ru.vs:coroutines", version.ref = "vs-core" }
 vs-di = { module = "ru.vs:di", version.ref = "vs-core" }
 vs-logging-core = { module = "ru.vs:logging", version.ref = "vs-core" }

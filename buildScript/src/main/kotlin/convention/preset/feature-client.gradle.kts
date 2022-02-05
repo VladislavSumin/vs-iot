@@ -19,7 +19,7 @@ kotlin {
                 implementation(libs.vs.coroutines)
                 implementation(libs.vs.di)
                 implementation(libs.vs.logging.core)
-                implementation(project(":core:compose"))
+                implementation(libs.vs.compose)
                 implementation(project(":core:decompose"))
                 implementation(project(":core:ktor-client"))
                 implementation(project(":core:navigation"))

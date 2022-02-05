@@ -22,7 +22,6 @@ includeBuild("../vs-core")
 
 include(
     ":core:autostart",
-    ":core:compose",
     ":core:decompose",
     ":core:id",
     ":core:ktor-client",
