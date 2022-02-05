@@ -2,8 +2,8 @@ package ru.vs.iot.entities
 
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
-import ru.vs.iot.di.Modules
-import ru.vs.iot.di.i
+import ru.vs.core.di.Modules
+import ru.vs.core.di.i
 import ru.vs.iot.entities.domain.EntityInteractor
 import ru.vs.iot.entities.domain.EntityInteractorImpl
 import ru.vs.iot.entities.web.api.EntityApi

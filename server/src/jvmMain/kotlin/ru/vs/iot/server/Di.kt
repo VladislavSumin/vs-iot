@@ -2,8 +2,8 @@ package ru.vs.iot.server
 
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
-import ru.vs.iot.di.Modules
-import ru.vs.iot.di.i
+import ru.vs.core.di.Modules
+import ru.vs.core.di.i
 import ru.vs.iot.entities.featureEntities
 import ru.vs.iot.serialization.coreSerialization
 import ru.vs.iot.server.domain.about.AboutServerInteractor

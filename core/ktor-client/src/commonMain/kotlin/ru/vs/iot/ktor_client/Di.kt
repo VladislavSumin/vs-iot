@@ -2,8 +2,8 @@ package ru.vs.iot.ktor_client
 
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
-import ru.vs.iot.di.Modules
-import ru.vs.iot.di.i
+import ru.vs.core.di.Modules
+import ru.vs.core.di.i
 import ru.vs.iot.ktor_client.api.HttpClientFactory
 import ru.vs.iot.ktor_client.api.createHttpClientFactory
 

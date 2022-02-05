@@ -18,7 +18,7 @@ import com.arkivanov.essenty.backpressed.BackPressedDispatcher
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import org.kodein.di.DI
 import org.kodein.di.compose.withDI
-import ru.vs.iot.di.Modules
+import ru.vs.core.di.Modules
 import ru.vs.iot.di.clientCommon
 import ru.vs.iot.logging.setupDefault
 import ru.vs.iot.ui.root.RootScreenView

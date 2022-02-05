@@ -9,8 +9,8 @@ import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.allInstances
 import org.kodein.di.android.x.androidXModule
+import ru.vs.core.di.Modules
 import ru.vs.iot.autostart.AutoStartComponent
-import ru.vs.iot.di.Modules
 import ru.vs.iot.di.clientCommon
 import kotlin.coroutines.EmptyCoroutineContext
 
