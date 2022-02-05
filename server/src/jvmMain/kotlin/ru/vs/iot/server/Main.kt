@@ -4,8 +4,8 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.launch
 import org.kodein.di.direct
 import org.kodein.di.instance
-import ru.vs.iot.logging.setupDefault
-import ru.vs.iot.logging.shutdown
+import ru.vs.core.logging.setupDefault
+import ru.vs.core.logging.shutdown
 import ru.vs.iot.server.domain.about.AboutServerInteractor
 import ru.vs.iot.server.web.WebServer
 
