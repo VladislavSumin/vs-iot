@@ -7,7 +7,7 @@ kotlin {
     sourceSets {
         named("commonMain") {
             dependencies {
-                implementation(project(":core:di"))
+                implementation(libs.vs.di)
 
                 api(libs.ktor.client.core)
                 api(libs.ktor.client.serialization)

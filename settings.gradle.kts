@@ -24,7 +24,6 @@ include(
     ":core:autostart",
     ":core:compose",
     ":core:decompose",
-    ":core:di",
     ":core:id",
     ":core:ktor-client",
     ":core:ktor-server",

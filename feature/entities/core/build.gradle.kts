@@ -7,7 +7,7 @@ kotlin {
     sourceSets {
         named("commonMain") {
             dependencies {
-                implementation(project(":core:di"))
+                implementation(libs.vs.di)
                 implementation(project(":core:serialization"))
 
                 api(project(":feature:entities:dto"))

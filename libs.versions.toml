@@ -54,6 +54,7 @@ gradlePlugins-moko-resources = { module = "dev.icerock.moko:resources-generator"
 
 # vs core
 vs-coroutines = { module = "ru.vs:coroutines", version.ref = "vs-core" }
+vs-di = { module = "ru.vs:di", version.ref = "vs-core" }
 
 # Kotlin
 kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-coroutines" }

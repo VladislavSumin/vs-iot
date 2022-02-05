@@ -16,10 +16,10 @@ kotlin {
     sourceSets {
         named("commonMain") {
             dependencies {
-                implementation(project(":core:compose"))
                 implementation(libs.vs.coroutines)
+                implementation(libs.vs.di)
+                implementation(project(":core:compose"))
                 implementation(project(":core:decompose"))
-                implementation(project(":core:di"))
                 implementation(project(":core:ktor-client"))
                 implementation(project(":core:logging"))
                 implementation(project(":core:navigation"))

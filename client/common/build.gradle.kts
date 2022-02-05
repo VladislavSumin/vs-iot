@@ -19,8 +19,8 @@ kotlin {
         named("commonMain") {
             dependencies {
                 api(libs.vs.coroutines)
+                api(libs.vs.di)
                 api(project(":core:decompose"))
-                api(project(":core:di"))
                 api(project(":core:ktor-client"))
                 api(project(":core:logging"))
                 api(project(":core:navigation"))

@@ -7,7 +7,7 @@ kotlin {
     sourceSets {
         named("commonMain") {
             dependencies {
-                api(project(":core:di"))
+                api(libs.vs.di)
                 api(libs.multiplatformSettings.core)
             }
         }

@@ -8,7 +8,7 @@ kotlin {
         named("jvmMain") {
             dependencies {
                 implementation(libs.vs.coroutines)
-                implementation(project(":core:di"))
+                implementation(libs.vs.di)
                 implementation(project(":core:ktor-server"))
                 implementation(project(":core:serialization"))
 
