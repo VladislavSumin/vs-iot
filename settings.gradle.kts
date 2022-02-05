@@ -22,14 +22,11 @@ includeBuild("../vs-core")
 
 include(
     ":core:autostart",
-    ":core:decompose",
     ":core:id",
     ":core:ktor-client",
     ":core:ktor-server",
-    ":core:navigation",
     ":core:serialization",
     ":core:settings",
-    ":core:uikit",
     ":core:utils",
 )
 

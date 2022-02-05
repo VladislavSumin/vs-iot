@@ -29,13 +29,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.router.push
-import ru.vs.iot.decompose.view_model.decomposeViewModel
-import ru.vs.iot.navigation.ui.LocalRootNavigation
+import ru.vs.core.decompose.view_model.decomposeViewModel
+import ru.vs.core.navigation.ui.LocalRootNavigation
+import ru.vs.core.uikit.theme.NONE
+import ru.vs.core.uikit.theme.Shapes
+import ru.vs.core.uikit.view.UKWaiting
 import ru.vs.iot.servers.repository.Server
 import ru.vs.iot.servers.ui.AddServerScreen
-import ru.vs.iot.uikit.theme.NONE
-import ru.vs.iot.uikit.theme.Shapes
-import ru.vs.iot.uikit.view.UKWaiting
 
 @Composable
 internal fun ServersScreenView(

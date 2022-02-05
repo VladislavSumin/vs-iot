@@ -12,8 +12,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.arkivanov.decompose.router.pop
 import kotlinx.coroutines.channels.consumeEach
-import ru.vs.iot.decompose.view_model.decomposeViewModel
-import ru.vs.iot.navigation.ui.LocalNavigation
+import ru.vs.core.decompose.view_model.decomposeViewModel
+import ru.vs.core.navigation.ui.LocalNavigation
 
 @Composable
 internal fun AddServerScreenView(

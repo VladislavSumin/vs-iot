@@ -21,7 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import dev.icerock.moko.resources.compose.stringResource
-import ru.vs.iot.decompose.view_model.decomposeViewModel
+import ru.vs.core.decompose.view_model.decomposeViewModel
 import ru.vs.iot.theming.MR
 import ru.vs.iot.theming.domain.Theme
 

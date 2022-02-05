@@ -20,13 +20,13 @@ kotlin {
             dependencies {
                 api(libs.vs.coroutines)
                 api(libs.vs.di)
-                api(project(":core:decompose"))
+                api(libs.vs.decompose)
+                api(libs.vs.uikit)
+                api(libs.vs.navigation)
                 api(project(":core:ktor-client"))
                 api(libs.vs.logging.core)
-                api(project(":core:navigation"))
                 api(project(":core:serialization"))
                 api(project(":core:settings"))
-                api(project(":core:uikit"))
 
                 api(libs.sqldelight.coroutines)
 

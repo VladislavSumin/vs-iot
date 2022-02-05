@@ -6,9 +6,9 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import ru.vs.iot.decompose.view_model.decomposeViewModel
+import ru.vs.core.decompose.view_model.decomposeViewModel
+import ru.vs.core.uikit.theme.MainTheme
 import ru.vs.iot.theming.domain.Theme
-import ru.vs.iot.uikit.theme.MainTheme
 
 @Composable
 fun ThemeSelectorView(content: @Composable () -> Unit) {

@@ -2,7 +2,7 @@ package ru.vs.iot.servers.ui
 
 import androidx.compose.runtime.Composable
 import com.arkivanov.essenty.parcelable.Parcelize
-import ru.vs.iot.navigation.Screen
+import ru.vs.core.navigation.Screen
 import ru.vs.iot.servers.ui.add_server.AddServerScreenView
 import ru.vs.iot.servers.ui.server.ServersScreenView
 

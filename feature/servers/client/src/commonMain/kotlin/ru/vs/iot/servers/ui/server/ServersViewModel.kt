@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.onEmpty
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import ru.vs.iot.decompose.view_model.ViewModel
+import ru.vs.core.decompose.view_model.ViewModel
 import ru.vs.iot.servers.domain.ServersInteractor
 import ru.vs.iot.servers.dto.AboutServerDTO
 import ru.vs.iot.servers.repository.Server

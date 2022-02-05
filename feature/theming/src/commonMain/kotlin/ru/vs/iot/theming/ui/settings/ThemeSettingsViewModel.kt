@@ -3,7 +3,7 @@ package ru.vs.iot.theming.ui.settings
 import dev.icerock.moko.resources.StringResource
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import ru.vs.iot.decompose.view_model.ViewModel
+import ru.vs.core.decompose.view_model.ViewModel
 import ru.vs.iot.theming.MR
 import ru.vs.iot.theming.domain.Theme
 import ru.vs.iot.theming.domain.ThemingInteractor

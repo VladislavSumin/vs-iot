@@ -20,12 +20,12 @@ kotlin {
                 implementation(libs.vs.di)
                 implementation(libs.vs.logging.core)
                 implementation(libs.vs.compose)
-                implementation(project(":core:decompose"))
+                implementation(libs.vs.decompose)
+                implementation(libs.vs.navigation)
+                implementation(libs.vs.uikit)
                 implementation(project(":core:ktor-client"))
-                implementation(project(":core:navigation"))
                 implementation(project(":core:serialization"))
                 implementation(project(":core:settings"))
-                implementation(project(":core:uikit"))
                 implementation(project(":core:utils"))
             }
         }

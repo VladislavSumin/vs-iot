@@ -17,11 +17,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ru.vs.iot.decompose.view_model.decomposeViewModel
+import ru.vs.core.decompose.view_model.decomposeViewModel
+import ru.vs.core.uikit.theme.NONE
+import ru.vs.core.uikit.theme.Shapes
 import ru.vs.iot.entities.dto.entity_state.primitive.BooleanEntityState
 import ru.vs.iot.entities.dto.entity_state.primitive.StringEntityState
-import ru.vs.iot.uikit.theme.NONE
-import ru.vs.iot.uikit.theme.Shapes
 
 @Composable
 internal fun EntitiesScreenView(viewModel: EntitiesViewModel = decomposeViewModel()) {
