@@ -13,10 +13,6 @@ multiplatformSettings="0.8.1"
 ktor = "1.6.7"
 kodein = "7.10.0"
 
-logging-kermit = "1.0.3"
-logging-log4j = "2.17.1"
-logging-slf4j = "1.7.35"
-
 gradlePlugins-checkUpdates = "0.39.0"
 gradlePlugins-buildConfig = "3.0.3"
 gradlePlugins-android = "7.0.3"
@@ -75,14 +71,6 @@ ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "k
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktor" }
 ktor-client-websocket = { module = "io.ktor:ktor-client-websockets", version.ref = "ktor" }
-
-
-# Logging
-logging-kermit = { module = "co.touchlab:kermit", version.ref = "logging-kermit" }
-logging-log4j-api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "logging-log4j" }
-logging-log4j-core = { module = "org.apache.logging.log4j:log4j-core", version.ref = "logging-log4j" }
-logging-log4j-slf4j = { module = "org.apache.logging.log4j:log4j-slf4j-impl", version.ref = "logging-log4j" }
-logging-slf4j = { module = "org.slf4j:slf4j-api", version.ref = "logging-slf4j" }
 
 # Kodein
 kodein-core = { module = "org.kodein.di:kodein-di", version.ref = "kodein" }
