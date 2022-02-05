@@ -12,7 +12,7 @@ kotlin {
         }
         named("jvmMain") {
             dependencies {
-                implementation(project(":core:logging:slf4j"))
+                implementation(libs.vs.logging.slf4j)
             }
         }
     }

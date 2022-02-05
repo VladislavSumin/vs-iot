@@ -22,7 +22,7 @@ kotlin {
                 api(libs.vs.di)
                 api(project(":core:decompose"))
                 api(project(":core:ktor-client"))
-                api(project(":core:logging"))
+                api(libs.vs.logging.core)
                 api(project(":core:navigation"))
                 api(project(":core:serialization"))
                 api(project(":core:settings"))

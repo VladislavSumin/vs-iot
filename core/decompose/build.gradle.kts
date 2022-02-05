@@ -14,7 +14,7 @@ kotlin {
                 api(libs.kodein.compose)
 
                 implementation(project(":core:compose"))
-                implementation(project(":core:logging"))
+                implementation(libs.vs.logging.core)
             }
         }
         named("androidMain") {

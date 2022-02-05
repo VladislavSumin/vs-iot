@@ -18,10 +18,10 @@ kotlin {
             dependencies {
                 implementation(libs.vs.coroutines)
                 implementation(libs.vs.di)
+                implementation(libs.vs.logging.core)
                 implementation(project(":core:compose"))
                 implementation(project(":core:decompose"))
                 implementation(project(":core:ktor-client"))
-                implementation(project(":core:logging"))
                 implementation(project(":core:navigation"))
                 implementation(project(":core:serialization"))
                 implementation(project(":core:settings"))
