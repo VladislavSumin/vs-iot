@@ -9,7 +9,7 @@ buildscript {
 }
 
 plugins {
-    id("convention.check-updates")
+    id("ru.vs.convention.check-updates")
     id("convention.detekt-build-scripts")
 }
 
