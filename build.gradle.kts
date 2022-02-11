@@ -15,7 +15,7 @@ plugins {
 
 allprojects {
     apply {
-        plugin("convention.detekt")
+        plugin("ru.vs.convention.detekt")
     }
 }
 

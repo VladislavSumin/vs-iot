@@ -3,7 +3,7 @@ package convention
 import io.gitlab.arturbosch.detekt.Detekt
 
 plugins {
-    id("convention.detekt")
+    id("ru.vs.convention.detekt")
 }
 
 val detektBuildScript = tasks.register<Detekt>("detektBuildScript") {
