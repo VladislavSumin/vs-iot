@@ -5,7 +5,7 @@ import org.kodein.di.bindSingleton
 import ru.vs.core.di.Modules
 import ru.vs.core.di.i
 import ru.vs.iot.entities.featureEntities
-import ru.vs.iot.serialization.coreSerialization
+import ru.vs.core.serialization.coreSerialization
 import ru.vs.iot.server.domain.about.AboutServerInteractor
 import ru.vs.iot.server.domain.about.AboutServerInteractorImpl
 import ru.vs.iot.server.web.WebServer
