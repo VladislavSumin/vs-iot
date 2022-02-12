@@ -1,6 +1,6 @@
 plugins {
     id("ru.vs.convention.multiplatform.jvm")
-    id("convention.multiplatform.serialization")
+    id("ru.vs.convention.multiplatform.serialization")
 
     id("com.github.gmazzo.buildconfig")
 }

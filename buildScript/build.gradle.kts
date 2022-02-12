@@ -7,8 +7,6 @@ dependencies {
     // а пока костыль вот отсюда https://github.com/gradle/gradle/issues/15383
     implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
 
-    implementation(libs.gradlePlugins.moko.resources)
-
     implementation(libs.kotlinpoet.core)
     implementation("ru.vs:build-script:0.1.0")
 }

@@ -7,7 +7,7 @@ plugins {
     id("ru.vs.convention.multiplatform.jvm")
     id("org.jetbrains.compose")
     id("kotlin-parcelize")
-    id("convention.multiplatform.resources")
+    id("ru.vs.convention.multiplatform.resources")
 }
 
 val libs = the<LibrariesForLibs>()
