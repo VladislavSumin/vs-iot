@@ -9,7 +9,7 @@ kotlin {
             dependencies {
                 implementation(libs.vs.coroutines)
                 implementation(libs.vs.di)
-                implementation(project(":core:serialization"))
+                implementation(vsLibs.vs.core.serialization)
             }
         }
     }

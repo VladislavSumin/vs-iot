@@ -23,11 +23,7 @@ includeBuild("../vs-core")
 include(
     ":core:autostart",
     ":core:id",
-    ":core:ktor-client",
-    ":core:ktor-server",
-    ":core:serialization",
     ":core:settings",
-    ":core:utils",
 )
 
 include(
@@ -87,6 +83,10 @@ dependencyResolutionManagement {
         }
         create("coreLibs") {
             from(files("../vs-core/core-libs.versions.toml"))
+        }
+
+        create("vsLibs") {
+            from(files("../vs-core/self-libs.versions.toml"))
         }
     }
 }

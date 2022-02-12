@@ -23,9 +23,9 @@ kotlin {
                 api(libs.vs.decompose)
                 api(libs.vs.uikit)
                 api(libs.vs.navigation)
-                api(project(":core:ktor-client"))
+                api(vsLibs.vs.core.ktor.client)
                 api(libs.vs.logging.core)
-                api(project(":core:serialization"))
+                api(vsLibs.vs.core.serialization)
                 api(project(":core:settings"))
 
                 api(libs.sqldelight.coroutines)

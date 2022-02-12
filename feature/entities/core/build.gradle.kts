@@ -8,7 +8,7 @@ kotlin {
         named("commonMain") {
             dependencies {
                 implementation(libs.vs.di)
-                implementation(project(":core:serialization"))
+                implementation(vsLibs.vs.core.serialization)
 
                 api(project(":feature:entities:dto"))
             }

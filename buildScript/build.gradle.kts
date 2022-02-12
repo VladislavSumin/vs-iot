@@ -6,6 +6,7 @@ dependencies {
     // TODO подождать пока эта фича появится в гредле
     // а пока костыль вот отсюда https://github.com/gradle/gradle/issues/15383
     implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
+    implementation(files(vsLibs.javaClass.superclass.protectionDomain.codeSource.location))
 
     implementation(libs.kotlinpoet.core)
     implementation("ru.vs:build-script:0.1.0")

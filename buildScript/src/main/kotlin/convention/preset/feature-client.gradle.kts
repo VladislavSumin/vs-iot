@@ -1,6 +1,7 @@
 package convention.preset
 
 import org.gradle.accessors.dm.LibrariesForLibs
+import org.gradle.accessors.dm.LibrariesForVsLibs
 
 plugins {
     id("ru.vs.convention.multiplatform.android-library")
@@ -11,6 +12,7 @@ plugins {
 }
 
 val libs = the<LibrariesForLibs>()
+val vsLibs = the<LibrariesForVsLibs>()
 
 kotlin {
     sourceSets {
@@ -23,10 +25,10 @@ kotlin {
                 implementation(libs.vs.decompose)
                 implementation(libs.vs.navigation)
                 implementation(libs.vs.uikit)
-                implementation(project(":core:ktor-client"))
-                implementation(project(":core:serialization"))
+                implementation(vsLibs.vs.core.ktor.client)
+                implementation(vsLibs.vs.core.serialization)
                 implementation(project(":core:settings"))
-                implementation(project(":core:utils"))
+                implementation(vsLibs.vs.core.utils)
             }
         }
     }

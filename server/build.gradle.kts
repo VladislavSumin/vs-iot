@@ -18,9 +18,9 @@ kotlin {
             dependencies {
                 implementation(libs.vs.coroutines)
                 implementation(libs.vs.di)
-                implementation(project(":core:ktor-server"))
+                implementation(vsLibs.vs.core.ktor.server)
                 implementation(libs.vs.logging.slf4j)
-                implementation(project(":core:serialization"))
+                implementation(vsLibs.vs.core.serialization)
 
                 implementation(project(":feature:entities:server"))
                 implementation(project(":feature:servers:dto"))

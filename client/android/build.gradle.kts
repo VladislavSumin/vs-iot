@@ -27,7 +27,7 @@ android {
 
 dependencies {
     implementation(project(":core:autostart"))
-    implementation(project(":core:utils"))
+    implementation(vsLibs.vs.core.utils)
 
     implementation(project(":client:common"))
 

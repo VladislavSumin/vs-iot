@@ -17,6 +17,10 @@ dependencyResolutionManagement {
         create("libs") {
             from(files("../libs.versions.toml"))
         }
+
+        create("vsLibs") {
+            from(files("../../vs-core/self-libs.versions.toml"))
+        }
     }
 }
 
