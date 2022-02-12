@@ -18,13 +18,13 @@ kotlin {
     sourceSets {
         named("commonMain") {
             dependencies {
-                api(libs.vs.coroutines)
-                api(libs.vs.di)
-                api(libs.vs.decompose)
-                api(libs.vs.uikit)
-                api(libs.vs.navigation)
+                api(vsLibs.vs.core.coroutines)
+                api(vsLibs.vs.core.di)
+                api(vsLibs.vs.core.decompose)
+                api(vsLibs.vs.core.uikit)
+                api(vsLibs.vs.core.navigation)
                 api(vsLibs.vs.core.ktor.client)
-                api(libs.vs.logging.core)
+                api(vsLibs.vs.core.logging.core)
                 api(vsLibs.vs.core.serialization)
                 api(project(":core:settings"))
 

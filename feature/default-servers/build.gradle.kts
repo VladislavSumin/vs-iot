@@ -19,8 +19,8 @@ android {
 }
 
 dependencies {
-    implementation(libs.vs.coroutines)
-    implementation(libs.vs.di)
+    implementation(vsLibs.vs.core.coroutines)
+    implementation(vsLibs.vs.core.di)
 
     implementation(libs.android.datastore.android)
     implementation(libs.android.datastore.preferences)

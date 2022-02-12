@@ -16,10 +16,10 @@ kotlin {
     sourceSets {
         named("jvmMain") {
             dependencies {
-                implementation(libs.vs.coroutines)
-                implementation(libs.vs.di)
+                implementation(vsLibs.vs.core.coroutines)
+                implementation(vsLibs.vs.core.di)
                 implementation(vsLibs.vs.core.ktor.server)
-                implementation(libs.vs.logging.slf4j)
+                implementation(vsLibs.vs.core.logging.slf4j)
                 implementation(vsLibs.vs.core.serialization)
 
                 implementation(project(":feature:entities:server"))
