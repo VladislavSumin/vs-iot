@@ -18,7 +18,7 @@ import ru.vs.core.decompose.view_model.ViewModel
 import ru.vs.iot.servers.domain.ServersInteractor
 import ru.vs.iot.servers.dto.AboutServerDTO
 import ru.vs.iot.servers.repository.Server
-import ru.vs.iot.utils.onException
+import ru.vs.core.utils.onException
 
 internal class ServersViewModel(
     private val serversInteractor: ServersInteractor

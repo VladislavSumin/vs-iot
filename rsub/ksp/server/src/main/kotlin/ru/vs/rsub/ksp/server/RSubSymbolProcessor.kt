@@ -20,7 +20,7 @@ import com.squareup.kotlinpoet.ksp.addOriginatingKSFile
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
 import com.squareup.kotlinpoet.ksp.writeTo
-import ru.vs.iot.utils.decapitalized
+import ru.vs.core.utils.decapitalized
 import ru.vs.rsub.RSubServerSubscriptions
 import ru.vs.rsub.RSubServerSubscriptionsAbstract
 
