@@ -2,7 +2,6 @@
 @file:Suppress("UnstableApiUsage")
 
 pluginManagement {
-    // /includeBuild("../vs-core/build-script")
     includeBuild("buildScript")
 
     repositories {
@@ -68,7 +67,6 @@ include(
     ":client:jvm",
 )
 
-enableFeaturePreview("VERSION_CATALOGS")
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
